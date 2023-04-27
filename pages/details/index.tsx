@@ -53,9 +53,7 @@ const Details = () => {
             />
           </div>
 
-          <div className=" lg:w-[25%] h-full   flex items-center justify-center ">
-            <Reviews productId={data.productId} />
-          </div>
+          <div className=" lg:w-[25%] h-full   flex items-center justify-center "></div>
         </div>
       )}
     </>

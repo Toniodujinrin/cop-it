@@ -5,7 +5,7 @@ import Joi from "joi";
 import { SignUpContext } from "../../Contexts/SignUpContext";
 
 const Verify = () => {
-    const {setAccountVerified} = useContext(SignUpContext)
+  const { setAccountVerified } = useContext(SignUpContext);
   const Schema = Joi.object({
     firstName: Joi.string().required().label("First Name"),
     lastName: Joi.string().required().label("Last Name"),
@@ -72,11 +72,11 @@ const Verify = () => {
   };
   return (
     <SignUpBar>
-      <section className="flex flex-col pt-[20px]  lg:w-[60%] items-center w-full h-full ">
+      <section className="flex flex-col mt-[50px] h-screen  lg:w-[60%] items-center w-full h-full ">
         <div>
           <img
             src="../assets/logog2.svg"
-            className="w-[60px] h-[60px]"
+            className="w-[60px] h-[60px] "
             alt=""
           />
         </div>
@@ -111,7 +111,7 @@ const Verify = () => {
           <InputGroup
             value={address}
             setValue={setAddress}
-            type={"password"}
+            type={"text"}
             errors={errors.address}
             label={"Address"}
           />

@@ -51,7 +51,7 @@ const VerifyEmail = () => {
   };
   return (
     <SignUpBar>
-      <section className="flex flex-col pt-[20px]  lg:w-[60%] items-center w-full h-full ">
+      <section className="flex flex-col mt-[50px]  lg:w-[60%] items-center w-full h-full ">
         <div>
           <img
             src="../assets/logog2.svg"

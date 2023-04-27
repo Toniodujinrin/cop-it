@@ -5,7 +5,7 @@ interface SignUpBarProps {
 
 const SignUpBar: React.FC<SignUpBarProps> = ({ children }) => {
   return (
-    <div className="flex flex-row h-screen justify-between">
+    <div className="flex flex-row overflow-hidden h-screen justify-between">
       <SideBar />
       {children}
     </div>

@@ -81,7 +81,7 @@ const SignUp = () => {
   };
   return (
     <SignUpBar>
-      <section className="flex flex-col  lg:w-[60%] items-center w-full h-full ">
+      <section className="flex flex-col mt-[50px]  lg:w-[60%] items-center w-full h-full ">
         <div>
           <img
             src="../assets/logog2.svg"
