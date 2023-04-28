@@ -8,7 +8,7 @@ type Product = {
   price: number;
   imageUrl: string;
   rating: number;
-  productId: string;
+  _id: string;
 };
 const FeaturedSection = () => {
   const [data, setData] = useState<Product[]>([]);
@@ -24,7 +24,7 @@ const FeaturedSection = () => {
       <div className="grid lg:grid-cols-4 gap-y-8 justify-items-center grid-cols-2 ">
         {data.map((item) => (
           <ProductBox
-            productId={item.productId}
+            productId={item._id}
             name={item.name}
             price={item.price}
             rating={item.rating}

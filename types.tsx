@@ -1,5 +1,5 @@
 export interface Product {
-  productId: string;
+  _id: string;
   description: string;
   category: string;
   numberInStock: number;
@@ -8,6 +8,7 @@ export interface Product {
   price: number;
   rating: number;
   imageUrl: string;
+  seller: string;
 }
 
 export interface ReviewObject {

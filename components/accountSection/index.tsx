@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Products from "./products";
 import Profile from "./profile";
 interface UserProps {
   firstName: string;
@@ -7,6 +8,7 @@ interface UserProps {
   phoneNumber: string;
 }
 
+const sections = ["Profile", "Products", "Reviews", "Orders"];
 const Account: React.FC<UserProps> = ({
   firstName,
   lastName,
@@ -20,36 +22,18 @@ const Account: React.FC<UserProps> = ({
 
       <div className="mx-auto lg:w-[70%] w-[80%] border border-darkGreen  ">
         <ul className="flex flex-row text-darkGreen font-semibold lg:text-[24px] text-[16px] justify-between p-4 ">
-          <li
-            className={` cursor-pointer ${
-              currentPage == "Profile" ? "text-lightGreen" : "text-black"
-            }`}
-            onClick={() => {
-              setCurrentPage("Profile");
-            }}
-          >
-            Profile
-          </li>
-          <li
-            className={`cursor-pointer ${
-              currentPage == "Orders" ? "text-lightGreen" : "text-black"
-            }`}
-            onClick={() => {
-              setCurrentPage("Orders");
-            }}
-          >
-            Orders
-          </li>
-          <li
-            className={` cursor-pointer ${
-              currentPage == "Returns" ? "text-lightGreen" : "text-black"
-            }`}
-            onClick={() => {
-              setCurrentPage("Returns");
-            }}
-          >
-            Returns
-          </li>
+          {sections.map((section) => (
+            <li
+              className={` cursor-pointer ${
+                currentPage == section ? "text-lightGreen" : "text-black"
+              }`}
+              onClick={() => {
+                setCurrentPage(section);
+              }}
+            >
+              {section}
+            </li>
+          ))}
         </ul>
         {currentPage == "Profile" && (
           <Profile
@@ -59,6 +43,7 @@ const Account: React.FC<UserProps> = ({
             phoneNumber={phoneNumber}
           />
         )}
+        {currentPage == "Products" && <Products />}
       </div>
     </div>
   );

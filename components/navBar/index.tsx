@@ -55,9 +55,9 @@ const NavBar = () => {
         />
         <button
           onClick={() => {
-            router.push("/login");
+            router.push("/account");
           }}
-          className="lg:flex hidden flex-row space-x-2  w-[120px] h-[70px]  items-center"
+          className="lg:flex hidden flex-row space-x-2    items-center"
         >
           <img
             className="h-[20px] w-[20px]"
@@ -66,13 +66,13 @@ const NavBar = () => {
           />
           <p className="text-darkGreen">Account</p>
         </button>
-        <button className="lg:flex hidden flex-row space-x-2 w-[120px] h-[70px]  items-center">
+        <button className="lg:flex hidden flex-row space-x-2   items-center">
           <img
             className="h-[20px] w-[20px]"
             src="../../assets/cartIcon.svg"
             alt=""
           />
-          <p className="text-darkGreen">Cart</p>
+          <p className="text-darkGreen">Basket</p>
         </button>
       </div>
     </div>

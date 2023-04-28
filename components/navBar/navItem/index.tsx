@@ -34,7 +34,7 @@ const NavItem: React.FC<NavItemProps> = ({ title, menus }) => {
           }}
           className={`${
             dropDownShowing ? " absolute" : "hidden"
-          } w-[400px] shadow-xl flex flex-col space-y-4  rounded-[18px] bg-[#ECEAEA] h-auto py-[20px]  `}
+          } w-[400px] shadow-xl flex flex-col space-y-4 top-[40px]  rounded-[18px] bg-[#ECEAEA] h-auto py-[20px]  `}
         >
           {menus.map((menu) => (
             <div className="flex cursor-pointer flex-row items-center w-full px-4 ">
