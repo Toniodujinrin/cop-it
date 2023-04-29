@@ -18,9 +18,8 @@ const Account: React.FC<UserProps> = ({
   const [currentPage, setCurrentPage] = useState("Profile");
   return (
     <div>
-      <h1 className="font-bold text-[32px]">My Account</h1>
-
-      <div className="mx-auto lg:w-[70%] w-[80%] border border-darkGreen  ">
+      <div className="mx-auto lg:w-[70%] w-[80%]  ">
+        <h1 className="font-bold text-[32px]">My Account</h1>
         <ul className="flex flex-row text-darkGreen font-semibold lg:text-[24px] text-[16px] justify-between p-4 ">
           {sections.map((section) => (
             <li

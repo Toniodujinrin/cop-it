@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 interface InputGroupProps {
-  value: string;
+  value: string | number;
   errors: string;
   label: string;
   setValue: Dispatch<SetStateAction<string>>;
@@ -15,7 +15,7 @@ const InputGroup: React.FC<InputGroupProps> = ({
   type,
 }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <label className="text-darkGreen font-semibold">{label}</label>
       <input
         className="border focus:outline-none border-[#5A5353] w-full p-2 rounded-lg"

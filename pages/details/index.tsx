@@ -14,9 +14,7 @@ const Details = () => {
     const newData = getAllProducts();
     if (newData) {
       console.log(router.query.id);
-      const currentProduct = newData.filter(
-        (data) => data.productId == productId
-      )[0];
+      const currentProduct = newData.filter((data) => data._id == productId)[0];
       console.log(currentProduct);
 
       if (currentProduct) {
@@ -37,10 +35,7 @@ const Details = () => {
       {data && (
         <div className="flex lg:flex-row flex-col lg:justify-between lg:gap-x-[10px] ">
           <div className="lg:w-[40%]">
-            <ImageAndReviews
-              imageUrl={data.imageUrl}
-              productId={data.productId}
-            />
+            <ImageAndReviews imageUrl={data.imageUrl} productId={data._id} />
           </div>
           <div className="lg:w-[35%]">
             <DetailsComp

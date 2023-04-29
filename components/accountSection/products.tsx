@@ -1,8 +1,10 @@
 import { useState, useContext } from "react";
 import { ProductsContext } from "../../Contexts/ProductsContexts";
 import { Product } from "../../types";
+import { useRouter } from "next/router";
 
 const Products = () => {
+  const router = useRouter();
   const [popUpShowing, setPopUpShowing] = useState(false);
   const { products, deleteProduct } = useContext(ProductsContext);
   const [_id, setId] = useState("");
@@ -84,6 +86,7 @@ const Products = () => {
       )}
       <div className="w-full flex items-end justify-end">
         <button
+          onClick={() => router.push("/sell")}
           className={`w-[170px] p-2 mt-[20px] items-center border-2 
            
          bg-forestGreen border-forestGreen 
