@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import { FileUploader } from "react-drag-drop-files";
 import InputGroup from "./inputGroup";
+import FileUpload from "./fileUpload";
 const SellComp = () => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
@@ -7,6 +9,10 @@ const SellComp = () => {
   const [price, setPrice] = useState("0");
   const [description, setDescription] = useState("");
   const [files, setFiles] = useState<File[]>([]);
+  const fileTypes = ["JPG", "PNG", "GIF"];
+  const handleChange = (file: File) => {
+    setFiles([...files, file]);
+  };
   const uploadFile = (_files: FileList | null) => {
     if (_files) {
       const file = _files[0];
@@ -14,6 +20,10 @@ const SellComp = () => {
       const formData = new FormData();
       formData.append(file.name, file, file.name);
     }
+  };
+  const removeFile = (fileName: string) => {
+    const _files = [...files];
+    setFiles(_files.filter((file) => file.name !== fileName));
   };
 
   return (
@@ -71,29 +81,26 @@ const SellComp = () => {
         <div className="mt-4 flex flex-col ">
           <label className="text-darkGreen font-semibold">
             Upload Product Images
-          </label>
-          <div className=" bg-slate-200 border-[3px] h-[300px] border-dashed border-darkGreen flex flex-col items-center justify-center">
-            <label className="cursor-pointer" htmlFor="fileUpload">
-              <img
-                src="../assets/cloud.svg"
-                className="w-[50px] h-[50px]"
-                alt=""
-              />
-            </label>
-            <input
-              onChange={(e) => {
-                uploadFile(e.currentTarget.files);
-              }}
-              className="hidden"
-              id="fileUpload"
-              type="file"
-            />
-            <p
-              className="text-darkGreen font-semibold
-            "
-            >
-              Supported Files: JPEG, PNG{" "}
-            </p>
+          </label>{" "}
+          <FileUploader
+            children={<FileUpload uploadFile={uploadFile} />}
+            handleChange={handleChange}
+          />
+          <div className="grid grid-cols-4 w-full mt-4 gap-[20px]">
+            {files.map((file) => (
+              <div
+                className="w-[200px] flex justify-between bg-forestGreen rounded-lg p-2 text-white
+              "
+              >
+                <p> {file.name}</p>
+                <img
+                  onClick={() => removeFile(file.name)}
+                  className="w-[30px] h-[30px] cursor-pointer items-center"
+                  src="../assets/close-white.svg"
+                  alt=""
+                />
+              </div>
+            ))}
           </div>
         </div>
 
