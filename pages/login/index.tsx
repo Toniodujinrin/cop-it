@@ -1,8 +1,11 @@
 import InputGroup from "../../components/inputGroup";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Joi from "joi";
 import Link from "next/link";
+import { UserContext } from "./../../Contexts/UserContext";
+
 const LoginPage = () => {
+  const { authenticate } = useContext(UserContext);
   const Schema = Joi.object({
     email: Joi.string()
       .min(3)
