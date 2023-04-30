@@ -3,8 +3,10 @@ import { useState, useContext } from "react";
 import Joi from "joi";
 import Link from "next/link";
 import { UserContext } from "./../../Contexts/UserContext";
+import { useRouter } from "next/router";
 
 const LoginPage = () => {
+  const router = useRouter();
   const { authenticate } = useContext(UserContext);
   const Schema = Joi.object({
     email: Joi.string()
@@ -20,8 +22,9 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const errorsObject = Schema.validate(
       { email, password },
@@ -31,29 +34,47 @@ const LoginPage = () => {
       email: "",
       password: "",
     };
-    errorsObject.error?.details.forEach((detail) => {
-      if (
-        Object.keys(temporaryErrorObject).includes(detail.path[0].toString())
-      ) {
-        const path: string = detail.path[0].toString();
-        temporaryErrorObject[
-          path as keyof { email: string; password: string }
-        ] = detail.message;
-      }
-    });
-    let errorsArray: string[] = [];
-    errorsObject.error?.details.forEach((error) =>
-      errorsArray.push(error.path[0].toString())
-    );
-    Object.keys(temporaryErrorObject).forEach((error) => {
-      if (!errorsArray.includes(error)) {
-        temporaryErrorObject[
-          error as keyof { email: string; password: string }
-        ] = "";
-      }
-    });
+    if (errorsObject.error) {
+      errorsObject.error?.details.forEach((detail) => {
+        if (
+          Object.keys(temporaryErrorObject).includes(detail.path[0].toString())
+        ) {
+          const path: string = detail.path[0].toString();
+          temporaryErrorObject[
+            path as keyof { email: string; password: string }
+          ] = detail.message;
+        }
+      });
+      let errorsArray: string[] = [];
+      errorsObject.error?.details.forEach((error) =>
+        errorsArray.push(error.path[0].toString())
+      );
+      Object.keys(temporaryErrorObject).forEach((error) => {
+        if (!errorsArray.includes(error)) {
+          temporaryErrorObject[
+            error as keyof { email: string; password: string }
+          ] = "";
+        }
+      });
 
-    setErrors(temporaryErrorObject);
+      setErrors(temporaryErrorObject);
+    } else {
+      setErrors(temporaryErrorObject);
+      try {
+        setLoading(true);
+        const payload = {
+          email: email,
+          password: password,
+        };
+        if (await authenticate(payload)) {
+          router.push("/account");
+          setLoading(false);
+        } else return;
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
+    }
   };
   return (
     <main className="flex flex-row justify-between min-h-screen">
