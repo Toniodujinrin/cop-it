@@ -6,7 +6,7 @@ import Router, { useRouter } from "next/router";
 import { SignUpContext } from "./../../Contexts/SignUpContext";
 
 const SignUp = () => {
-  const { setFirstSignUp } = useContext(SignUpContext);
+  const { processFirstSignUp } = useContext(SignUpContext);
   const router = useRouter();
   const Schema = Joi.object({
     email: Joi.string()
@@ -27,7 +27,7 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const errorsObject = Schema.validate(
       { email, password, confirmPassword },
@@ -74,9 +74,15 @@ const SignUp = () => {
       setErrors(temporaryErrorObject);
       console.log(errorsObject.error);
     } else {
-      //authentication processed
-      setFirstSignUp(true);
-      router.push("/verifyEmail");
+      try {
+        const payload = {
+          email: email,
+          password: password,
+        };
+        if (await processFirstSignUp(payload)) {
+          router.push("/verifyEmail");
+        }
+      } catch (error) {}
     }
   };
   return (
