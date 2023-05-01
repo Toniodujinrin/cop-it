@@ -12,7 +12,7 @@ export const get = async (route, auth = {}) => {
 };
 export const post = async (route, auth = {}, data) => {
   const res = await apiConfig.post(`/${route}`, data, auth);
-  return { data: res.data, status: res.status, test: res };
+  return { data: res.data, status: res.status };
 };
 export const put = async (route, auth, data) => {
   const res = await apiConfig.put(`/${route}`, data, auth);

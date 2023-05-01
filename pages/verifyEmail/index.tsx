@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { SignUpContext } from "../../Contexts/SignUpContext";
 
 const VerifyEmail = () => {
-  const { setEmailVerified } = useContext(SignUpContext);
+  const { processEmailVerfication } = useContext(SignUpContext);
   const router = useRouter();
   const Schema = Joi.object({
     otp: Joi.string().required().max(4).min(4).label("OTP"),
@@ -17,7 +17,7 @@ const VerifyEmail = () => {
     otp: "",
   });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const errorsObject = Schema.validate({ otp }, { abortEarly: false });
     if (errorsObject.error) {
@@ -44,9 +44,8 @@ const VerifyEmail = () => {
 
       setErrors(temporaryErrorObject);
     } else {
-      //authentication code
-      setEmailVerified(true);
-      router.push("/verify");
+      const payload = { code: otp };
+      await processEmailVerfication(payload);
     }
   };
   return (

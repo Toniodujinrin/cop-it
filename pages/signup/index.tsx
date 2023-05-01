@@ -74,15 +74,11 @@ const SignUp = () => {
       setErrors(temporaryErrorObject);
       console.log(errorsObject.error);
     } else {
-      try {
-        const payload = {
-          email: email,
-          password: password,
-        };
-        if (await processFirstSignUp(payload)) {
-          router.push("/verifyEmail");
-        }
-      } catch (error) {}
+      const payload = {
+        email: email,
+        password: password,
+      };
+      processFirstSignUp(payload);
     }
   };
   return (
