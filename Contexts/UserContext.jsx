@@ -1,33 +1,60 @@
 import { createContext, useState } from "react";
 import { useCookies } from "react-cookie";
-import { setHeaders, get, post } from "./../api/config";
+import { get, post } from "./../api/config";
+import { useRouter } from "next/router";
 
-import axios from "axios";
+import { toast } from "react-toastify";
 export const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
-  const [cookie, setCookie] = useState();
+  const [cookie, setCookie] = useCookies();
   const [user, setUser] = useState({});
+  const getUser = async (email, token) => {
+    try {
+      const user = await get(`users?email=${email}`, {
+        headers: { token: token },
+      });
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  };
+  const updateUser = async (email, token) => {
+    try {
+      const user = await get(`users?email=${email}`, {
+        headers: { token: token },
+      });
+      if (user) setUser(user);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const authenticate = async (payload) => {
     try {
       const res = await post("auth", {}, payload);
       if (res) {
-        setCookie("token", res);
-        const user = await get(`users?email=${payload.email}`, {
-          headers: { token: res.data.data._id },
+        setCookie("token", res.data.data);
+        const verificationStatus = await get(`users?email=${email}`, {
+          headers: { token: token },
         });
-        setUser(user);
+        setUser(getUser(payload.email, res.data.dat._id));
         if (user) {
-          return true;
-        } else return false;
-      } else return false;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.data);
       return false;
     }
   };
   return (
-    <UserContext.Provider value={{ user, setUser, authenticate }}>
+    <UserContext.Provider
+      value={{ user, setUser, authenticate, getUser, updateUser }}
+    >
       {children}
     </UserContext.Provider>
   );
