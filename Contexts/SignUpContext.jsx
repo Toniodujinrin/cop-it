@@ -35,9 +35,12 @@ const SignUpContextProvider = ({ children }) => {
         const email = res.data.data.user;
         setEmailVerified(true);
         setCookie("token", tokenObject);
-        const verificationStatus = await get(`users?email=${email}`, {
-          headers: { token: token },
-        });
+        const verificationStatus = await get(
+          `auth/checkVerified?email=${email}`,
+          {
+            headers: { token: token },
+          }
+        );
         if (verificationStatus.data.data.accountVerified) {
           updateUser(email, token);
           router.push("/account");
@@ -53,6 +56,7 @@ const SignUpContextProvider = ({ children }) => {
 
   const processAccountVerification = async (payload) => {
     try {
+      payload.email = cookie.token.user;
       const res = await post(
         "users/verifyAccount",
         { headers: { token: cookie.token._id } },
@@ -64,9 +68,12 @@ const SignUpContextProvider = ({ children }) => {
         const email = res.data.data.user;
         setAccountVerified(true);
         setCookie("token", tokenObject);
-        const verificationStatus = await get(`users?email=${email}`, {
-          headers: { token: token },
-        });
+        const verificationStatus = await get(
+          `auth/checkVerified?email=${email}`,
+          {
+            headers: { token: token },
+          }
+        );
         if (verificationStatus.data.data.emailVerified) {
           updateUser(email, token);
           router.push("/account");

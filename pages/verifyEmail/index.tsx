@@ -7,9 +7,9 @@ import { SignUpContext } from "../../Contexts/SignUpContext";
 
 const VerifyEmail = () => {
   const { processEmailVerfication } = useContext(SignUpContext);
-  const router = useRouter();
+
   const Schema = Joi.object({
-    otp: Joi.string().required().max(4).min(4).label("OTP"),
+    otp: Joi.string().required().max(6).min(4).label("OTP"),
   });
   const [otp, setOtp] = useState("");
 

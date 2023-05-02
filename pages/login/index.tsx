@@ -60,20 +60,12 @@ const LoginPage = () => {
       setErrors(temporaryErrorObject);
     } else {
       setErrors(temporaryErrorObject);
-      try {
-        setLoading(true);
-        const payload = {
-          email: email,
-          password: password,
-        };
-        if (await authenticate(payload)) {
-          router.push("/account");
-          setLoading(false);
-        } else return;
-      } catch (error) {
-      } finally {
-        setLoading(false);
-      }
+
+      const payload = {
+        email: email,
+        password: password,
+      };
+      await authenticate(payload);
     }
   };
   return (

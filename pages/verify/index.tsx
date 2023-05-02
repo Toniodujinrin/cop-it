@@ -5,7 +5,7 @@ import Joi from "joi";
 import { SignUpContext } from "../../Contexts/SignUpContext";
 
 const Verify = () => {
-  const { setAccountVerified } = useContext(SignUpContext);
+  const { processAccountVerification } = useContext(SignUpContext);
   const Schema = Joi.object({
     firstName: Joi.string().required().label("First Name"),
     lastName: Joi.string().required().label("Last Name"),
@@ -24,55 +24,65 @@ const Verify = () => {
     phone: "",
   });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const errorsObject = Schema.validate(
       { firstName, lastName, address, phone },
       { abortEarly: false }
     );
-    const temporaryErrorObject = {
-      firstName: "",
-      lastName: "",
-      address: "",
-      phone: "",
-    };
-    errorsObject.error?.details.forEach((detail) => {
-      if (
-        Object.keys(temporaryErrorObject).includes(detail.path[0].toString())
-      ) {
-        const path: string = detail.path[0].toString();
-        temporaryErrorObject[
-          path as keyof {
-            lastName: string;
-            firstName: string;
-            phone: string;
-            address: string;
-          }
-        ] = detail.message;
-      }
-    });
-    let errorsArray: string[] = [];
-    errorsObject.error?.details.forEach((error) =>
-      errorsArray.push(error.path[0].toString())
-    );
-    Object.keys(temporaryErrorObject).forEach((error) => {
-      if (!errorsArray.includes(error)) {
-        temporaryErrorObject[
-          error as keyof {
-            lastName: string;
-            firstName: string;
-            phone: string;
-            address: string;
-          }
-        ] = "";
-      }
-    });
+    if (errorsObject.error) {
+      const temporaryErrorObject = {
+        firstName: "",
+        lastName: "",
+        address: "",
+        phone: "",
+      };
+      errorsObject.error?.details.forEach((detail) => {
+        if (
+          Object.keys(temporaryErrorObject).includes(detail.path[0].toString())
+        ) {
+          const path: string = detail.path[0].toString();
+          temporaryErrorObject[
+            path as keyof {
+              lastName: string;
+              firstName: string;
+              phone: string;
+              address: string;
+            }
+          ] = detail.message;
+        }
+      });
+      let errorsArray: string[] = [];
+      errorsObject.error?.details.forEach((error) =>
+        errorsArray.push(error.path[0].toString())
+      );
+      Object.keys(temporaryErrorObject).forEach((error) => {
+        if (!errorsArray.includes(error)) {
+          temporaryErrorObject[
+            error as keyof {
+              lastName: string;
+              firstName: string;
+              phone: string;
+              address: string;
+            }
+          ] = "";
+        }
+      });
 
-    setErrors(temporaryErrorObject);
+      setErrors(temporaryErrorObject);
+    } else {
+      const payload = {
+        lastName: lastName,
+        firstName: firstName,
+        phone: phone,
+        address: address,
+      };
+      await processAccountVerification(payload);
+    }
   };
   return (
     <SignUpBar>
-      <section className="flex flex-col mt-[50px] h-screen  lg:w-[60%] items-center w-full h-full ">
+      <section className="flex flex-col mt-[50px] h-screen  lg:w-[60%] items-center w-full  ">
         <div>
           <img
             src="../assets/logog2.svg"
