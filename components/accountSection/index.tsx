@@ -1,20 +1,9 @@
 import { useState } from "react";
 import Products from "./products";
 import Profile from "./profile";
-interface UserProps {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-}
 
 const sections = ["Profile", "Products", "Reviews", "Orders"];
-const Account: React.FC<UserProps> = ({
-  firstName,
-  lastName,
-  email,
-  phoneNumber,
-}) => {
+const Account = ({}) => {
   const [currentPage, setCurrentPage] = useState("Profile");
   return (
     <div>
@@ -34,14 +23,7 @@ const Account: React.FC<UserProps> = ({
             </li>
           ))}
         </ul>
-        {currentPage == "Profile" && (
-          <Profile
-            firstName={firstName}
-            lastName={lastName}
-            email={email}
-            phoneNumber={phoneNumber}
-          />
-        )}
+        {currentPage == "Profile" && <Profile />}
         {currentPage == "Products" && <Products />}
       </div>
     </div>

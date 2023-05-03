@@ -1,35 +1,26 @@
 import InputGroup from "./../inputGroup/index";
-import { useState, useEffect } from "react";
-interface ProfileProps {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "./../../Contexts/UserContext";
 
-  email: string;
-}
-
-const Profile: React.FC<ProfileProps> = ({
-  firstName,
-  lastName,
-  phoneNumber,
-  email,
-}) => {
-  const [_firstName, setFirstName] = useState(firstName);
-  const [_lastName, setLastName] = useState(lastName);
-  const [_email, setEmail] = useState(email);
-  const [_phoneNumber, setPhoneNumber] = useState(phoneNumber);
-  const [_address, setAddress] = useState("");
+const Profile = ({}) => {
+  const { user } = useContext(UserContext);
+  const [firstName, setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [email, setEmail] = useState(user._id);
+  const [phone, setPhone] = useState(user.phone);
+  const [address, setAddress] = useState(user.address);
   const [changeDetected, setChangeDetected] = useState(true);
   useEffect(() => {
     if (
-      _firstName !== firstName ||
-      _lastName !== lastName ||
-      _email !== email ||
-      _phoneNumber !== phoneNumber
+      firstName !== user.firstName ||
+      lastName !== user.lastName ||
+      email !== user._id ||
+      phone !== user.phone ||
+      address !== user.address
     ) {
       setChangeDetected(true);
     } else setChangeDetected(false);
-  }, [_firstName, _lastName, _email, _phoneNumber]);
+  }, [firstName, lastName, email, phone, address]);
 
   return (
     <div>
@@ -56,35 +47,35 @@ const Profile: React.FC<ProfileProps> = ({
       <div className=" flex flex-col lg:grid grid-cols-2 p-4  gap-[20px] ">
         <InputGroup
           label="First Name"
-          value={_firstName}
+          value={firstName}
           setValue={setFirstName}
           errors=""
           type="string"
         />
         <InputGroup
           label="Last Name"
-          value={_lastName}
+          value={lastName}
           setValue={setLastName}
           errors=""
           type="string"
         />
         <InputGroup
           label="Email"
-          value={_email}
+          value={email}
           setValue={setEmail}
           errors=""
           type="string"
         />
         <InputGroup
           label="Phone Number"
-          value={_phoneNumber}
-          setValue={setPhoneNumber}
+          value={phone}
+          setValue={setPhone}
           errors=""
           type="string"
         />
         <InputGroup
           label="Address"
-          value={_address}
+          value={address}
           setValue={setAddress}
           errors=""
           type="string"

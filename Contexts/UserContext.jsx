@@ -12,27 +12,16 @@ const UserContextProvider = ({ children }) => {
 
   const [cookie, setCookie] = useCookies();
   const [user, setUser] = useState({});
-  //   useEffect(async () => {
-  //     const refresh = async () => {
-  //       if (
-  //         cookie.token &&
-  //         cookie.token.expiry > Date.now() &&
-  //         router.pathname == "/account"
-  //       ) {
-  //         const res = await updateUser(cookie.token.user, cookie.token._id);
-  //         console.log(res);
-  //       } else {
-  //         router.push("/login");
-  //       }
-  //     };
-
-  //     try {
-  //       const res = await refresh();
-  //       console.log(res);
-  //     } catch (error) {
-  //       console.lof(error);
-  //     }
-  //   }, []);
+  const refreshUser = async () => {
+    if (cookie.token && cookie.token.expiry > Date.now()) {
+      try {
+        await updateUser(cookie.token.user, cookie.token._id);
+        return true;
+      } catch (error) {
+        router.replace("/login");
+      }
+    } else router.replace("/login");
+  };
   const getUser = async (email, token) => {
     try {
       const user = await get(`users?email=${email}`, {
@@ -56,7 +45,7 @@ const UserContextProvider = ({ children }) => {
   const updateUser = async (email, token) => {
     try {
       const user = await getUser(email, token);
-      if (user) setUser(user);
+      if (user) setUser(user.data.data);
     } catch (error) {
       throw error;
     }
@@ -67,6 +56,7 @@ const UserContextProvider = ({ children }) => {
       const res = await post("auth", {}, payload);
       if (res) {
         setCookie("token", res.data.data);
+
         const token = res.data.data._id;
         const email = res.data.data.user;
         const verificationStatus = await get(
@@ -80,13 +70,13 @@ const UserContextProvider = ({ children }) => {
           verificationObject.accountVerified &&
           verificationObject.emailVerified
         ) {
-          await updateUser();
-          router.push("/account");
+          await updateUser(email, token);
+          router.replace("/account");
         } else if (!verificationObject.emailVerified) {
           await sendOTPCode(email);
-          router.push("/verifyEmail");
+          router.replace("/verifyEmail");
         } else if (!verificationObject.accountVerified) {
-          router.push("/verify");
+          router.replace("/verify");
         }
       } else {
         toast.error("could not log you in at the moment try again later");
@@ -98,7 +88,7 @@ const UserContextProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, authenticate, getUser, updateUser }}
+      value={{ user, setUser, authenticate, getUser, updateUser, refreshUser }}
     >
       {children}
     </UserContext.Provider>
