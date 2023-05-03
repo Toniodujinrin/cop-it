@@ -4,6 +4,7 @@ import getAllProducts from "./../DummyData/index";
 export const ProductsContext = createContext();
 const ProductsContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const postProduct = () => {};
   useEffect(() => {
     const data = getAllProducts();
     setProducts(data);
