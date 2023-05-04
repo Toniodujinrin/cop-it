@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import InputGroup from "./inputGroup";
 import FileUpload from "./fileUpload";
 import Joi from "joi";
+import { ProductsContext } from "./../Contexts/ProductsContexts";
 const SellComp = () => {
+  const { postProduct } = useContext(ProductsContext);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [amountInStock, setAmountInStock] = useState("0");
@@ -88,11 +90,12 @@ const SellComp = () => {
         description: description,
         name: name,
         category: category,
-        amountInStock: parseInt(amountInStock),
+        numberInStock: parseInt(amountInStock),
         price: parseInt(price),
-        files: files,
+        imageConfig: files,
       };
-      console.log(payload);
+
+      postProduct(payload);
     }
   };
 
@@ -176,7 +179,7 @@ const SellComp = () => {
             children={<FileUpload uploadFile={uploadFile} />}
             handleChange={handleChange}
           />
-          <div className="grid grid-cols-4 w-full mt-4 gap-[20px]">
+          <div className="grid grid-cols-3 w-full mt-4 gap-[20px]">
             {files.map((file) => (
               <div
                 className="w-[200px] flex justify-between bg-forestGreen rounded-lg p-2 text-white
@@ -199,7 +202,7 @@ const SellComp = () => {
             onClick={() => {
               handleSell();
             }}
-            className={`w-[170px] p-2 mt-[20px] items-center border-2 
+            className={`w-[170px] p-2  my-[20px] items-center border-2 
            
          bg-forestGreen border-forestGreen 
           
