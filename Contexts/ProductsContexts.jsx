@@ -19,6 +19,26 @@ const ProductsContextProvider = ({ children }) => {
         payload
       );
       console.log(res);
+      for (let i = 0; i <= payload.files.length; i++) {
+        const reader = new FileReader();
+        reader.readAsDataURL(payload.files[i]);
+        reader.onloadend = async () => {
+          const _payload = {
+            image: reader.result,
+            productId: res.data.data.productId,
+          };
+          try {
+            const result = await post(
+              "images/uploadProductImage",
+              {},
+              _payload
+            );
+            console.log(result);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+      }
     } catch (err) {
       console.log(err);
     }

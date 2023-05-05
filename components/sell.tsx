@@ -92,7 +92,7 @@ const SellComp = () => {
         category: category,
         numberInStock: parseInt(amountInStock),
         price: parseInt(price),
-        imageConfig: files,
+        files: files,
       };
 
       postProduct(payload);
