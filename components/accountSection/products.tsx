@@ -6,8 +6,10 @@ import { useRouter } from "next/router";
 const Products = () => {
   const router = useRouter();
   const [popUpShowing, setPopUpShowing] = useState(false);
-  const { products, deleteProduct } = useContext(ProductsContext);
+  const { products, deleteProduct, refreshProducts } =
+    useContext(ProductsContext);
   const [_id, setId] = useState("");
+
   return (
     <div className="max-h-[800px] w-full p-4 ">
       {products.length > 0 && (
@@ -43,7 +45,7 @@ const Products = () => {
               </div>
             </div>
           ) : (
-            <ul className="space-y-4 z-10 flex flex-col w-full lg:grid grid-cols-2 ">
+            <ul className="space-y-4 z-10 flex flex-col justify-items-center w-full lg:grid grid-cols-2 ">
               {products.map((product: Product) => (
                 <li
                   className="w-full h-[150px] flex flex-row"
@@ -51,8 +53,9 @@ const Products = () => {
                 >
                   <div className="mr-4">
                     <img
+                      onClick={() => router.push(`/details?id=${product._id}`)}
                       className="w-[150px] h-full"
-                      src={product.imageUrl}
+                      src={product.imageConfig[0].url}
                       alt=""
                     />
                   </div>

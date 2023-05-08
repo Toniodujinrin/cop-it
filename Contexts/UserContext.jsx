@@ -86,9 +86,24 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
+  const returnToAccountIfLoggedIn = () => {
+    if (cookie.token && cookie.token.expiry > Date.now()) {
+      console.log("hello");
+      router.push("/account");
+    }
+  };
+
   return (
     <UserContext.Provider
-      value={{ user, setUser, authenticate, getUser, updateUser, refreshUser }}
+      value={{
+        user,
+        setUser,
+        authenticate,
+        getUser,
+        updateUser,
+        refreshUser,
+        returnToAccountIfLoggedIn,
+      }}
     >
       {children}
     </UserContext.Provider>

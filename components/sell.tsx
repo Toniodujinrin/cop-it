@@ -11,23 +11,27 @@ const SellComp = () => {
   const [amountInStock, setAmountInStock] = useState("0");
   const [price, setPrice] = useState("0");
   const [description, setDescription] = useState("");
-  const [files, setFiles] = useState<File[]>([]);
+  const [file, setFile] = useState("");
+  const [fileDetails, setFileDetails] = useState<File | null>();
   const fileTypes = ["JPG", "PNG", "GIF"];
+  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({
     description: "",
     category: "",
     price: "",
     amountInStock: "",
     name: "",
+    file: "",
   });
 
-  const handleSell = () => {
+  const handleSell = async () => {
     const Schema = Joi.object({
       description: Joi.string().required().label("Description"),
       category: Joi.string().required().label("Category"),
       price: Joi.number().required().min(0.1).label("Price"),
       amountInStock: Joi.number().required().min(1).label("Amount"),
       name: Joi.string().required().label("Product Name"),
+      file: Joi.string().min(2).required().label("Product Image"),
     });
 
     const errorsObject = Schema.validate(
@@ -37,6 +41,7 @@ const SellComp = () => {
         price: parseInt(price),
         amountInStock: parseInt(amountInStock),
         name,
+        file,
       },
       { abortEarly: false }
     );
@@ -46,6 +51,7 @@ const SellComp = () => {
       price: "",
       amountInStock: "",
       name: "",
+      file: "",
     };
     if (errorsObject.error) {
       errorsObject.error?.details.forEach((detail) => {
@@ -60,6 +66,7 @@ const SellComp = () => {
               price: string;
               amountInStock: string;
               name: string;
+              file: string;
             }
           ] = detail.message;
         }
@@ -77,6 +84,7 @@ const SellComp = () => {
               price: string;
               amountInStock: string;
               name: string;
+              file: string;
             }
           ] = "";
         }
@@ -84,6 +92,7 @@ const SellComp = () => {
 
       setErrors(temporaryErrorObject);
     } else {
+      setIsLoading(true);
       setErrors(temporaryErrorObject);
 
       const payload = {
@@ -92,26 +101,39 @@ const SellComp = () => {
         category: category,
         numberInStock: parseInt(amountInStock),
         price: parseInt(price),
-        files: files,
+        file: file,
       };
 
-      postProduct(payload);
+      await postProduct(payload);
     }
   };
 
   const handleChange = (file: File) => {
-    setFiles([...files, file]);
+    if (file) {
+      setFileDetails(file);
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        if (typeof reader.result == "string") setFile(reader.result);
+      };
+    }
   };
 
   const uploadFile = (_files: FileList | null) => {
     if (_files) {
-      const file = _files[0];
-      setFiles([...files, file]);
+      setFileDetails(_files[0]);
+      console.log(fileDetails);
+      const reader = new FileReader();
+      reader.readAsDataURL(_files[0]);
+      reader.onloadend = () => {
+        if (typeof reader.result == "string") setFile(reader.result);
+      };
     }
   };
-  const removeFile = (fileName: string) => {
-    const _files = [...files];
-    setFiles(_files.filter((file) => file.name !== fileName));
+  const removeFile = () => {
+    setFile("");
+    setFileDetails(null);
   };
 
   return (
@@ -179,36 +201,42 @@ const SellComp = () => {
             children={<FileUpload uploadFile={uploadFile} />}
             handleChange={handleChange}
           />
-          <div className="grid grid-cols-3 w-full mt-4 gap-[20px]">
-            {files.map((file) => (
-              <div
-                className="w-[200px] flex justify-between bg-forestGreen rounded-lg p-2 text-white
+          <small className="text-red-500">{errors.file}</small>
+          {fileDetails && (
+            <div
+              className="w-full mt-4 flex justify-between bg-forestGreen rounded-lg p-2 text-white
               "
-              >
-                <p> {file.name}</p>
-                <img
-                  onClick={() => removeFile(file.name)}
-                  className="w-[30px] h-[30px] cursor-pointer items-center"
-                  src="../assets/close-white.svg"
-                  alt=""
-                />
-              </div>
-            ))}
-          </div>
+            >
+              <img
+                className="w-[100px] h-[100px] rounded-lg"
+                src={file}
+                alt=""
+              />
+              <p> {fileDetails?.name}</p>
+
+              <img
+                onClick={() => removeFile()}
+                className="w-[30px] h-[30px] cursor-pointer items-center"
+                src="../assets/close-white.svg"
+                alt=""
+              />
+            </div>
+          )}
         </div>
 
         <div className="w-full flex items-end justify-end">
           <button
+            disabled={isLoading}
             onClick={() => {
               handleSell();
             }}
-            className={`w-[170px] p-2  my-[20px] items-center border-2 
+            className={`w-[170px] p-2 flex justify-center  my-[20px] items-center border-2 
            
-         bg-forestGreen border-forestGreen 
+          bg-forestGreen border-forestGreen 
           
            text-white cursor-pointer  rounded-[20px]`}
           >
-            <p>Sell</p>
+            {isLoading ? <div className="spinnerSmall"></div> : <p>Sell</p>}
           </button>
         </div>
       </div>

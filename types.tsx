@@ -7,7 +7,10 @@ export interface Product {
   name: string;
   price: number;
   rating: number;
-  imageUrl: string;
+  imageConfig: {
+    publicId: string;
+    url: string;
+  }[];
   seller: string;
 }
 

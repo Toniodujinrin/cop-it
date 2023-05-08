@@ -1,19 +1,17 @@
 import * as React from "react";
-import Reviews from "./reviews";
+import { useContext } from "react";
+import { ProductsContext } from "./../Contexts/ProductsContexts";
 
-interface ImageAndReviewsProps {
-  imageUrl: string;
-  productId: string;
-}
-
-const ImageAndReviews: React.FC<ImageAndReviewsProps> = ({
-  imageUrl,
-  productId,
-}) => {
+const ImageAndReviews = () => {
+  const { product } = useContext(ProductsContext);
   return (
     <div className="w-full h-full lg:p-4 flex flex-col  pt-4 items-center">
       <div className="w-full lg:block flex flex-col items-center">
-        <img className=" w-[90%] aspect-square" src={imageUrl} alt="" />
+        <img
+          className=" w-[90%] aspect-square"
+          src={product.imageConfig[0].url}
+          alt=""
+        />
       </div>
     </div>
   );

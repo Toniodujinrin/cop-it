@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import Products from "./products";
 import Profile from "./profile";
+import { ProductsContext } from "./../../Contexts/ProductsContexts";
 
 const sections = ["Profile", "Products", "Reviews", "Orders"];
 const Account = ({}) => {
+  const { refreshProducts } = useContext(ProductsContext);
   const [currentPage, setCurrentPage] = useState("Profile");
+  useEffect(() => {
+    refreshProducts();
+  }, [currentPage]);
+
   return (
     <div>
       <div className="mx-auto lg:w-[70%] w-[80%]  ">

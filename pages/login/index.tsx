@@ -3,11 +3,10 @@ import { useState, useContext } from "react";
 import Joi from "joi";
 import Link from "next/link";
 import { UserContext } from "./../../Contexts/UserContext";
-import { useRouter } from "next/router";
 
 const LoginPage = () => {
-  const router = useRouter();
-  const { authenticate } = useContext(UserContext);
+  const { authenticate, returnToAccountIfLoggedIn } = useContext(UserContext);
+  returnToAccountIfLoggedIn();
   const Schema = Joi.object({
     email: Joi.string()
       .min(3)
@@ -60,12 +59,18 @@ const LoginPage = () => {
       setErrors(temporaryErrorObject);
     } else {
       setErrors(temporaryErrorObject);
+      setLoading(true);
 
       const payload = {
         email: email,
         password: password,
       };
-      await authenticate(payload);
+      try {
+        await authenticate(payload);
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
     }
   };
   return (
@@ -109,8 +114,15 @@ const LoginPage = () => {
 
             <p className="text-forestGreen">Forgot Password?</p>
 
-            <button className="bg-forestGreen w-full py-2 rounded-md text-white">
-              Sign in
+            <button
+              disabled={loading}
+              className="bg-forestGreen w-full py-2 flex justify-center items-center rounded-md text-white"
+            >
+              {loading ? (
+                <div className="spinnerSmall"></div>
+              ) : (
+                <p> Sign in </p>
+              )}
             </button>
             <button className="flex flex-row border border-black  items-center w-full py-2 rounded-md text-black justify-center">
               <img
