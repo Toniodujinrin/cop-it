@@ -1,27 +1,22 @@
 import DetailsComp from "../../components/details";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import getAllProducts from "../../DummyData";
-import { Product } from "../../types";
+import { useContext, useState } from "react";
+
 import ImageAndReviews from "../../components/imageAndReviews";
 import NavBar from "../../components/navBar";
-import Reviews from "../../components/reviews";
+import { ProductsContext } from "./../../Contexts/ProductsContexts";
+import { useQuery } from "react-query";
+
 const Details = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const productId = router.query.id;
-  const [data, setData] = useState<Product>();
-  useEffect(() => {
-    const newData = getAllProducts();
-    if (newData) {
-      console.log(router.query.id);
-      const currentProduct = newData.filter((data) => data._id == productId)[0];
-      console.log(currentProduct);
+  const { getProduct, product } = useContext(ProductsContext);
+  const { isLoading } = useQuery({
+    queryKey: ["product"],
+    queryFn: async () => await getProduct(productId),
+  });
 
-      if (currentProduct) {
-        setData(currentProduct);
-      } //else router.push("/404");
-    }
-  }, [router.query.id]);
   return (
     <>
       <NavBar />
@@ -32,24 +27,21 @@ const Details = () => {
         <img src="../assets/arrow-left.svg" alt="" />
         Back
       </button>
-      {data && (
+      {isLoading ? (
+        <div className="spinner"></div>
+      ) : product ? (
         <div className="flex lg:flex-row flex-col lg:justify-between lg:gap-x-[10px] ">
           <div className="lg:w-[40%]">
-            <ImageAndReviews imageUrl={data.imageUrl} productId={data._id} />
+            <ImageAndReviews />
           </div>
           <div className="lg:w-[35%]">
-            <DetailsComp
-              name={data.name}
-              description={data.description}
-              rating={data.rating}
-              price={data.price}
-              isAvailable={data.isAvailable}
-              numberInStock={data.numberInStock}
-            />
+            <DetailsComp />
           </div>
 
           <div className=" lg:w-[25%] h-full   flex items-center justify-center "></div>
         </div>
+      ) : (
+        <div></div>
       )}
     </>
   );
