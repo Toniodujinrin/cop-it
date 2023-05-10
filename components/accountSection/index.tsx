@@ -12,26 +12,24 @@ const Account = ({}) => {
   }, [currentPage]);
 
   return (
-    <div>
-      <div className="mx-auto lg:w-[70%] w-[80%]  ">
-        <h1 className="font-bold text-[32px]">My Account</h1>
-        <ul className="flex flex-row text-darkGreen font-semibold lg:text-[24px] text-[16px] justify-between p-4 ">
-          {sections.map((section) => (
-            <li
-              className={` cursor-pointer ${
-                currentPage == section ? "text-lightGreen" : "text-black"
-              }`}
-              onClick={() => {
-                setCurrentPage(section);
-              }}
-            >
-              {section}
-            </li>
-          ))}
-        </ul>
-        {currentPage == "Profile" && <Profile />}
-        {currentPage == "Products" && <Products />}
-      </div>
+    <div className="mx-auto lg:w-[70%] w-full  ">
+      <h1 className="font-bold text-[32px]">My Account</h1>
+      <ul className="flex flex-row text-darkGreen font-semibold lg:text-[24px] text-[16px] justify-between p-4 ">
+        {sections.map((section) => (
+          <li
+            className={` cursor-pointer ${
+              currentPage == section ? "text-lightGreen" : "text-black"
+            }`}
+            onClick={() => {
+              setCurrentPage(section);
+            }}
+          >
+            {section}
+          </li>
+        ))}
+      </ul>
+      {currentPage == "Profile" && <Profile />}
+      {currentPage == "Products" && <Products />}
     </div>
   );
 };

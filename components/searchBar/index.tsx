@@ -10,7 +10,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   setValue,
 }) => {
   return (
-    <div className="w-[400px] h-[30px]    border-b-2 border-darkGreen flex flex-row justify-between items-center px-4  ">
+    <div className="lg:w-[400px] h-[30px]    border-b-2 border-darkGreen flex flex-row justify-between items-center px-4  ">
       <input
         className="h-full w-[80%] bg-transparent   placeholder:text-[#5A5353]  focus:outline-none outline-none border-none "
         placeholder={placeholder}

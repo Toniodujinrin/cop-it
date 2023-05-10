@@ -5,7 +5,8 @@ import ProductContextProvider from "../Contexts/ProductsContexts";
 import UserContextProvider from "../Contexts/UserContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
+import BasketContextProvider from "../Contexts/BasketContext";
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
@@ -14,8 +15,10 @@ export default function App({ Component, pageProps }: AppProps) {
       <UserContextProvider>
         <ProductContextProvider>
           <SignUpContextProvider>
-            <ToastContainer />
-            <Component {...pageProps} />
+            <BasketContextProvider>
+              <ToastContainer />
+              <Component {...pageProps} />
+            </BasketContextProvider>
           </SignUpContextProvider>
         </ProductContextProvider>
       </UserContextProvider>

@@ -7,7 +7,7 @@ import { ProductsContext } from "./../Contexts/ProductsContexts";
 const SellComp = () => {
   const { postProduct } = useContext(ProductsContext);
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("Electronics");
   const [amountInStock, setAmountInStock] = useState("0");
   const [price, setPrice] = useState("0");
   const [description, setDescription] = useState("");

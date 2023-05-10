@@ -88,7 +88,6 @@ const UserContextProvider = ({ children }) => {
 
   const returnToAccountIfLoggedIn = () => {
     if (cookie.token && cookie.token.expiry > Date.now()) {
-      console.log("hello");
       router.push("/account");
     }
   };

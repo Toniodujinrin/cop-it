@@ -37,8 +37,8 @@ const WebcamCapture = ({ setWebCam }) => {
     setImage(imageSrc);
   }, [webcamRef]);
   return (
-    <div className="flex flex-col w-full items-center">
-      <div className=" p-4 bg-slate-200 mb-4 flex items-center flex-col rounded-[20px]  w-[400px] ">
+    <div className="flex flex-col w-full lg:p-0 p-4  items-center">
+      <div className=" p-4 bg-slate-200 mb-4 flex items-center flex-col rounded-[20px] w-full  lg:w-[400px] ">
         <div className="w-full mb-2   flex justify-end">
           <img
             onClick={() => {

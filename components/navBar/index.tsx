@@ -66,7 +66,10 @@ const NavBar = () => {
           />
           <p className="text-darkGreen">Account</p>
         </button>
-        <button className="lg:flex hidden flex-row space-x-2   items-center">
+        <button
+          onClick={() => router.push("/basket")}
+          className="lg:flex hidden flex-row space-x-2   items-center"
+        >
           <img
             className="h-[20px] w-[20px]"
             src="../../assets/cartIcon.svg"
