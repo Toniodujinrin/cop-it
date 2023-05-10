@@ -58,3 +58,28 @@
     transform: rotate(360deg);
   }
 }
+
+.spinnerSmallBlack {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+.spinnerSmallBlack:after {
+  content: " ";
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 1.5px solid #003d00;
+  border-color: #003d00 transparent#003d00 transparent;
+  animation: spinnerSmall 1.2s linear infinite;
+}
+@keyframes spinnerSmall {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

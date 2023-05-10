@@ -92,6 +92,24 @@ const UserContextProvider = ({ children }) => {
       router.push("/account");
     }
   };
+  const uploadUserImage = async (payload) => {
+    try {
+      payload.email = cookie.token.user;
+
+      const res = await post(
+        "images/uploadUserImage",
+        { headers: { token: cookie.token._id } },
+        payload
+      );
+      if (res.data.data) {
+        await updateUser(cookie.token.user, cookie.token._id);
+        toast.success("user profile updated");
+      }
+    } catch (error) {
+      toast.error(error.response.data.data);
+      console.log(error);
+    }
+  };
 
   return (
     <UserContext.Provider
@@ -103,6 +121,7 @@ const UserContextProvider = ({ children }) => {
         updateUser,
         refreshUser,
         returnToAccountIfLoggedIn,
+        uploadUserImage,
       }}
     >
       {children}

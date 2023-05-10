@@ -27,7 +27,7 @@ const Profile = ({}) => {
   return (
     <div className="flex justify-content items-center">
       {webcam ? (
-        <WebcamCapture />
+        <WebcamCapture setWebCam={setWebCam} />
       ) : (
         <div className="w-full">
           <div
@@ -36,7 +36,7 @@ const Profile = ({}) => {
           >
             <img
               className="h-[90%] object-cover"
-              src="../assets/hackthon_winner.png"
+              src={user.imageConfig ? user.imageConfig.url : ""}
               alt=""
             />
             <div

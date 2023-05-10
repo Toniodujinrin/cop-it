@@ -29,6 +29,7 @@ const ProductsContextProvider = ({ children }) => {
     }
   }, [productData]);
   const getProduct = async (productId) => {
+    console.log(productId);
     try {
       const product = await get(`products?productId=${productId}`);
       if (product) {
