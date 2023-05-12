@@ -3,6 +3,8 @@ import { ProductsContext } from "../../Contexts/ProductsContexts";
 import { Product } from "../../types";
 import { useRouter } from "next/router";
 
+import ProductCard from "./../productCard";
+
 const Products = () => {
   const router = useRouter();
   const [popUpShowing, setPopUpShowing] = useState(false);
@@ -51,36 +53,14 @@ const Products = () => {
                   className="w-full h-[150px] flex flex-row"
                   key={product._id}
                 >
-                  <div className="mr-4">
-                    <img
-                      onClick={() => router.push(`/details?id=${product._id}`)}
-                      className="w-[150px] h-full"
-                      src={product.imageConfig[0].url}
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <h1 className="font-semibold text-[24px] text-darkGreen ">
-                      {product.name}
-                    </h1>
-                    <p>{product.description}</p>
-                    <div className="flex justify-end mt-[40px] h-full flex-row space-x-3">
-                      <img
-                        onClick={() => {
-                          setPopUpShowing(true);
-                          setId(product._id);
-                        }}
-                        className="w-[20px] h-[20px] cursor-pointer"
-                        src="../assets/trash.svg"
-                        alt=""
-                      />
-                      <img
-                        className="w-[20px] h-[20px] cursor-pointer"
-                        src="../assets/edit.svg"
-                        alt=""
-                      />
-                    </div>
-                  </div>
+                  <ProductCard
+                    description={product.description}
+                    name={product.name}
+                    _id={product._id}
+                    setId={setId}
+                    setPopUpShowing={setPopUpShowing}
+                    image={product.imageConfig[0].url}
+                  />
                 </li>
               ))}
             </ul>

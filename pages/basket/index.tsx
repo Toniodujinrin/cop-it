@@ -6,18 +6,20 @@ import { BasketContext } from "../../Contexts/BasketContext";
 
 const Basket = () => {
   const { basket, refetchBasket } = useContext(BasketContext);
-  useQuery({
+  const { isLoading } = useQuery({
     queryKey: ["refetchBasket"],
     queryFn: async () => await refetchBasket,
   });
   return (
     <div>
       <NavBar />
-      {
+      {isLoading ? (
+        <div className="spinner"></div>
+      ) : (
         <div className="w-full lg:mt-0 mt-[40px] pl-4">
           <BasketComp />
         </div>
-      }
+      )}
     </div>
   );
 };

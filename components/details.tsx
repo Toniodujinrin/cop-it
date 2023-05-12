@@ -4,11 +4,27 @@ import { useContext, useState } from "react";
 
 import RateMeter from "./rateMeter";
 import { ProductsContext } from "./../Contexts/ProductsContexts";
+import { BasketContext } from "../Contexts/BasketContext";
 
 const DetailsComp = () => {
   const { product } = useContext(ProductsContext);
-
+  const { addItemToBasket } = useContext(BasketContext);
+  const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const handleBasketAdd = async () => {
+    try {
+      setLoading(true);
+      const payload = {
+        productId: product._id,
+        amount: quantity,
+      };
+      await addItemToBasket(payload);
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="lg:p-0 p-4 w-full">
       <h1 className="text-[32px] font-bold text-darkGreen">{product.name}</h1>
@@ -26,8 +42,11 @@ const DetailsComp = () => {
         <button className="w-[170px] p-2 items-center border-2 border-forestGreen rounded-[20px]">
           <p>Buy Now</p>
         </button>
-        <button className="w-[170px] p-2 items-center border-2 bg-forestGreen text-white border-forestGreen rounded-[20px]">
-          <p>Add to Cart</p>
+        <button
+          onClick={() => handleBasketAdd()}
+          className="w-[170px] p-2 items-center border-2 bg-forestGreen text-white border-forestGreen rounded-[20px]"
+        >
+          {loading ? <div className="spinnerSmall"></div> : <p>Add to Cart</p>}
         </button>
       </div>
     </div>

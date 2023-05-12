@@ -4,8 +4,6 @@ const apiConfig = axios.create({
   baseURL: "https://copit-server.onrender.com",
 });
 
-axios.defaults.withCredentials = true;
-
 export const get = async (route, auth = {}) => {
   const res = await apiConfig.get(`/${route}`, auth);
   return { data: res.data, status: res.status };
