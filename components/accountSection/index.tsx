@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import Products from "./products";
 import Profile from "./profile";
 import { ProductsContext } from "./../../Contexts/ProductsContexts";
+import Reviews from "./reviews";
 
 const sections = ["Profile", "Products", "Reviews", "Orders"];
 const Account = ({}) => {
@@ -30,6 +31,7 @@ const Account = ({}) => {
       </ul>
       {currentPage == "Profile" && <Profile />}
       {currentPage == "Products" && <Products />}
+      {currentPage == "Reviews" && <Reviews />}
     </div>
   );
 };

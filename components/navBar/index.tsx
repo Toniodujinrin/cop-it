@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import SearchBar from "../searchBar";
 import NavItem from "./navItem";
 import { useRouter } from "next/router";
+import { useCookies } from "react-cookie";
+import { NavContext } from "./../../Contexts/NavBarContext";
 
 const NavBar = () => {
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const { setNavBarOpen } = useContext(NavContext);
+  const [cookie] = useCookies();
   return (
     <div className="w-full h-[100px] lg:pt-0 pt-[20px] px-4 justify-around flex lg:flex-row flex-col items-center">
       {/* logo div */}
@@ -18,7 +22,11 @@ const NavBar = () => {
           src="../assets/logog2.svg"
           alt=""
         />
+
         <img
+          onClick={() => {
+            setNavBarOpen(true);
+          }}
           src="../assets/hamburger.svg"
           className="lg:hidden cursor-pointer w-[30px] h-[30px]"
           alt=""
@@ -43,7 +51,7 @@ const NavBar = () => {
             title="Deals"
             menus={[{ label: "Clothing", icon: "", href: "" }]}
           />
-          <NavItem title="Login" />
+          {<NavItem title="Login" />}
         </ul>
       </div>
       {/* serch bar div */}

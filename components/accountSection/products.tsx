@@ -47,7 +47,7 @@ const Products = () => {
               </div>
             </div>
           ) : (
-            <ul className="space-y-4 z-10 flex flex-col justify-items-center w-full lg:grid grid-cols-2 ">
+            <ul className="space-y-4 flex flex-col justify-items-center w-full lg:grid grid-cols-2 ">
               {products.map((product: Product) => (
                 <li
                   className="w-full h-[150px] flex flex-row"

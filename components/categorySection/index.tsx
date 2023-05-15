@@ -56,7 +56,9 @@ const Categories = () => {
   const getNumberOfCategories = (categorySize: number) => {
     const divisor = categorySize + 50;
     const numberOfCategories = Math.floor(windowLength / divisor);
-    return numberOfCategories;
+    if (numberOfCategories < 1) {
+      return 1;
+    } else return numberOfCategories;
   };
   const getNumberOfCarousels = () => {
     const numberOfCategoriesPerPage = getNumberOfCategories(300);
@@ -75,13 +77,13 @@ const Categories = () => {
       <CCarousel className="w-full">
         {getNumberOfCarousels().map((item, carouselIndex) => (
           <CCarouselItem className="h-[150px] w-[330px]">
-            <ul className="flex flex-row px-4 py-4  space-x-4">
+            <ul className="flex flex-row  py-4  space-x-4">
               {categoryData.map(
                 (item, index) =>
                   index <= (carouselIndex + 1) * getNumberOfCategories(300) &&
                   index >= carouselIndex * getNumberOfCategories(300) && (
                     <div className="w-[300px]  h-[100px] cursor-pointer justify-between rounded-[18px] overflow-hidden flex items-center px-2  shadow-md">
-                      <h1 className=" text-[24px] p-2 text-darkGreen">
+                      <h1 className=" lg:text-[24px] text-[18px] p-2 text-darkGreen">
                         {item.name}
                       </h1>
 

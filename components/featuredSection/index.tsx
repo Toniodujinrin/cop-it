@@ -21,7 +21,7 @@ const FeaturedSection = () => {
       <h1 className="text-darkGreen text-[32px] mb-[30px] mt-[30px] font-semibold ">
         Featured Items
       </h1>
-      <div className="grid lg:grid-cols-4 gap-y-8 justify-items-center grid-cols-2 ">
+      <div className="grid lg:grid-cols-4 gap-x-4 gap-y-4 justify-items-center grid-cols-2 ">
         {data.map((item) => (
           <ProductBox
             productId={item._id}

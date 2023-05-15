@@ -25,7 +25,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({
       onClick={() => {
         router.push({ pathname: "/details", query: { id: productId } });
       }}
-      className="lg:w-[250px] sm:w-[225px] w-[175px] p-2 bg-white
+      className="lg:w-[250px] sm:w-[225px] w-full p-2 bg-white
 
    sm:min-h-[300px] h-[200px]  flex flex-col items-center rounded-[18px] shadow-lg"
     >
