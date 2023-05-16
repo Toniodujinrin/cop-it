@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import BasketContextProvider from "../Contexts/BasketContext";
 import NavContextProvider from "../Contexts/NavBarContext";
+import ProfileContextProvider from "../Contexts/ProfileContext";
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
@@ -15,14 +16,16 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <UserContextProvider>
         <ProductContextProvider>
-          <SignUpContextProvider>
-            <BasketContextProvider>
-              <NavContextProvider>
-                <ToastContainer />
-                <Component {...pageProps} />
-              </NavContextProvider>
-            </BasketContextProvider>
-          </SignUpContextProvider>
+          <ProfileContextProvider>
+            <SignUpContextProvider>
+              <BasketContextProvider>
+                <NavContextProvider>
+                  <ToastContainer />
+                  <Component {...pageProps} />
+                </NavContextProvider>
+              </BasketContextProvider>
+            </SignUpContextProvider>
+          </ProfileContextProvider>
         </ProductContextProvider>
       </UserContextProvider>
     </QueryClientProvider>

@@ -1,6 +1,6 @@
 import DetailsComp from "../../components/details";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import ImageAndReviews from "../../components/imageAndReviews";
 import NavBar from "../../components/navBar";
@@ -8,12 +8,20 @@ import { ProductsContext } from "./../../Contexts/ProductsContexts";
 import { useQuery } from "react-query";
 
 const Details = () => {
-  const router = useRouter();
   const { getProduct, product } = useContext(ProductsContext);
-  const { isLoading, refetch } = useQuery({
-    queryKey: ["product"],
-    queryFn: async () => await getProduct(router.query.id),
-  });
+  const router = useRouter();
+  const productId = router.query.id;
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    try {
+      setLoading(true);
+      if (productId) {
+        getProduct(productId);
+      }
+      setLoading(false);
+    } catch (error) {}
+  }, [productId]);
 
   return (
     <>
