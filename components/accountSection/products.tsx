@@ -4,13 +4,16 @@ import { Product } from "../../types";
 import { useRouter } from "next/router";
 
 import ProductCard from "./../productCard";
+import DeletePopUp from "../deletePopUp";
 
 const Products = () => {
   const router = useRouter();
   const [popUpShowing, setPopUpShowing] = useState(false);
-  const { products, deleteProduct, refreshProducts } =
-    useContext(ProductsContext);
+  const { products, deleteProduct } = useContext(ProductsContext);
   const [_id, setId] = useState("");
+  const handleDelete = () => {
+    deleteProduct(_id);
+  };
 
   return (
     <div className="max-h-[800px] w-full p-4 ">
@@ -21,31 +24,10 @@ const Products = () => {
           }  overflow-y-scroll overflow-x-hidden `}
         >
           {popUpShowing ? (
-            <div
-              className={` bg-slate-200  w-[400px] flex flex-col  items-center font-semibold text-[20px] rounded-[20px] p-4 h-[300px]`}
-            >
-              <h1 className=" mt-6 ">
-                Are you sure you want to delete this product from market.This
-                action is irreversible.
-              </h1>
-              <div className="flex space-x-4 mt-[70px] flex-row">
-                <button
-                  onClick={() => setPopUpShowing(false)}
-                  className="rounded-[20px] bg-forestGreen p-2 flex items-center justify-center  text-white w-[100px]"
-                >
-                  <p>Cancel</p>
-                </button>
-                <button
-                  onClick={() => {
-                    setPopUpShowing(false);
-                    deleteProduct(_id);
-                  }}
-                  className="rounded-[20px] bg-red-600 p-2 flex items-center justify-center  text-white w-[100px]"
-                >
-                  <p>Delete</p>
-                </button>
-              </div>
-            </div>
+            <DeletePopUp
+              setPopUpShowing={setPopUpShowing}
+              handleDelete={handleDelete}
+            />
           ) : (
             <ul className="space-y-4 flex flex-col justify-items-center w-full lg:grid grid-cols-2 ">
               {products.map((product: Product) => (
