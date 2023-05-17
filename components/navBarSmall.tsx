@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { NavContext } from "../Contexts/NavBarContext";
+import BasketNotification from "./basketNotification";
 const NavBarSmall = () => {
   const { setNavBarOpen, navBarOpen } = useContext(NavContext);
   const router = useRouter();
@@ -46,13 +47,14 @@ const NavBarSmall = () => {
         <h1>Navigate</h1>
         {items.map((item) => (
           <div
-            className="text-[18px] mb-2 "
+            className="text-[18px] flex items-center justify-center space-x-4  mb-2 "
             onClick={() => {
               router.push(item.link);
               setNavBarOpen(false);
             }}
           >
-            {item.name}
+            <p>{item.name}</p>
+            {/* {item.name == "Basket" && <BasketNotification />} */}
           </div>
         ))}
       </div>

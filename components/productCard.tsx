@@ -19,7 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const router = useRouter();
   return (
-    <>
+    <div className="flex flex-row">
       <div className="mr-4">
         <img
           onClick={() => router.push(`/details?id=${_id}`)}
@@ -48,7 +48,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

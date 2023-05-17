@@ -2,6 +2,7 @@ import InputGroup from "./../inputGroup/index";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "./../../Contexts/UserContext";
 import WebcamCapture from "./../webcam";
+import { useRouter } from "next/router";
 
 const Profile = ({}) => {
   const { user } = useContext(UserContext);
@@ -12,6 +13,7 @@ const Profile = ({}) => {
   const [address, setAddress] = useState(user.address);
   const [changeDetected, setChangeDetected] = useState(true);
   const [webcam, setWebCam] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     if (
       firstName !== user.firstName ||
@@ -35,6 +37,7 @@ const Profile = ({}) => {
        rounded-full w-[200px] h-[200px] flex flex-col overflow-hidden "
           >
             <img
+              onClick={() => router.push(`/profile?email=${email}`)}
               className="h-[90%] object-cover"
               src={user.imageConfig ? user.imageConfig.url : ""}
               alt=""

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useCookies } from "react-cookie";
 import { get, post } from "../api/config";
@@ -12,7 +12,9 @@ export const BasketContext = createContext();
 const BasketContextProvider = ({ children }) => {
   const router = useRouter();
   const [cookie] = useCookies();
-  const [basket, setBasket] = useState({});
+  const [basket, setBasket] = useState([]);
+  const [amountInBasket, setAmountInBasket] = useState(0);
+  const [data, setData] = useState();
   const { refetch: refetchBasket } = useQuery({
     queryKey: ["basketData"],
     queryFn: async () => {
@@ -22,14 +24,19 @@ const BasketContextProvider = ({ children }) => {
           headers: { token: cookie.token._id },
         }
       );
-
-      if (data && data.data && data.data.items && data.data.items.length > 0) {
-        setBasket(data.data.items);
-      } else {
-        setBasket([]);
-      }
+      setData(data);
     },
   });
+
+  useEffect(() => {
+    console.log(data);
+    if (data && data.data && data.data.items && data.data.items.length > 0) {
+      setBasket(data.data.items);
+      setAmountInBasket(data.data.items.length);
+    } else {
+      setBasket([]);
+    }
+  }, [data]);
 
   const addItemToBasket = async (payload) => {
     if (cookie.token) {
@@ -50,8 +57,31 @@ const BasketContextProvider = ({ children }) => {
     } else router.push("/login");
   };
 
+  const removeItemFromBasket = async (payload) => {
+    payload.email = cookie.token.user;
+    try {
+      await post(
+        "basket/removeItem",
+        { headers: { token: cookie.token._id } },
+        payload
+      );
+      refetchBasket();
+      toast.success("item removed from basket");
+    } catch (error) {
+      toast.error("could not remove item from basket");
+    }
+  };
+
   return (
-    <BasketContext.Provider value={{ basket, refetchBasket, addItemToBasket }}>
+    <BasketContext.Provider
+      value={{
+        basket,
+        refetchBasket,
+        addItemToBasket,
+        amountInBasket,
+        removeItemFromBasket,
+      }}
+    >
       {children}
     </BasketContext.Provider>
   );

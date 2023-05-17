@@ -23,11 +23,11 @@ const ProductsContextProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    console.log(productData);
     if (productData && productData.data && productData.data.data) {
       setProducts(productData.data.data);
     }
   }, [productData]);
+
   const getProduct = async (productId) => {
     console.log(productId);
     try {
