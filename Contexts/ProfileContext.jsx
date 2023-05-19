@@ -8,6 +8,7 @@ const ProfileContextProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [products, setProducts] = useState([]);
   const [reviews, setReviews] = useState([]);
+
   const getEntireProfile = async (email) => {
     try {
       const userProfile = await get(`users/getProfile?email=${email}`, {});
@@ -19,6 +20,7 @@ const ProfileContextProvider = ({ children }) => {
         `reviews/getAllReviewsAboutUser?email=${email}`,
         {}
       );
+      console.log(userReviews)
       if ((userReviews, userProducts, userProfile)) {
         setProfile(userProfile.data.data);
         setProducts(userProducts.data.data);

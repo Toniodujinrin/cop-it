@@ -1,8 +1,9 @@
 import { useState, useContext } from "react";
 import Products from "./products";
-import Reviews from "./reviews";
+
 import { ProfileContext } from "../../Contexts/ProfileContext";
 
+import ReviewsComp from "./reviews";
 const ProfileComp = () => {
   const [currentSection, setSection] = useState("Products");
   const { profile } = useContext(ProfileContext);
@@ -37,7 +38,8 @@ const ProfileComp = () => {
         </ul>
 
         {currentSection == "Products" && <Products />}
-        {currentSection == "Reviews" && <Reviews />}
+        {currentSection == "Reviews" && <ReviewsComp />}
+      
       </div>
     </div>
   );

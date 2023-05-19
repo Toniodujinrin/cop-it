@@ -19,11 +19,21 @@ export interface ReviewObject {
   reviews: Review[];
 }
 
-interface Review {
-  reviewId: string;
-  review: string;
-  author: string;
-  datePosted: string;
+export interface Review {
+ _id:string
+ review:string
+ userId:string
+ rating:number
+ author:{
+  firstName:string
+  lastName:string
+  imageConfig:{
+    url:string,
+    publicId:string
+  }
+ }
+ datePosted:number
+ seller:string
 }
 
 export interface User {

@@ -1,12 +1,24 @@
 import ReviewCard from "../reviewCard";
-
+import { ProfileContext } from "../../Contexts/ProfileContext";
+import { useContext } from "react";
+import { Review } from "../../types";
 const Reviews = () => {
-  const dummyArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const {reviews}= useContext(ProfileContext)
+
   return (
     <div className="lg:grid lg:grid-cols-2  flex gap-4 flex-col ">
-      {dummyArray.map((number) => (
-        <ReviewCard key={number} />
-      ))}
+      {
+        reviews.length>0?
+
+          reviews.map((review:Review,index:number) => (
+        <ReviewCard key={index} rating={review.rating} review={review.review} email={review.userId} imageUrl={review.author.imageConfig.url} fullName={`${review.author.firstName} ${review.author.lastName} `} />
+      ))
+      :
+      <div>
+         
+      </div>
+      }
+    
     </div>
   );
 };

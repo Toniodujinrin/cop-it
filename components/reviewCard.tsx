@@ -1,13 +1,23 @@
+interface ReviewCardProps{
+  imageUrl:string,
+  fullName:string,
+  email:string,
+  review:string,
+  rating:number
+}
 import RateMeter from "./rateMeter";
+import { useRouter } from "next/router";
 
-const ReviewCard = () => {
+const ReviewCard:React.FC<ReviewCardProps> = ({imageUrl,fullName,email,review,rating}) => {
+  const router = useRouter()
   return (
     <div className=" flex flex-row w-full items-center gap-x-2 p-4 shadow-lg rounded-[20px] ">
       <div className="w-[40%]">
         <div className="w-[100px] rounded-full h-[100px] bg-black  overflow-hidden">
           <img
+          onClick={()=>router.push(`/profile?email=${email}`)}
             className=" w-full object-cover h-full"
-            src="../assets/hackthon_winner.png"
+            src={imageUrl}
             alt=""
           />
         </div>
@@ -15,13 +25,12 @@ const ReviewCard = () => {
 
       <div className="flex w-[60&] flex-col">
         <h1 className="font-semibold text-[21px] text-darkGreen">
-          Persons Name
+          {fullName}
         </h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto ipsam
-          neque adipisci cupiditate velit eligendi ducimus esse quos quia quo.
+         {review}
         </p>
-        <RateMeter rating={5} />
+        <RateMeter rating={rating} />
       </div>
     </div>
   );
