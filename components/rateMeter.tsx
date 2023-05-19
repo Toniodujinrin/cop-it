@@ -5,8 +5,9 @@ interface RateMeterProps {
 const RateMeter: React.FC<RateMeterProps> = ({ rating }) => {
   return (
     <div className="flex flex-row">
-      {Array.from({ length: rating }).map((item) => (
+      {Array.from({ length: rating }).map((item,index) => (
         <img
+          key={index}
           className="w-[10px] h-[20px] "
           src="../../assets/star.svg"
           alt=""

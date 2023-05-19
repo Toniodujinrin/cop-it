@@ -18,8 +18,8 @@ const Reviews: React.FC<ReviewsProps> = ({ productId }) => {
   return (
     <div className=" bg-slate-100 h-[300px] scrollbar-track-transparent scrollbar-thumb-rounded-full scrollbar-thumb-black scrollbar-thin p-4 overflow-y-scroll    rounded-[18px]  ">
       <h1 className="font-bold text-[21px]  ">Reviews</h1>
-      {review?.reviews.map((review) => (
-        <div className="py-2">
+      {review?.reviews.map((review, index) => (
+        <div  key={index}  className="py-2">
           <p className="text-[12px]">{review.review}</p>
           <p className="text-darkGreen text-[14px] font-semibold">
             {review.author}

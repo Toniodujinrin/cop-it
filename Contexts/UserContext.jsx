@@ -3,15 +3,38 @@ import { useCookies } from "react-cookie";
 import { get, post } from "./../api/config";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-
+import {useSession,signIn,signOut} from 'next-auth/react'
 import { toast } from "react-toastify";
 export const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
   const router = useRouter();
-
+  const {data:session}= useSession()
   const [cookie, setCookie] = useCookies();
   const [user, setUser] = useState({});
+  
+  
+  useEffect(()=>{
+    const googleSignInProcess = async ()=>{
+      if(session && !cookie.token){
+        console.log('session email' ,session.user.email)
+        try {
+        const googleAuthData = await post('auth/googleAuthenticate',{},{email:session.user.email})
+        console.log('google auth data',googleAuthData)
+        await authenticateProcess(googleAuthData.data.data) } 
+        catch (error) {
+        toast.error('an error occured')
+        }
+      }
+    }
+    googleSignInProcess()
+  },[session])
+  
+  
+  const handleGoogleSignIn = async ()=>{
+    signIn(); 
+  }
+  
   const refreshUser = async () => {
     if (cookie.token && cookie.token.expiry > Date.now()) {
       try {
@@ -51,40 +74,58 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
-  const authenticate = async (payload) => {
-    try {
-      const res = await post("auth", {}, payload);
-      if (res) {
-        setCookie("token", res.data.data);
 
-        const token = res.data.data._id;
-        const email = res.data.data.user;
-        const verificationStatus = await get(
-          `auth/checkVerified?email=${email}`,
-          {
-            headers: { token: token },
-          }
-        );
-        const verificationObject = verificationStatus.data.data;
-        if (
-          verificationObject.accountVerified &&
-          verificationObject.emailVerified
-        ) {
-          await updateUser(email, token);
-          router.replace("/account");
-        } else if (!verificationObject.emailVerified) {
-          await sendOTPCode(email);
-          router.replace("/verifyEmail");
-        } else if (!verificationObject.accountVerified) {
-          router.replace("/verify");
-        }
-      } else {
-        toast.error("could not log you in at the moment try again later");
+  const authenticate = async (payload) => {
+
+      try {
+        const res = await post("auth", {}, payload); 
+        console.log(res)
+        await authenticateProcess(res.data.data)
+      } catch (error) {
+        toast.error(error.response.data.data);
       }
-    } catch (error) {
-      toast.error(error.response.data.data);
-    }
+      
+     
+      
   };
+
+  const authenticateProcess = async (authToken)=>{
+    if (authToken) {
+      setCookie("token", authToken);
+
+      const token = authToken._id;
+      const email = authToken.user;
+      try {
+        
+       
+      const verificationStatus = await get(
+        `auth/checkVerified?email=${email}`,
+        {
+          headers: { token: token },
+        }
+      );
+      const verificationObject = verificationStatus.data.data;
+      if (
+        verificationObject.accountVerified &&
+        verificationObject.emailVerified
+      ) {
+        await updateUser(email, token);
+        router.replace("/account");
+      } else if (!verificationObject.emailVerified) {
+        await sendOTPCode(email);
+        router.replace("/verifyEmail");
+      } else if (!verificationObject.accountVerified) {
+        router.replace("/verify");
+      }
+    else {
+      toast.error("could not log you in at the moment try again later");
+    }}
+   catch (error) {
+     toast.error('Could not log you in at the momment ')
+  }
+}
+
+}
 
   const returnToAccountIfLoggedIn = () => {
     if (cookie.token && cookie.token.expiry > Date.now()) {
@@ -121,6 +162,7 @@ const UserContextProvider = ({ children }) => {
         refreshUser,
         returnToAccountIfLoggedIn,
         uploadUserImage,
+        handleGoogleSignIn
       }}
     >
       {children}

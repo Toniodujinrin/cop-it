@@ -18,6 +18,7 @@ const Account = ({}) => {
       <ul className="flex flex-row text-darkGreen font-semibold lg:text-[24px] text-[16px] justify-between p-4 ">
         {sections.map((section) => (
           <li
+          key={section}
             className={` cursor-pointer ${
               currentPage == section ? "text-lightGreen" : "text-black"
             }`}

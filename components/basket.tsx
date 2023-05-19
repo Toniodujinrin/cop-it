@@ -33,8 +33,8 @@ const BasketComp = () => {
             />
           ) : (
             <div className="grid justify-center w-[80%] grid-cols-2 gap-4">
-              {basket.map((item: Basket) => (
-                <div className="space-y-2">
+              {basket.map((item: Basket, index:number) => (
+                <div key={index} className="space-y-2">
                   <ProductCard
                     _id={item.product._id}
                     setPopUpShowing={setPopUpShowing}

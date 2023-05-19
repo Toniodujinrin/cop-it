@@ -45,8 +45,9 @@ const NavBarSmall = () => {
 
       <div className="w-full flex flex-col mt-4 ml-4  ">
         <h1>Navigate</h1>
-        {items.map((item) => (
+        {items.map((item, index) => (
           <div
+          key={index}
             className="text-[18px] flex items-center justify-center space-x-4  mb-2 "
             onClick={() => {
               router.push(item.link);

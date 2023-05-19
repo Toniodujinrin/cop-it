@@ -52,7 +52,7 @@ const NavBar = () => {
             title="Deals"
             menus={[{ label: "Clothing", icon: "", href: "" }]}
           />
-          {<NavItem title="Login" />}
+          <NavItem title="Login" />
         </ul>
       </div>
       {/* serch bar div */}

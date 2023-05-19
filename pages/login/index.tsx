@@ -5,7 +5,7 @@ import Link from "next/link";
 import { UserContext } from "./../../Contexts/UserContext";
 
 const LoginPage = () => {
-  const { authenticate, returnToAccountIfLoggedIn } = useContext(UserContext);
+  const { authenticate, returnToAccountIfLoggedIn, handleGoogleSignIn } = useContext(UserContext);
   returnToAccountIfLoggedIn();
   const Schema = Joi.object({
     email: Joi.string()
@@ -124,7 +124,7 @@ const LoginPage = () => {
                 <p> Sign in </p>
               )}
             </button>
-            <button className="flex flex-row border border-black  items-center w-full py-2 rounded-md text-black justify-center">
+            <button onClick={()=>{handleGoogleSignIn()}} className="flex flex-row border border-black  items-center w-full py-2 rounded-md text-black justify-center">
               <img
                 className="w-[25px] h-[25px]
                 "
