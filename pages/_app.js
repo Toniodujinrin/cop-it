@@ -10,15 +10,18 @@ import BasketContextProvider from "../Contexts/BasketContext";
 import NavContextProvider from "../Contexts/NavBarContext";
 import ProfileContextProvider from "../Contexts/ProfileContext";
 import { SessionProvider } from "next-auth/react";
+import ReviewContextProvider from '../Contexts/ReviewContext'
 export default function App({ Component, pageProps,session }) {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-          <SessionProvider session ={session}>
+      <SessionProvider session ={session}>
       <UserContextProvider>
         <ProductContextProvider>
+          
           <ProfileContextProvider>
+            <ReviewContextProvider>
             <SignUpContextProvider>
           
               <BasketContextProvider>
@@ -29,7 +32,9 @@ export default function App({ Component, pageProps,session }) {
               </BasketContextProvider>
              
             </SignUpContextProvider>
+          </ReviewContextProvider>
           </ProfileContextProvider>
+          
         </ProductContextProvider>
       </UserContextProvider> 
       </SessionProvider>

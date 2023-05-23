@@ -127,6 +127,7 @@ const UserContextProvider = ({ children }) => {
 
 }
 
+
   const returnToAccountIfLoggedIn = () => {
     if (cookie.token && cookie.token.expiry > Date.now()) {
       router.push("/account");

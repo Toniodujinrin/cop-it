@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 const ReviewCard:React.FC<ReviewCardProps> = ({imageUrl,fullName,email,review,rating}) => {
   const router = useRouter()
   return (
-    <div className=" flex flex-row w-full items-center gap-x-2 p-4 shadow-lg rounded-[20px] ">
+    <div className=" flex flex-row w-[350px] items-center gap-x-2 p-4 shadow-lg rounded-[20px] ">
       <div className="w-[40%]">
         <div className="w-[100px] rounded-full h-[100px] bg-black  overflow-hidden">
           <img

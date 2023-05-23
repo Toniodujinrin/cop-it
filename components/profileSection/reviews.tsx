@@ -1,29 +1,46 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ProfileContext } from "../../Contexts/ProfileContext";
-import Reviews from "../accountSection/reviews";
+import ReviewCard from "../reviewCard";
+import { Review } from "../../types";
+import WriteReview from "../writeReview/writeReview";
+import GreenButton from "../greenButton";
 const ReviewsComp = () => {
   const {reviews} = useContext(ProfileContext)
-
+  const [reviewMode, setReviewMode] = useState(false)
+  const review = ''
   return (
     <div className="flex flex-col">
       {
-        <Reviews/>
+        reviewMode?
+     <WriteReview type={'user'} setReviewMode={setReviewMode}/>:
 
-      }
+<>
+
+     
+
+            <div className="lg:grid w-full lg:grid-cols-2  flex gap-4 flex-col ">
+              {
+                reviews.length>0?
+        
+                  reviews.map((review:Review,index:number) => (
+                <ReviewCard key={index} rating={review.rating} review={review.review} email={review.userId} imageUrl={review.author.imageConfig.url} fullName={`${review.author.firstName} ${review.author.lastName} `} />
+              ))
+              :
+              <div>
+                 
+              </div>
+              }
+            
+            </div>
+          
+        
+
+      
       
       <div className="w-full flex justify-end">
-      <button
-          onClick={() =>{}}
-          className={`w-[170px] p-2 mt-[20px] items-center border-2 
-           
-         bg-forestGreen border-forestGreen 
-          
-           text-white cursor-pointer  rounded-[20px]`}
-        >
-          <p> Write Review</p>
-        </button>
-      </div>
-      
+     <GreenButton loading={false} onCLick={()=>setReviewMode(true)} text={'Write Review'}/>
+      </div></>
+       }
     </div>
   );
 };

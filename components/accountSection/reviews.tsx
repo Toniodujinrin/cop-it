@@ -1,9 +1,10 @@
 import ReviewCard from "../reviewCard";
-import { ProfileContext } from "../../Contexts/ProfileContext";
+import { ReviewContext } from "../../Contexts/ReviewContext";
 import { useContext } from "react";
 import { Review } from "../../types";
 const Reviews = () => {
-  const {reviews}= useContext(ProfileContext)
+  const {reviews, refetch}= useContext(ReviewContext)
+   refetch()
 
   return (
     <div className="lg:grid lg:grid-cols-2  flex gap-4 flex-col ">
@@ -15,6 +16,7 @@ const Reviews = () => {
       ))
       :
       <div>
+        <p>No reviews</p>
          
       </div>
       }

@@ -27,8 +27,10 @@ const SignUpContextProvider = ({ children }) => {
   };
   const processEmailVerfication = async (payload) => {
     try {
+      console.log(cookie)
       payload.email = cookie.token.user;
       const res = await post("users/verifyEmail", {}, payload);
+      console.log(res)
       if (res.data) {
         const tokenObject = res.data.data;
         const token = res.data.data._id;
@@ -49,7 +51,7 @@ const SignUpContextProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      toast.error(error.response.data.data);
+      toast.error('could not verify email please try again');
       console.log(error);
     }
   };

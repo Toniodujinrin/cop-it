@@ -8,6 +8,7 @@ const ProfileContextProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [products, setProducts] = useState([]);
   const [reviews, setReviews] = useState([]);
+   
 
   const getEntireProfile = async (email) => {
     try {
@@ -20,7 +21,7 @@ const ProfileContextProvider = ({ children }) => {
         `reviews/getAllReviewsAboutUser?email=${email}`,
         {}
       );
-      console.log(userReviews)
+     
       if ((userReviews, userProducts, userProfile)) {
         setProfile(userProfile.data.data);
         setProducts(userProducts.data.data);
@@ -31,9 +32,7 @@ const ProfileContextProvider = ({ children }) => {
       toast.error("could not get user info");
     }
   };
-  useEffect(() => {
-    console.log(products, profile, reviews);
-  }, [profile, products, reviews]);
+ 
   return (
     <ProfileContext.Provider
       value={{ getEntireProfile, profile, products, reviews }}

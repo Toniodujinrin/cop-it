@@ -32,11 +32,11 @@ const NavBarSmall = () => {
             router.push("/account");
             setNavBarOpen(false);
           }}
-          className="flex flex-row items-center justify-center"
+          className="flex space-x-2 flex-row items-center justify-center"
         >
           <img
             src="../assets/profileWhite.svg"
-            className="w-[40px] h-[40px]"
+            className="w-[30px] h-[30px]"
             alt=""
           />
           <p>Your Account</p>
@@ -44,17 +44,17 @@ const NavBarSmall = () => {
       </div>
 
       <div className="w-full flex flex-col mt-4 ml-4  ">
-        <h1>Navigate</h1>
+        <h1 className="font-semibold text-[24px] mb-4">Navigate</h1>
         {items.map((item, index) => (
           <div
           key={index}
-            className="text-[18px] flex items-center justify-center space-x-4  mb-2 "
+            className="text-[18px] flex  mb-6  "
             onClick={() => {
               router.push(item.link);
               setNavBarOpen(false);
             }}
           >
-            <p>{item.name}</p>
+            <p className="cursor-pointer">{item.name}</p>
             {/* {item.name == "Basket" && <BasketNotification />} */}
           </div>
         ))}

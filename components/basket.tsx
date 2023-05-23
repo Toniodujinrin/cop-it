@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { BasketContext } from "../Contexts/BasketContext";
 import { Product } from "../types";
+import CartItem from "./cartItem";
 import DeletePopUp from "./deletePopUp";
 import ProductCard from "./productCard";
 import QuantityCounter from "./quantityCounter";
@@ -32,22 +33,19 @@ const BasketComp = () => {
               handleDelete={handleDelete}
             />
           ) : (
-            <div className="grid justify-center w-[80%] grid-cols-2 gap-4">
+            <div className="flex flex-col w-full items-center ">
               {basket.map((item: Basket, index:number) => (
-                <div key={index} className="space-y-2">
-                  <ProductCard
-                    _id={item.product._id}
-                    setPopUpShowing={setPopUpShowing}
-                    setId={setId}
-                    name={item.product.name}
-                    image={item.product.imageConfig[0].url}
-                    description={item.product.description}
+                
+                  
+
+                  <CartItem key={index} productId={item.product._id} name={item.product.name}
+                     imageUrl={item.product.imageConfig[0].url}
+                     amount={item.amount}
+                     price ={item.product.price}
+                     setProductId={setId}
+                     setDeleteAction={setPopUpShowing}
                   />
-                  <QuantityCounter
-                    setQuantity={setQuantity}
-                    quantity={item.amount}
-                  />
-                </div>
+                
               ))}
             </div>
           )

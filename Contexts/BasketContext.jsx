@@ -72,6 +72,21 @@ const BasketContextProvider = ({ children }) => {
     }
   };
 
+  const editBasketAmount = async (payload)=>{
+    try {
+      payload.email = cookie.token.user
+      console.log(payload)
+      await post('basket/editItemAmount',{headers:{token:cookie.token._id}},payload)
+      refetchBasket()
+      toast.success('Basket Updated')
+    } catch (error) {
+      console.log(error)
+      toast.error('Could not update Basket')
+    }
+    
+    
+  }
+
   return (
     <BasketContext.Provider
       value={{
@@ -80,6 +95,7 @@ const BasketContextProvider = ({ children }) => {
         addItemToBasket,
         amountInBasket,
         removeItemFromBasket,
+        editBasketAmount
       }}
     >
       {children}

@@ -5,7 +5,7 @@ import WebcamCapture from "./../webcam";
 import { useRouter } from "next/router";
 
 const Profile = ({}) => {
-  const { user } = useContext(UserContext);
+  const { user, refreshUser } = useContext(UserContext);
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user._id);
@@ -14,6 +14,7 @@ const Profile = ({}) => {
   const [changeDetected, setChangeDetected] = useState(true);
   const [webcam, setWebCam] = useState(false);
   const router = useRouter();
+   refreshUser()
   useEffect(() => {
     if (
       firstName !== user.firstName ||

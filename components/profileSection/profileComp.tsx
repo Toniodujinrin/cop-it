@@ -24,7 +24,7 @@ const ProfileComp = () => {
         <h1 className="font-bold text-[24px]  text-darkGreen ">{`${profile.firstName} ${profile.lastName}`}</h1>
       </div>
       <div className="w-full flex flex-col items-center justify-center ">
-        <ul className=" flex flex-row text-[21px] font-semibold space-x-4">
+        <ul className=" flex flex-row mb-6 text-[21px] font-semibold space-x-4">
           {sections.map((section) => (
             <li
               className={` cursor-pointer ${
