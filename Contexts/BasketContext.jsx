@@ -18,13 +18,19 @@ const BasketContextProvider = ({ children }) => {
   const { refetch: refetchBasket } = useQuery({
     queryKey: ["basketData"],
     queryFn: async () => {
-      const { data } = await get(
+      try {
+        const { data } = await get(
         `basket/getBasket?email=${cookie.token.user}`,
         {
           headers: { token: cookie.token._id },
         }
       );
       setData(data);
+      } catch (error) {
+        console.log(error)
+        
+      }
+      
     },
   });
 
