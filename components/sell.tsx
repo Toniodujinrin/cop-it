@@ -208,15 +208,15 @@ const SellComp = () => {
               "
             >
               <img
-                className="w-[100px] h-[100px] rounded-lg"
+                className="lg:w-[100px] w-[80px] h-[80px] lg:h-[100px] rounded-lg"
                 src={file}
                 alt=""
               />
-              <p> {fileDetails?.name}</p>
+              <p className="lg:text-[18px] text-[14px]"> {`${fileDetails?.name.slice(0,7)}...`}</p>
 
               <img
                 onClick={() => removeFile()}
-                className="w-[30px] h-[30px] cursor-pointer items-center"
+                className="lg:w-[30px] w-[15px] h-[15px] lg:h-[30px] cursor-pointer items-center"
                 src="../assets/close-white.svg"
                 alt=""
               />

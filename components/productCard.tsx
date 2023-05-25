@@ -29,8 +29,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
         />
       </div>
       <div>
-        <h1 className="font-semibold text-[24px] text-darkGreen ">{name}</h1>
-        <p>{description}</p>
+        <h1 className="font-semibold text-[18px] lg:text-[24px] text-darkGreen ">{`${name.slice(0,6)}...`}</h1>
+        <p>{`${description.slice(0,12)}...`}</p>
         <div className="flex justify-end mt-[40px] h-full flex-row space-x-3">
           <img
             onClick={() => {

@@ -7,9 +7,11 @@ interface ReviewCardProps{
 }
 import RateMeter from "./rateMeter";
 import { useRouter } from "next/router";
+import { useCookies } from "react-cookie";
 
 const ReviewCard:React.FC<ReviewCardProps> = ({imageUrl,fullName,email,review,rating}) => {
   const router = useRouter()
+  const [cookie]= useCookies()
   return (
     <div className=" flex flex-row w-[350px] items-center gap-x-2 p-4 shadow-lg rounded-[20px] ">
       <div className="w-[40%]">
@@ -23,7 +25,12 @@ const ReviewCard:React.FC<ReviewCardProps> = ({imageUrl,fullName,email,review,ra
         </div>
       </div>
 
-      <div className="flex w-[60&] flex-col">
+      <div className="flex w-[60%] flex-col">
+        {
+
+         cookie.token && cookie.token.user == email&&
+        <img src="../assets/trash.svg" className="w-[20px] h-[20px] self-end" alt="" />
+        }
         <h1 className="font-semibold text-[21px] text-darkGreen">
           {fullName}
         </h1>

@@ -17,7 +17,7 @@ const MyAccount = () => {
   return (
     <div>
       <NavBar />
-      <div className="w-full lg:mt-0 mt-[40px] pl-4">
+      <div className="w-full lg:mt-0 mt-[40px] ">
         {Object.keys(user).includes("_id") ? (
           <Account />
         ) : (

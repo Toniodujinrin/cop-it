@@ -34,7 +34,7 @@ const Profile = ({}) => {
       ) : (
         <div className="w-full">
           <div
-            className="border-darkGreen ml-4 border
+            className="border-darkGreen lg:ml-4 mx-auto border
        rounded-full w-[200px] h-[200px] flex flex-col overflow-hidden "
           >
             <img

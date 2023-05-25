@@ -40,41 +40,41 @@ const CartItem:React.FC<CartItemProps>=({price, imageUrl, name, amount, productI
     }, [amount])
 
     return(
-        <div className="w-full p-4 flex flex-row items-center justify-between">
+        <div className="w-full p-2 flex flex-row items-center justify-between">
                <div className=" flex flex-row gap-3">
                 <div   onClick={() => {
             router.push({ pathname: "/details", query: { id: productId } });
-          }} className="rounded-lg w-[200px] h-[200px]">
+          }} className="rounded-lg lg:w-[200px] w-[80px] h-[80px] lg:h-[200px]">
                 <img src={imageUrl} className="w-full rounded-lg h-full" alt="" />
                 </div>
-                <p className="font-semibold text-[28px] ">{name}</p>
+                <p className="font-semibold text-[18px] lg:text-[28px] ">{`${name.slice(0,5)}...`}</p>
            </div>
 
                 
                 <div className="flex flex-col items-center gap-8 ">
                 {
                     !edit?
-                    <p className="text-[21px] font-semibold">{amount}</p>:
+                    <p className="lg:text-[21px] text-[16px] font-semibold">{amount}</p>:
                     <QuantityCounter setQuantity={setQuantity} quantity={quantity}/>
                 }
                 {
                     edit?
                     <div className="flex flex-row  gap-4">
-                    <img onClick={()=>{handleAmountChange()}} className="w-[30px] h-[30px]" src="../assets/tick.svg" alt="" />
-                    <img onClick={( )=>{setEdit(false); setQuantity(amount)}} className="w-[30px] h-[30px]" src="../assets/close.svg" alt="" />
+                    <img onClick={()=>{handleAmountChange()}} className="lg:w-[30px] w-[15px] h-[15px] lg:h-[30px]" src="../assets/tick.svg" alt="" />
+                    <img onClick={( )=>{setEdit(false); setQuantity(amount)}} className="lg:w-[30px] w-[15px] h-[15px] lg:h-[30px]" src="../assets/close.svg" alt="" />
                 </div>
 
                     :
                     <div className="flex flex-row  gap-4">
-                    <img onClick={()=>{setDeleteAction(true); setProductId(productId)}} className="w-[30px] h-[30px]" src="../assets/trash.svg" alt="" />
-                    <img onClick={( )=>{setEdit(true)}} className="w-[30px] h-[30px]" src="../assets/edit.svg" alt="" />
+                    <img onClick={()=>{setDeleteAction(true); setProductId(productId)}} className="lg:w-[30px] w-[15px] h-[15px] lg:h-[30px]" src="../assets/trash.svg" alt="" />
+                    <img onClick={( )=>{setEdit(true)}} className="lg:w-[30px] w-[15px] h-[15px] lg:h-[30px]" src="../assets/edit.svg" alt="" />
                 </div>
 
                 }
               
                 </div>
 
-                <p className="font-bold text-[24px]">{`$${totalAmount}`}</p>
+                <p className="font-bold text-[18px] lg:text-[24px]">{`$${totalAmount}`}</p>
 
             
         </div>
