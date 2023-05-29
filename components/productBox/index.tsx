@@ -45,12 +45,12 @@ const ProductBox: React.FC<ProductBoxProps> = ({
 
    sm:min-h-[300px] h-[200px]  flex flex-col items-center rounded-[18px] shadow-lg"
     >
-      <div className="w-full object-cover overflow-hidden sm:h-[200px] h-[120px]">
+      <div className="w-full object-cover rounded-[18px] overflow-hidden sm:h-[200px] h-[120px]">
         <img
           onClick={() => {
             router.push({ pathname: "/details", query: { id: productId } });
           }}
-          className=" rounded-[18px] z-10 sm:h-[170px] h-[120px] w-full "
+          className="  z-10 hover:scale-150 h-full transition-[1000ms] w-full "
           src={imgUrl}
           alt=""
         />

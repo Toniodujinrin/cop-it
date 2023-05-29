@@ -5,12 +5,14 @@ import { useContext, useState } from "react";
 import RateMeter from "./rateMeter";
 import { ProductsContext } from "./../Contexts/ProductsContexts";
 import { BasketContext } from "../Contexts/BasketContext";
+import UserCard from "./userCard";
 
 const DetailsComp = () => {
   const { product } = useContext(ProductsContext);
   const { addItemToBasket } = useContext(BasketContext);
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  
   const handleBasketAdd = async () => {
     try {
       setLoading(true);
@@ -48,6 +50,10 @@ const DetailsComp = () => {
         >
           {loading ? <div className="spinnerSmall"></div> : <p>Add to Cart</p>}
         </button>
+      </div>
+      <div className="mt-[50px]">
+        <h1 className="text-darkGreen font-semibold text-[24px] mb-[30px]">Sold By:</h1>
+         <UserCard email={product.sellerId} fullName={`${product.seller.firstName} ${product.seller.lastName}`} imageUrl={product.seller.imageConfig.url}/>
       </div>
     </div>
   );

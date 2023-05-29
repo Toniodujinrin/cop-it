@@ -34,11 +34,12 @@ const NavItem: React.FC<NavItemProps> = ({ title, menus }) => {
           }}
           className={`${
             dropDownShowing ? " absolute" : "hidden"
-          } w-[400px] shadow-xl flex flex-col space-y-4 top-[40px]  rounded-[18px] bg-[#ECEAEA] h-auto py-[20px]  `}
+          } w-auto shadow-xl grid grid-cols-2 gap-4 top-[50px]  rounded-[18px] bg-[#ECEAEA] h-auto py-[20px]  `}
         >
           {menus.map((menu) => (
-            <div className="flex cursor-pointer flex-row items-center w-full px-4 ">
-              <img className="w-[40px] mr-4 h-[40px]" src={menu.icon} alt="" />
+            <div className=" cursor-pointer  flex flex-row  items-center w-full px-4 ">
+            
+              <img className="w-[100px] mr-4 rounded-lg  h-[70px]" src={menu.icon} alt="" />
               <p className="text-darkGreen font-semibold text-[21px]">
                 {menu.label}
               </p>

@@ -16,8 +16,8 @@ const Products = () => {
   };
 
   return (
-    <div className="max-h-[800px] w-full p-4 ">
-      {products.length > 0 && (
+    <div className="h-[600px] mb-4 w-full p-4 ">
+      {products.length > 0 ?
         <div
           className={` h-[600px] w-full flex ${
             popUpShowing && "items-center justify-center"
@@ -48,7 +48,13 @@ const Products = () => {
             </ul>
           )}
         </div>
-      )}
+        :
+        <div className="w-full h-full flex items-center flex-col justify-center">
+          <img className="w-[200px] h-[200px] " src="../assets/emptyBox.svg" alt="" />
+          <p className="text-[24px] text-forestGreen ">You are not selling any products</p>
+
+        </div>
+      }
       <div className="w-full flex items-end justify-end">
         <button
           onClick={() => router.push("/sell")}

@@ -44,7 +44,7 @@ const CartItem:React.FC<CartItemProps>=({price, imageUrl, name, amount, productI
                <div className=" flex flex-row gap-3">
                 <div   onClick={() => {
             router.push({ pathname: "/details", query: { id: productId } });
-          }} className="rounded-lg lg:w-[200px] w-[80px] h-[80px] lg:h-[200px]">
+          }} className="rounded-lg lg:w-[200px] w-[80px] aspect-square">
                 <img src={imageUrl} className="w-full rounded-lg h-full" alt="" />
                 </div>
                 <p className="font-semibold text-[18px] lg:text-[28px] ">{`${name.slice(0,5)}...`}</p>

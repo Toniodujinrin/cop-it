@@ -4,12 +4,13 @@ interface ReviewCardProps{
   email:string,
   review:string,
   rating:number
+  deleteAction:any
 }
 import RateMeter from "./rateMeter";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 
-const ReviewCard:React.FC<ReviewCardProps> = ({imageUrl,fullName,email,review,rating}) => {
+const ReviewCard:React.FC<ReviewCardProps> = ({imageUrl,fullName,email,review,rating, deleteAction}) => {
   const router = useRouter()
   const [cookie]= useCookies()
   return (
@@ -29,7 +30,7 @@ const ReviewCard:React.FC<ReviewCardProps> = ({imageUrl,fullName,email,review,ra
         {
 
          cookie.token && cookie.token.user == email&&
-        <img src="../assets/trash.svg" className="w-[20px] h-[20px] self-end" alt="" />
+        <img src="../assets/trash.svg" onClick={()=>deleteAction()} className="w-[20px] h-[20px] cursor-pointer self-end" alt="" />
         }
         <h1 className="font-semibold text-[21px] text-darkGreen">
           {fullName}

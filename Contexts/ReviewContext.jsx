@@ -4,12 +4,13 @@ import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 import { ProfileContext } from "./ProfileContext";
 export const ReviewContext = createContext()
-import { get, post } from "../api/config";
+import { get, post,_delete } from "../api/config";
+import { useRouter } from "next/router";
 const ReviewContextProvider  =({children})=>{
     const [cookies]= useCookies()
     const [reviews,setReviews] = useState([])
     const {getEntireProfile}= useContext(ProfileContext)
-    
+    const router = useRouter()
     const { data: reviewData, refetch } = useQuery({
         queryKey: ["reviewsAboutUser"],
         queryFn: async () =>
@@ -37,10 +38,19 @@ const ReviewContextProvider  =({children})=>{
       }
 
     }
+    const deleteReview = async (reviewId)=>{
+      try {
+        await _delete(`reviews?reviewId=${reviewId}`,{headers:{token:cookies.token._id}})
+        getEntireProfile(router.query.email)
+        toast.success('review deleted')
+      } catch (error) {
+        toast.error('could not delete review')
+      }
+    }
     
 
     return(
-    <ReviewContext.Provider value={{reviews, refetch, postUserReview}}>
+    <ReviewContext.Provider value={{reviews, refetch, postUserReview, deleteReview}}>
         {children}
     </ReviewContext.Provider>
     )

@@ -2,7 +2,7 @@ import InputGroup from "../../components/inputGroup";
 import SignUpBar from "../../components/SignUpBar";
 import { useState, useContext } from "react";
 import Joi from "joi";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { SignUpContext } from "./../../Contexts/SignUpContext";
 
 const SignUp = () => {
@@ -86,6 +86,7 @@ const SignUp = () => {
       <section className="flex flex-col mt-[50px]  lg:w-[60%] items-center w-full h-full ">
         <div>
           <img
+            onClick={()=>{router.push('/')}}
             src="../assets/logog2.svg"
             className="w-[60px] h-[60px]"
             alt=""
@@ -126,15 +127,7 @@ const SignUp = () => {
           >
             Submit
           </button>
-          <button className="flex flex-row border border-black  items-center w-full py-2 rounded-md text-black justify-center">
-            <img
-              className="w-[25px] h-[25px]
-                "
-              src="../assets/google.svg"
-              alt=""
-            />
-            <p className="font-semibold ml-4">Sign in with Google</p>
-          </button>
+          
         </form>
       </section>
     </SignUpBar>

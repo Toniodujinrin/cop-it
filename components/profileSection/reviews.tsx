@@ -4,10 +4,12 @@ import ReviewCard from "../reviewCard";
 import { Review } from "../../types";
 import WriteReview from "../writeReview/writeReview";
 import GreenButton from "../greenButton";
+import { ReviewContext } from "../../Contexts/ReviewContext";
 const ReviewsComp = () => {
   const {reviews} = useContext(ProfileContext)
   const [reviewMode, setReviewMode] = useState(false)
-  const review = ''
+  const {deleteReview} = useContext(ReviewContext)
+
   return (
     <div className="flex flex-col">
       {
@@ -23,7 +25,7 @@ const ReviewsComp = () => {
                 reviews.length>0?
         
                   reviews.map((review:Review,index:number) => (
-                <ReviewCard key={index} rating={review.rating} review={review.review} email={review.userId} imageUrl={review.author.imageConfig.url} fullName={`${review.author.firstName} ${review.author.lastName} `} />
+                <ReviewCard deleteAction={()=>deleteReview(review._id)} key={index} rating={review.rating} review={review.review} email={review.userId} imageUrl={review.author.imageConfig.url} fullName={`${review.author.firstName} ${review.author.lastName} `} />
               ))
               :
               <div>

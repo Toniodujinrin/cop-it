@@ -14,7 +14,10 @@ const Profile = ({}) => {
   const [changeDetected, setChangeDetected] = useState(true);
   const [webcam, setWebCam] = useState(false);
   const router = useRouter();
-   refreshUser()
+  useEffect(()=>{
+refreshUser()
+  },[])
+   
   useEffect(() => {
     if (
       firstName !== user.firstName ||

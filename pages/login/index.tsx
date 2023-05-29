@@ -2,9 +2,11 @@ import InputGroup from "../../components/inputGroup";
 import { useState, useContext } from "react";
 import Joi from "joi";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { UserContext } from "./../../Contexts/UserContext";
 
 const LoginPage = () => {
+  const router = useRouter()
   const { authenticate, returnToAccountIfLoggedIn, handleGoogleSignIn } = useContext(UserContext);
   returnToAccountIfLoggedIn();
   const Schema = Joi.object({
@@ -78,6 +80,7 @@ const LoginPage = () => {
       <section className="lg:w-[50%] w-full flex flex-col justify-center items-center">
         <div className="w-full lg:hidden pt-3 pl-4">
           <img
+          onClick={()=>{router.push('/')}}
             src="../assets/logog2.svg"
             className="w-[70px] h-[70px]"
             alt=""
@@ -124,7 +127,7 @@ const LoginPage = () => {
                 <p> Sign in </p>
               )}
             </button>
-            <button onClick={()=>{handleGoogleSignIn()}} className="flex flex-row border border-black  items-center w-full py-2 rounded-md text-black justify-center">
+            <button onClick={()=>{setLoading(true);handleGoogleSignIn()}} className="flex flex-row border border-black  items-center w-full py-2 rounded-md text-black justify-center">
               <img
                 className="w-[25px] h-[25px]
                 "

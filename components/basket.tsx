@@ -51,7 +51,7 @@ const BasketComp = () => {
           )
         ) : (
           <div
-            className=" flex flex-col items-center space-y-4
+            className=" flex flex-col h-[600px] justify-center items-center space-y-4
           "
           >
             <img

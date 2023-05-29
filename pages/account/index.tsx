@@ -9,10 +9,9 @@ import { useQuery } from "react-query";
 const MyAccount = () => {
   const { refreshUser, user } = useContext(UserContext);
 
-  useQuery({
-    queryKey: ["user"],
-    queryFn: async () => await refreshUser(),
-  });
+ useEffect(()=>{
+  refreshUser()
+ },[])
 
   return (
     <div>

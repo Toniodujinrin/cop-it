@@ -12,7 +12,19 @@ const ProductsContextProvider = ({ children }) => {
   const [cookies, setCookies] = useCookies();
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState();
-  const querClient = useQueryClient();
+  const [featuredProducts, setFeaturedProducts]= useState([])
+  
+
+  const { refetch:refetchFeaured} = useQuery({
+    queryKey:['featuredProducts'],
+    queryFn:async()=>{
+      const featuredProduct = await get('products/getFeatured',{})
+      if(featuredProduct && featuredProduct.data &&featuredProduct.data.data){
+        setFeaturedProducts(featuredProduct.data.data)
+      }
+    }
+  })
+  
 
   const { data: productData, refetch } = useQuery({
     queryKey: ["productsByUser"],
@@ -33,6 +45,8 @@ const ProductsContextProvider = ({ children }) => {
     try {
       const product = await get(`products?productId=${productId}`);
       if (product) {
+        const seller = await get(`users/getProfile?email=${product.data.data.sellerId}`, {});
+        product.data.data.seller = seller.data.data
         setProduct(product.data.data);
       }
     } catch (error) {
@@ -82,6 +96,8 @@ const ProductsContextProvider = ({ children }) => {
       toast.error(error.response.data.data);
     }
   };
+ 
+  
 
   return (
     <ProductsContext.Provider
@@ -92,6 +108,7 @@ const ProductsContextProvider = ({ children }) => {
         refreshProducts,
         getProduct,
         product,
+        featuredProducts
       }}
     >
       {children}
