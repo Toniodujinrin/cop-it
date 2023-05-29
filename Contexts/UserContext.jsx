@@ -16,7 +16,7 @@ const UserContextProvider = ({ children }) => {
   
   useEffect(()=>{
     const googleSignInProcess = async ()=>{
-      if(session && !cookie.token){
+      if(session && !cookie.token && session.user){
         console.log('session email' ,session.user.email)
         try {
         const googleAuthData = await post('auth/googleAuthenticate',{},{email:session.user.email})

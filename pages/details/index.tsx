@@ -23,6 +23,7 @@ const Details = () => {
     } catch (error) {}
   }, [productId]);
 
+
   return (
     <>
       <NavBar />
@@ -47,7 +48,12 @@ const Details = () => {
           <div className=" lg:w-[25%] h-full   flex items-center justify-center "></div>
         </div>
       ) : (
-        <div></div>
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="flex flex-col items-center mb-[50px]">
+          <img className=" w-[200px] h-[200px]" src="../assets/magnifyingGlass.svg" alt="" />
+          <h1 className="text-[24px] text-forestGreen">Product Not Found</h1>
+          </div>
+        </div>
       )}
     </>
   );
