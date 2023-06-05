@@ -17,6 +17,10 @@
     transform: rotate(360deg);
   }
 }
+input:focus{
+  outline: none !important;
+
+}
 
 .spinner:before {
   content: "";
@@ -44,7 +48,7 @@
   display: block;
   width: 18px;
   height: 18px;
-  margin: 1px;
+  
   border-radius: 50%;
   border: 1.5px solid #fff;
   border-color: #fff transparent #fff transparent;
@@ -69,7 +73,7 @@
   display: block;
   width: 18px;
   height: 18px;
-  margin: 1px;
+  
   border-radius: 50%;
   border: 1.5px solid #003d00;
   border-color: #003d00 transparent#003d00 transparent;
@@ -83,3 +87,169 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+.movie--isloading {
+  background: #f7f7f7;
+  width: 280px;
+  height: 300px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border-radius:18px;
+}
+
+.movie--isloading .loading-image {
+  height: 200px;
+  border-radius:18px;
+ 
+  background-image: -webkit-linear-gradient(left, #ececec 0px, #f4f4f4 40px, #ececec 80px);
+  background-image: -o-linear-gradient(left, #ececec 0px, #f4f4f4 40px, #ececec 80px);
+  background-image: linear-gradient(90deg, #ececec 0px, #f4f4f4 40px, #ececec 80px);
+  background-size: 250px;
+  -webkit-animation: shine-loading-image 2s infinite ease-out;
+          animation: shine-loading-image 2s infinite ease-out;
+}
+
+.movie--isloading .loading-content {
+  background: #f7f7f7;
+  padding: 15px;
+  
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.movie--isloading .loading-content .loading-text-container {
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+}
+
+.movie--isloading .loading-content .loading-main-text {
+  height: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  background: #ececec;
+  background-image: -webkit-linear-gradient(left, #ececec 0px, #ddd 40px, #ececec 80px);
+  background-image: -o-linear-gradient(left, #ececec 0px, #ddd 40px, #ececec 80px);
+  background-image: linear-gradient(90deg, #ececec 0px, #ddd 40px, #ececec 80px);
+  background-size: 250px;
+  border-radius: 10px;
+  -webkit-animation: shine-loading-container-items 2s infinite ease-out;
+          animation: shine-loading-container-items 2s infinite ease-out;
+}
+
+.movie--isloading .loading-content .loading-sub-text {
+  height: 10px;
+  width: 50%;
+  background: #ececec;
+  background-image: -webkit-linear-gradient(left, #ececec 0px, #ddd 40px, #ececec 80px);
+  background-image: -o-linear-gradient(left, #ececec 0px, #ddd 40px, #ececec 80px);
+  background-image: linear-gradient(90deg, #ececec 0px, #ddd 40px, #ececec 80px);
+  background-size: 250px;
+  border-radius: 10px;
+  -webkit-animation: shine-loading-container-items 2s infinite ease-out;
+          animation: shine-loading-container-items 2s infinite ease-out;
+}
+
+
+
+
+@-webkit-keyframes shine-loading-image {
+  0% {
+    background-position: -32px;
+  }
+  40%, 100% {
+    background-position: 208px;
+  }
+}
+
+
+@keyframes shine-loading-image {
+  0% {
+    background-position: -32px;
+  }
+  40%, 100% {
+    background-position: 208px;
+  }
+}
+
+@-webkit-keyframes shine-loading-container-items {
+  0% {
+    background-position: -100px;
+  }
+  40%, 100% {
+    background-position: 140px;
+  }
+}
+
+@keyframes shine-loading-container-items {
+  0% {
+    background-position: -100px;
+  }
+  40%, 100% {
+    background-position: 140px;
+  }
+}
+
+@media(max-width: 769px) {
+  .movie--isloading{
+    width: 100%; 
+    height:200px ;
+  }
+  .movie--isloading .loading-image {
+    height: 120px;
+  }
+  
+}
+.PhoneInput{
+  height:fit-content;
+  padding: 8px;
+  width: 100%;
+  border-bottom: solid 2px #e9e9e9 ;
+  font-size: 21px;
+  font-weight: 600;
+  --PhoneInputCountrySelectArrow-opacity:0
+
+ 
+  
+ 
+}
+.css-13cymwt-control{
+  
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: solid 2px #e9e9e9 !important;
+  border-radius: 0 !important;
+  
+  
+  
+}
+
+
+.css-eghnyf-Jt{
+  width: 100% !important;
+  
+  
+}
+
+
+
+
+.PhoneInputInput:focus{
+  border: none;
+  outline: none;
+}
+.PhoneInput--focus{
+  outline: none;
+}
+

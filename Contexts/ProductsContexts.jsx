@@ -13,6 +13,10 @@ const ProductsContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState();
   const [featuredProducts, setFeaturedProducts]= useState([])
+  const [searchedProducts,setSearchedProducts]= useState([])
+  const [searchLoading, setSearchLoading] = useState()
+  const [productLoading, setProductLoading]= useState(false)
+  
   
 
   const { refetch:refetchFeaured} = useQuery({
@@ -41,17 +45,22 @@ const ProductsContextProvider = ({ children }) => {
   }, [productData]);
 
   const getProduct = async (productId) => {
-    console.log(productId);
+    
     try {
+      setProductLoading(true)
       const product = await get(`products?productId=${productId}`);
       if (product) {
         const seller = await get(`users/getProfile?email=${product.data.data.sellerId}`, {});
         product.data.data.seller = seller.data.data
         setProduct(product.data.data);
       }
+     
     } catch (error) {
       console.log(error);
       toast.error("product not found");
+    }
+    finally{
+       setProductLoading(false)
     }
   };
 
@@ -96,19 +105,61 @@ const ProductsContextProvider = ({ children }) => {
       toast.error(error.response.data.data);
     }
   };
+
+  const searchProductsByCategory = async (category)=>{
+    try {
+      setProductLoading(true)
+      const data = await get(`products/getByCategory?category=${category}`)
+      if(data){
+       setSearchedProducts(data.data.data)
+      }
+      
+
+    } catch (error) {
+      console.log(error)
+      
+    }
+    finally{
+      setProductLoading(false)
+    }
+
+  }
+
+  const searchProductsByName = async (name)=>{
+    try {
+      setProductLoading(true)
+      const data = await get(`products/getByName?name=${name}`)
+      if(data){
+       setSearchedProducts(data.data.data)
+      }
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+    finally{
+      setProductLoading(false)
+
+    }
+
+  }
  
   
 
   return (
     <ProductsContext.Provider
       value={{
+        productLoading,
         products,
         deleteProduct,
         postProduct,
         refreshProducts,
         getProduct,
         product,
-        featuredProducts
+        searchProductsByCategory,
+        searchedProducts,
+        featuredProducts,
+        searchProductsByName
       }}
     >
       {children}

@@ -10,7 +10,7 @@ const Reviews = () => {
    
 
   return (
-    <div className="h-[600px] w-full">
+    <div className="h-[600px] p-4 w-full">
       {
 
         reviews.length>0?

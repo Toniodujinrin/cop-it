@@ -1,0 +1,38 @@
+
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
+import { useEffect, useState } from "react";
+
+
+const AddressInput= ({ label,
+    errors,
+    value,
+    setValue,
+   
+    })=>{
+   
+   const [_value,_setValue] = useState(value)
+  useEffect(()=>{
+   setValue(_value.label)
+  },[_value])
+
+
+    return(
+        <div className="flex flex-col items-start">
+        <label className="text-[#9c9c9c] focus:text-forestGreen text-[16px] font-semibold">{label}</label>
+        <GooglePlacesAutocomplete
+        
+        selectProps={{
+          _value,
+          onChange:_setValue,
+        }}
+      apiKey="AIzaSyDPlqxtmb75i7fhzojy140n1KFdCBrDH9o"
+    />
+          
+        
+        <small className=" text-red-500">{errors}</small>
+        </div>
+    )
+
+}
+
+export default AddressInput

@@ -40,7 +40,7 @@ const ReviewsComp = () => {
       
       
       <div className="w-full flex justify-end">
-     <GreenButton loading={false} onCLick={()=>setReviewMode(true)} text={'Write Review'}/>
+     <GreenButton disabled={false} loading={false} onCLick={()=>setReviewMode(true)} text={'Write Review'}/>
       </div></>
        }
     </div>

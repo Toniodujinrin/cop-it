@@ -10,8 +10,9 @@ export const UserContext = createContext();
 const UserContextProvider = ({ children }) => {
   const router = useRouter();
   const {data:session}= useSession()
-  const [cookie, setCookie] = useCookies();
+  const [cookie, setCookie, removeCookie] = useCookies();
   const [user, setUser] = useState({});
+  const [googleLoading, setGoogleLoading]= useState(false)
   
   
   useEffect(()=>{
@@ -19,8 +20,8 @@ const UserContextProvider = ({ children }) => {
       if(session && !cookie.token && session.user){
         console.log('session email' ,session.user.email)
         try {
+        setGoogleLoading(true)
         const googleAuthData = await post('auth/googleAuthenticate',{},{email:session.user.email})
-        console.log('google auth data',googleAuthData)
         await authenticateProcess(googleAuthData.data.data) } 
         catch (error) {
         toast.error('an error occured')
@@ -33,6 +34,17 @@ const UserContextProvider = ({ children }) => {
   
   const handleGoogleSignIn = async ()=>{
     signIn(); 
+  }
+  
+  const refreshUserAndNotRoute = async()=>{
+    if(cookie.token){
+    try {
+      await updateUser(cookie.token.user, cookie.token._id);
+    } catch (error) {
+      console.log(error)
+    }
+    }
+  
   }
   
   const refreshUser = async () => {
@@ -70,7 +82,7 @@ const UserContextProvider = ({ children }) => {
       const user = await getUser(email, token);
       if (user) setUser(user.data.data);
     } catch (error) {
-      throw error;
+      console.log(error)
     }
   };
 
@@ -152,9 +164,16 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
+  const handleLogout = ()=>{
+    removeCookie('token');
+    signOut()
+    router.replace('/login')
+  }
+
   return (
     <UserContext.Provider
       value={{
+        googleLoading,
         user,
         setUser,
         authenticate,
@@ -163,7 +182,9 @@ const UserContextProvider = ({ children }) => {
         refreshUser,
         returnToAccountIfLoggedIn,
         uploadUserImage,
-        handleGoogleSignIn
+        handleGoogleSignIn, 
+        handleLogout,
+        refreshUserAndNotRoute
       }}
     >
       {children}

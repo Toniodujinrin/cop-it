@@ -7,7 +7,7 @@ import { UserContext } from "./../../Contexts/UserContext";
 
 const LoginPage = () => {
   const router = useRouter()
-  const { authenticate, returnToAccountIfLoggedIn, handleGoogleSignIn } = useContext(UserContext);
+  const { authenticate, returnToAccountIfLoggedIn, handleGoogleSignIn, googleLoading } = useContext(UserContext);
   returnToAccountIfLoggedIn();
   const Schema = Joi.object({
     email: Joi.string()
@@ -121,7 +121,7 @@ const LoginPage = () => {
               disabled={loading}
               className="bg-forestGreen w-full py-2 flex justify-center items-center rounded-md text-white"
             >
-              {loading ? (
+              {loading || googleLoading ? (
                 <div className="spinnerSmall"></div>
               ) : (
                 <p> Sign in </p>

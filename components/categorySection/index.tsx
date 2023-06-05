@@ -2,47 +2,49 @@ import { CCarousel, CCarouselItem } from "@coreui/react";
 import "@coreui/coreui/dist/css/coreui.min.css";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const Categories = () => {
+  const router = useRouter()
   const categoryData = [
     {
       name: "Electronics",
-      href: "",
+      href: "/list?category=Electronics",
       iconUrl: "../../assets/electronicsCategory.jpg",
     },
     {
       name: "Clothing",
-      href: "",
+      href: "/list?category=Clothing",
       iconUrl: "../../assets/clothesCategory.jpg",
     },
     {
       name: "Games",
-      href: "",
+      href: "/list?category=Games",
       iconUrl: "../../assets/gamesCategory.jpg",
     },
     {
       name: "Food",
-      href: "",
+      href: "/list?category=Food",
       iconUrl: "../../assets/foodCategory.jpg",
     },
     {
       name: "Books",
-      href: "",
+      href: "/list?category=Books",
       iconUrl: "../../assets/booksCategory.jpg",
     },
     {
       name: "Shoes",
-      href: "",
+      href: "/list?category=Shoes",
       iconUrl: "../../assets/shoesCategory.jpg",
     },
     {
       name: "Stationary",
-      href: "",
+      href: "/list?category=Stationary",
       iconUrl: "../../assets/stationaryCategory.jpg",
     },
     {
       name: "Furniture",
-      href: "",
+      href: "/list?category=Furniture",
       iconUrl: "../../assets/furnitureCategory.jpg",
     },
   ];
@@ -82,7 +84,7 @@ const Categories = () => {
                 (item, index) =>
                   index <= (carouselIndex + 1) * getNumberOfCategories(300) &&
                   index >= carouselIndex * getNumberOfCategories(300) && (
-                    <div className="w-[300px]  h-[100px] cursor-pointer justify-between rounded-[18px] overflow-hidden flex items-center px-2  shadow-md">
+                    <div onClick={()=>router.push(item.href)} className="w-[300px]  h-[100px] cursor-pointer justify-between rounded-[18px] overflow-hidden flex items-center px-2  shadow-md">
                       <h1 className=" lg:text-[24px] text-[18px] p-2 text-darkGreen">
                         {item.name}
                       </h1>

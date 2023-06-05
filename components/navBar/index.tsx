@@ -11,6 +11,9 @@ const NavBar = () => {
   const [search, setSearch] = useState("");
   const { setNavBarOpen } = useContext(NavContext);
   const [cookie] = useCookies();
+  const handleSearch = ()=>{
+    router.push(`list?search=${search}`)
+  }
   return (
     <div className="w-full h-[100px] lg:pt-0 pt-[20px] px-4 justify-around flex lg:flex-row flex-col items-center">
       {/* logo div */}
@@ -37,31 +40,34 @@ const NavBar = () => {
       <div className="lg:flex flex-row space-x-3 mx-4 hidden">
        
           <NavItem
+          href=""
             title="Categories"
             menus={[
-              { label: "Games", icon: "../../assets/gamesCategory.jpg", href: "" },
-              { label: "Food", icon: "../../assets/foodCategory.jpg", href: "" },
+              { label: "Games", icon: "../../assets/gamesCategory.jpg", href: "/list?category=Games" },
+              { label: "Food", icon: "../../assets/foodCategory.jpg", href: "/list?category=Food" },
               {
                 label: "Clothes",
                 icon: "../../assets/clothesCategory.jpg",
-                href: "",
+                href: "/list?category=Clothing",
               },
-              { label: "Shoes", icon: "../../assets/shoesCategory.jpg", href: "" },
-              { label: "Electronics", icon: "../../assets/electronicsCategory.jpg", href: "" },
+              { label: "Shoes", icon: "../../assets/shoesCategory.jpg", href: "/list?category=Shoes" },
+              { label: "Electronics", icon: "../../assets/electronicsCategory.jpg", href: "/list?category=Electronics" },
               {
                 label: "Furniture",
                 icon: "../../assets/furnitureCategory.jpg",
-                href: "",
+                href: "/list?category=Furniture",
               },
             ]}
           />
       
-          <NavItem title="Login" />
+          <NavItem href="/login" title="Login" />
+          <NavItem href="/profiles" title="Profiles"/>
        
       </div>
       {/* serch bar div */}
       <div className="flex flex-row items-center space-x-[40px] ">
         <SearchBar
+        handleSearch={handleSearch}
           value={search}
           setValue={setSearch}
           placeholder={"search for any item"}

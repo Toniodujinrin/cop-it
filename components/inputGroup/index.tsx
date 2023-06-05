@@ -5,6 +5,7 @@ interface InputGroupProps {
   label: string;
   setValue: Dispatch<SetStateAction<string>>;
   type: string;
+
 }
 
 const InputGroup: React.FC<InputGroupProps> = ({
@@ -12,21 +13,29 @@ const InputGroup: React.FC<InputGroupProps> = ({
   errors,
   value,
   setValue,
+ 
   type,
 }) => {
   return (
-    <div className="flex flex-col w-full">
-      <label className="text-darkGreen font-semibold">{label}</label>
+    
+      
+      
+      <div className="flex w-full flex-col items-start">
+      <label className="text-[#9c9c9c] focus:text-forestGreen text-[16px] font-semibold">{label}</label>
       <input
-        className="border focus:outline-none border-[#5A5353] w-full p-2 rounded-lg"
+      
+        className=" font-semibold text-[21px] border-b-2 focus:border-forestGreen border-lightGray focus:outline-none w-full p-2 "
         type={type}
         value={value}
         onChange={(e) => {
           setValue(e.currentTarget.value);
         }}
-      />
+      >
+        
+      </input>
       <small className=" text-red-500">{errors}</small>
-    </div>
+      </div>
+   
   );
 };
 

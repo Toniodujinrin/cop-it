@@ -50,7 +50,7 @@ const WriteReview:React.FC<WriteReviewProps> = ({setReviewMode,type})=>{
         }
 
         </div>
-         <GreenButton loading={loading} onCLick={()=>{handleSubmit()}} text={'Submit'}/>
+         <GreenButton disabled={value.length<1} loading={loading} onCLick={()=>{handleSubmit()}} text={'Submit'}/>
       </div> 
     )
 

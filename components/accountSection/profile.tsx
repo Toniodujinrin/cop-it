@@ -3,9 +3,12 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "./../../Contexts/UserContext";
 import WebcamCapture from "./../webcam";
 import { useRouter } from "next/router";
+import 'react-phone-number-input/style.css'
 
+import PhoneInputComp from "../inputGroup/phoneInput";
+import AddressInput from "../inputGroup/addressInput";
 const Profile = ({}) => {
-  const { user, refreshUser } = useContext(UserContext);
+  const { user, refreshUser, handleLogout } = useContext(UserContext);
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user._id);
@@ -80,31 +83,23 @@ refreshUser()
               errors=""
               type="string"
             />
-            <InputGroup
-              label="Phone Number"
-              value={phone}
-              setValue={setPhone}
-              errors=""
-              type="string"
-            />
-            <InputGroup
-              label="Address"
-              value={address}
-              setValue={setAddress}
-              errors=""
-              type="string"
-            />
+           <PhoneInputComp label='Phone' setValue={setPhone} value={phone} errors={''}/>
+            <InputGroup type="string" label="Address" value={address} setValue={setAddress} errors={''}/>
             <div></div>
+            
 
             <button
               disabled={!changeDetected}
               className={`w-[170px] p-2 mt-[20px] items-center border-2 ${
                 changeDetected
-                  ? `bg-forestGreen border-forestGreen `
+                   ? `bg-forestGreen border-forestGreen `
                   : `bg-slate-500`
               }  text-white cursor-pointer  rounded-[20px]`}
             >
-              <p>Save</p>
+              <p className="m-0 p-0">Save</p>
+            </button>
+            <button onClick={()=>handleLogout()} className="flex border-2 rounded-[20px] text-red-600 border-red-600 bg-white w-[170px] p-2 mt-[20px] items-center  justify-center">
+              <p className="m-0 p-0">Log out</p>
             </button>
           </div>
         </div>
