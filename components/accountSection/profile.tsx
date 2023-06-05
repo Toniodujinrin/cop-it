@@ -46,8 +46,8 @@ refreshUser()
             <div className="h-[80%] flex items-center justify-center">
             <img
               onClick={() => router.push(`/profile?email=${email}`)}
-              className={` ${user.imageConfig?  'w-full h-full object-cover':'w-[80%] h-[80%]' } `}
-              src={user.imageConfig ? user.imageConfig.url : "../assets/profilePic.svg"}
+              className={` ${user.imageConfig && user.imageConfig.url?  'w-full h-full object-cover':'w-[80%] h-[80%]' } `}
+              src={user.imageConfig && user.imageConfig.url ? user.imageConfig.url : "../assets/profilePic.svg"}
               alt=""
             />
             </div>
