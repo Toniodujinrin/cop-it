@@ -3,6 +3,10 @@ import SignUpBar from "../../components/SignUpBar";
 import { useState, useContext } from "react";
 import Joi from "joi";
 import { SignUpContext } from "../../Contexts/SignUpContext";
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+import AddressInput from "../../components/inputGroup/addressInput";
+import PhoneInputComp from "../../components/inputGroup/phoneInput";
 
 const Verify = () => {
   const { processAccountVerification } = useContext(SignUpContext);
@@ -15,7 +19,7 @@ const Verify = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState<string|undefined>("");
 
   const [errors, setErrors] = useState({
     firstName: "",
@@ -25,11 +29,13 @@ const Verify = () => {
   });
 
   const handleSubmit = async (e: any) => {
+   
     e.preventDefault();
     const errorsObject = Schema.validate(
       { firstName, lastName, address, phone },
       { abortEarly: false }
-    );
+    ); 
+    
     if (errorsObject.error) {
       const temporaryErrorObject = {
         firstName: "",
@@ -95,7 +101,7 @@ const Verify = () => {
         </h1>
 
         <form className="lg:w-[700px]   pt-[40px] space-y-4" action="">
-          <div className="w-full h-auto flex  lg:grid grid-cols-2 lg:justify-items-start justify-center">
+          <div className="w-full h-auto flex flex-col  lg:grid grid-cols-2 lg:justify-items-start justify-center">
             <InputGroup
               value={firstName}
               setValue={setFirstName}
@@ -110,21 +116,13 @@ const Verify = () => {
               type={"string"}
               label={"Last Name"}
             />
-            <InputGroup
-              value={phone}
-              setValue={setPhone}
-              errors={errors.phone}
-              type={"string"}
-              label={"Phone"}
-            />
+             <div>
+            
+            <PhoneInputComp label="Phone" value={phone} setValue={setPhone} errors={errors.phone}/>
+            
           </div>
-          <InputGroup
-            value={address}
-            setValue={setAddress}
-            type={"text"}
-            errors={errors.address}
-            label={"Address"}
-          />
+          </div>
+         <AddressInput label={'Address'} errors={errors.address} value={address} setValue={setAddress}/>
           <div className="w-full flex flex-col items-center">
             <button
               className="w-[400px] h-[50px] rounded-md bg-forestGreen text-white font-semibold "
