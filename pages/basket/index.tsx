@@ -1,5 +1,5 @@
 import NavBar from "../../components/navBar";
-import BasketComp from "./../../components/basket";
+import BasketComp from "../../components/basketSection/basket";
 import { useContext } from "react";
 import { useQuery } from "react-query";
 import { BasketContext } from "../../Contexts/BasketContext";

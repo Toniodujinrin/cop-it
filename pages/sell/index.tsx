@@ -1,5 +1,5 @@
 import NavBar from "../../components/navBar";
-import SellComp from "./../../components/sell";
+import SellComp from "../../components/sellSection/sell";
 const Sell = () => {
   return (
     <div>

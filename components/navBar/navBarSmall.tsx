@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useContext } from "react";
-import { NavContext } from "../Contexts/NavBarContext";
-import BasketNotification from "./basketNotification";
+import { NavContext } from "../../Contexts/NavBarContext";
+import BasketNotification from "../basketSection/basketNotification";
 const NavBarSmall = () => {
   const { setNavBarOpen, navBarOpen } = useContext(NavContext);
   const router = useRouter();

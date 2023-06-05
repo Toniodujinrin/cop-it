@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CheckOutComp from "../../components/checkout";
+import CheckOutComp from "../../components/checkout/checkout";
 import NavBar from "../../components/navBar";
 
 const CheckOut = ()=>{

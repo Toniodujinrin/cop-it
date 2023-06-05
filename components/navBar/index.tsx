@@ -4,7 +4,7 @@ import NavItem from "./navItem";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import { NavContext } from "./../../Contexts/NavBarContext";
-import BasketNotification from "../basketNotification";
+import BasketNotification from "../basketSection/basketNotification";
 
 const NavBar = () => {
   const router = useRouter();

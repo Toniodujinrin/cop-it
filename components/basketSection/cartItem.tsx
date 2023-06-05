@@ -1,7 +1,7 @@
-import QuantityCounter from "./quantityCounter"
+import QuantityCounter from "../quantityCounter"
 import { useRouter } from "next/router"
 import { Dispatch, SetStateAction, useEffect, useState, useContext } from "react"
-import { BasketContext } from "../Contexts/BasketContext"
+import { BasketContext } from "../../Contexts/BasketContext"
 interface CartItemProps{
     price:number
     name:string

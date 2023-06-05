@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { FileUploader } from "react-drag-drop-files";
-import InputGroup from "./inputGroup";
-import FileUpload from "./fileUpload";
+import InputGroup from "../inputGroup";
+import FileUpload from "../fileUpload";
 import Joi from "joi";
-import { ProductsContext } from "./../Contexts/ProductsContexts";
+import { ProductsContext } from "../../Contexts/ProductsContexts";
 const SellComp = () => {
   const { postProduct } = useContext(ProductsContext);
   const [name, setName] = useState("");

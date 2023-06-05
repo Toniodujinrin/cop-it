@@ -4,6 +4,7 @@ import Products from "./products";
 import { ProfileContext } from "../../Contexts/ProfileContext";
 
 import ReviewsComp from "./reviews";
+import ProfilePic from "../profilepic";
 const ProfileComp = () => {
   const [currentSection, setSection] = useState("Products");
   const { profile } = useContext(ProfileContext);
@@ -15,11 +16,7 @@ const ProfileComp = () => {
           className="border-darkGreen border
        rounded-full w-[200px] h-[200px] mb-4 flex flex-col  overflow-hidden "
         >
-          <img
-            className="h-full object-cover"
-            src={profile.imageConfig.url}
-            alt=""
-          />
+          <ProfilePic email='' imageUrl={profile.imageUrl} />
         </div>
         <h1 className="font-bold text-[24px]  text-darkGreen ">{`${profile.firstName} ${profile.lastName}`}</h1>
       </div>

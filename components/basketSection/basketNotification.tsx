@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BasketContext } from "./../Contexts/BasketContext";
+import { BasketContext } from "../../Contexts/BasketContext";
 
 const BasketNotification = () => {
   const { amountInBasket } = useContext(BasketContext);

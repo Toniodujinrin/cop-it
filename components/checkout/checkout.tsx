@@ -1,10 +1,10 @@
-import BackButton from "./backButton"
-import InputGroup from "./inputGroup"
+import BackButton from "../backButton"
+import InputGroup from "../inputGroup"
 import { useState, useEffect } from "react";
 import { useContext } from "react";
-import { UserContext } from "../Contexts/UserContext";
-import PhoneInputComp from "./inputGroup/phoneInput";
-import AddressInput from './inputGroup/addressInput'
+import { UserContext } from "../../Contexts/UserContext";
+import PhoneInputComp from "../inputGroup/phoneInput";
+import AddressInput from '../inputGroup/addressInput'
 
 const CheckOutComp = ()=>{
   const {user,refreshUserAndNotRoute}= useContext(UserContext)
@@ -13,7 +13,6 @@ const CheckOutComp = ()=>{
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  console.log(user)
   
   useEffect(() => {
     refreshUserAndNotRoute()

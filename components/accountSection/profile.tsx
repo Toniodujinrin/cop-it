@@ -43,12 +43,14 @@ refreshUser()
             className="border-darkGreen lg:ml-4 mx-auto border
        rounded-full w-[200px] h-[200px] flex flex-col overflow-hidden "
           >
+            <div className="h-[80%] flex items-center justify-center">
             <img
               onClick={() => router.push(`/profile?email=${email}`)}
-              className="h-[90%] object-cover"
-              src={user.imageConfig ? user.imageConfig.url : ""}
+              className={` ${user.imageConfig?  'w-full h-full object-cover':'w-[80%] h-[80%]' } `}
+              src={user.imageConfig ? user.imageConfig.url : "../assets/profilePic.svg"}
               alt=""
             />
+            </div>
             <div
               className="bg-darkGreen h-[20%] flex justify-center items-end w-full
          "

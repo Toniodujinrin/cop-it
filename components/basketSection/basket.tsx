@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
-import { BasketContext } from "../Contexts/BasketContext";
-import { Product } from "../types";
+import { BasketContext } from "../../Contexts/BasketContext";
+import { Product } from "../../types";
 import CartItem from "./cartItem";
-import DeletePopUp from "./deletePopUp";
-import GreenButton from "./greenButton";
-import ProductCard from "./productCard";
-import QuantityCounter from "./quantityCounter";
+import DeletePopUp from "../deletePopUp";
+import GreenButton from "../greenButton";
+import ProductCard from "../productCard";
+import QuantityCounter from "../quantityCounter";
 interface Basket {
   product: Product;
   amount: number;

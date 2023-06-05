@@ -4,7 +4,7 @@ import { useState, createContext, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
 import { useRouter } from "next/router";
-import NavBarSmall from "../components/navBarSmall";
+import NavBarSmall from "../components/navBar/navBarSmall";
 
 export const NavContext = createContext();
 
