@@ -30,7 +30,7 @@ const ProductsContextProvider = ({ children }) => {
   })
   
 
-  const { data: productData, refetch } = useQuery({
+  const { data: productData, refetch:refreshProducts } = useQuery({
     queryKey: ["productsByUser"],
     queryFn: async () =>
       await get(
@@ -93,9 +93,7 @@ const ProductsContextProvider = ({ children }) => {
       toast.error(err.response.data.data);
     }
   };
-  const refreshProducts = async () => {
-    refetch();
-  };
+ 
 
   const deleteProduct = async (_id) => {
     try {

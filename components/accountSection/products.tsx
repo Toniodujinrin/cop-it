@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { ProductsContext } from "../../Contexts/ProductsContexts";
 import { Product } from "../../types";
 import { useRouter } from "next/router";
@@ -9,11 +9,14 @@ import DeletePopUp from "../deletePopUp";
 const Products = () => {
   const router = useRouter();
   const [popUpShowing, setPopUpShowing] = useState(false);
-  const { products, deleteProduct } = useContext(ProductsContext);
+  const { products, deleteProduct, refreshProducts } = useContext(ProductsContext);
   const [_id, setId] = useState("");
   const handleDelete = () => {
     deleteProduct(_id);
   };
+  useEffect(() => {
+    refreshProducts();
+  }, []);
 
   return (
     <div className="h-[600px] mb-4 w-full p-4 ">
