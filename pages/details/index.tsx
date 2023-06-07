@@ -12,7 +12,7 @@ const Details = () => {
   const { getProduct, product, productLoading } = useContext(ProductsContext);
   const router = useRouter();
   const productId = router.query.id;
-
+ 
 
   useEffect(() => {
     try {
