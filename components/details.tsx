@@ -6,13 +6,38 @@ import RateMeter from "./rateMeter";
 import { ProductsContext } from "./../Contexts/ProductsContexts";
 import { BasketContext } from "../Contexts/BasketContext";
 import UserCard from "./userCard";
+import { CheckoutContext } from "../Contexts/CheckoutContext";
+import { toast } from "react-toastify";
 
 const DetailsComp = () => {
   const { product } = useContext(ProductsContext);
+  const {createCheckout} = useContext(CheckoutContext)
   const { addItemToBasket } = useContext(BasketContext);
+  const [buyLoading,setBuyLoading] = useState(false)
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  
+  const handleBuyNow =async ( )=>{
+    if(quantity<= product.numberInStock){
+      try {
+      setBuyLoading(true)
+      const payload = {
+        products:[{product:product, amount:quantity}]
+      }
+      
+      await createCheckout(payload)
+
+
+    } catch (error) {
+      console.log(error)
+    }
+    finally{
+      setBuyLoading(false)
+    }
+    }
+    else toast.error('Items added exceed stock')
+ 
+  }
+
   const handleBasketAdd = async () => {
     try {
       setLoading(true);
@@ -41,14 +66,14 @@ const DetailsComp = () => {
         )}
       </div>
       <div className="flex flex-row items-center mt-[30px] space-x-2">
-        <button className="w-[170px] p-2 items-center border-2 border-forestGreen rounded-[20px]">
-          <p>Buy Now</p>
+        <button onClick={()=>handleBuyNow()} className="w-[170px] p-2 items-center border-2 border-forestGreen rounded-[20px]">
+        {buyLoading ? <div className="spinnerSmallBlack"></div> : <p>Buy Now</p>}
         </button>
         <button
           onClick={() => handleBasketAdd()}
           className="w-[170px] p-2 items-center border-2 bg-forestGreen text-white border-forestGreen rounded-[20px]"
         >
-          {loading ? <div className="spinnerSmall"></div> : <p>Add to Cart</p>}
+          {loading ? <div className="spinnerSmall"></div> : <p>Add to Basket</p>}
         </button>
       </div>
       <div className="mt-[50px]">

@@ -137,7 +137,7 @@ const SellComp = () => {
   };
 
   return (
-    <div className="w-full p-8 flex justify-center ">
+    <div className="w-full lg:p-8  flex justify-center ">
       <div className="lg:w-[60%] w-[80%] h-[800px] flex flex-col   ">
         <h1 className="text-darkGreen text-[32px] font-bold mb-6 ">Sell</h1>
         <div className=" flex flex-col w-full lg:grid grid-cols-2 mb-4 gap-4 items-center ">

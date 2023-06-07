@@ -43,3 +43,8 @@ export interface User {
   _id: string;
   address: string;
 }
+
+export interface Basket {
+  product: Product;
+  amount: number;
+}

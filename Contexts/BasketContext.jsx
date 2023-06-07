@@ -35,10 +35,10 @@ const BasketContextProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    console.log(data);
+  
     if (data && data.data && data.data.items && data.data.items.length > 0) {
       setBasket(data.data.items);
-      console.log(data.data.items.length)
+   
       setAmountInBasket(data.data.items.length);
     } else {
       setAmountInBasket(0)

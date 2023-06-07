@@ -10,7 +10,7 @@ const DeletePopUp: React.FC<DeletePopUpProps> = ({
 }) => {
   return (
     <div
-      className={` bg-slate-200  w-[400px] flex flex-col  items-center font-semibold text-[20px] rounded-[20px] p-4 h-[300px]`}
+      className={` bg-lightGray  w-[400px] flex flex-col  items-center font-semibold text-[20px] rounded-[20px] p-4 h-[300px]`}
     >
       <h1 className=" mt-6 ">
         Are you sure you want to delete this product from market.This action is

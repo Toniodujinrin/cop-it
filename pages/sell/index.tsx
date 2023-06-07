@@ -4,7 +4,9 @@ const Sell = () => {
   return (
     <div>
       <NavBar />
+      <div className="lg:mt-0 mt-[50px] ">
       <SellComp />
+      </div>
     </div>
   );
 };

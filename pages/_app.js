@@ -10,6 +10,7 @@ import BasketContextProvider from "../Contexts/BasketContext";
 import NavContextProvider from "../Contexts/NavBarContext";
 import ProfileContextProvider from "../Contexts/ProfileContext";
 import { SessionProvider } from "next-auth/react";
+import CheckoutContextProvider from '../Contexts/CheckoutContext'
 import ReviewContextProvider from '../Contexts/ReviewContext'
 export default function App({ Component, pageProps,session }) {
   const queryClient = new QueryClient();
@@ -25,10 +26,12 @@ export default function App({ Component, pageProps,session }) {
             <SignUpContextProvider>
           
               <BasketContextProvider>
+                <CheckoutContextProvider>
                 <NavContextProvider>
                   <ToastContainer />
                   <Component {...pageProps} />
                 </NavContextProvider>
+                </CheckoutContextProvider>
               </BasketContextProvider>
              
             </SignUpContextProvider>

@@ -100,7 +100,7 @@ refreshUser()
             >
               <p className="m-0 p-0">Save</p>
             </button>
-            <button onClick={()=>handleLogout()} className="flex border-2 rounded-[20px] text-red-600 border-red-600 bg-white w-[170px] p-2 mt-[20px] items-center  justify-center">
+            <button onClick={()=>handleLogout()} className="flex border-2 rounded-[20px] text-red-600 border-red-600 hover:bg-red-600 transition-[1000ms] hover:text-white bg-white w-[170px] p-2 mt-[20px] items-center  justify-center">
               <p className="m-0 p-0">Log out</p>
             </button>
           </div>
