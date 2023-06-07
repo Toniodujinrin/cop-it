@@ -8,9 +8,7 @@ const sections = ["Profile", "Products", "Reviews", "Orders"];
 const Account = ({}) => {
   const { refreshProducts } = useContext(ProductsContext);
   const [currentPage, setCurrentPage] = useState("Profile");
-  useEffect(() => {
-    refreshProducts();
-  }, [currentPage]);
+
 
   return (
     <div className="mx-auto lg:w-[70%] w-full  ">
