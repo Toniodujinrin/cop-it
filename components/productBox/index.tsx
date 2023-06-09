@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import RateMeter from "../rateMeter";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useContext } from "react";
 import { BasketContext } from "../../Contexts/BasketContext";
 interface ProductBoxProps {
@@ -9,6 +9,8 @@ interface ProductBoxProps {
   price: number;
   href: string;
   imgUrl: string;
+  setQuickViewProduct : Dispatch<SetStateAction<string>>
+  showQuickViewIcon: boolean
 
   productId: string;
 }
@@ -20,6 +22,8 @@ const ProductBox: React.FC<ProductBoxProps> = ({
   href,
   imgUrl,
   productId,
+  setQuickViewProduct,
+  showQuickViewIcon
 }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -46,11 +50,12 @@ const ProductBox: React.FC<ProductBoxProps> = ({
    sm:min-h-[300px] h-[200px]  flex flex-col items-center rounded-[18px] shadow-lg"
     >
       <div className="w-full object-cover rounded-[18px] overflow-hidden sm:h-[200px] h-[120px]">
+
         <img
           onClick={() => {
             router.push({ pathname: "/details", query: { id: productId } });
           }}
-          className="  z-10 hover:scale-150 h-full transition-[1000ms] w-full "
+          className="  z-10 hover:scale-150  transition-[1000ms] w-full "
           src={imgUrl}
           alt=""
         />
@@ -85,13 +90,15 @@ const ProductBox: React.FC<ProductBoxProps> = ({
               </>
             )}
           </button>
-          <button className=" border-forestGreen flex justify-center items-center border-2 sm:w-[35px] sm:h-[35px] w-[20px] h-[20px] font-bold rounded-full text-darkGreen">
+          {showQuickViewIcon&&
+          <button onClick={()=>setQuickViewProduct(productId)} className=" border-forestGreen flex justify-center items-center border-2 sm:w-[35px] sm:h-[35px] w-[20px] h-[20px] font-bold rounded-full text-darkGreen">
             <img
-              src="../../assets/heartIcon.svg"
+              src="../../assets/previewIcon.svg"
               className="sm:w-[20px] sm:h-[20px] w-[10px] h-[20px]"
               alt=""
             />
           </button>
+}
         </div>
       </div>
     </div>

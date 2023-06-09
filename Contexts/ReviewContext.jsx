@@ -11,19 +11,25 @@ const ReviewContextProvider  =({children})=>{
     const [reviews,setReviews] = useState([])
     const {getEntireProfile}= useContext(ProfileContext)
     const router = useRouter()
-    const { data: reviewData, refetch } = useQuery({
+    const { refetch, isError, isLoading:reviewsByUserLoading } = useQuery({
         queryKey: ["reviewsAboutUser"],
-        queryFn: async () =>
-          await get(
+        queryFn: async () =>{
+           const reviewData = await get(
             `reviews/getAllReviewsAboutUser?email=${cookies.token.user}`
-          ),
+          )
+          if (reviewData && reviewData.data && reviewData.data.data) {
+            setReviews(reviewData.data.data);
+           }
+
+        }
+          ,
       });
     
     useEffect(() => {
-        if (reviewData && reviewData.data && reviewData.data.data) {
-            setReviews(reviewData.data.data);
-         }
-      }, [reviewData]);
+       if(isError){
+        refetch()
+       }
+    }, [isError]);
     const postUserReview =async (payload)=>{
       payload.userId = cookies.token.user
       console.log(payload)
@@ -50,7 +56,7 @@ const ReviewContextProvider  =({children})=>{
     
 
     return(
-    <ReviewContext.Provider value={{reviews, refetch, postUserReview, deleteReview}}>
+    <ReviewContext.Provider value={{reviews, refetch, postUserReview, deleteReview, reviewsByUserLoading}}>
         {children}
     </ReviewContext.Provider>
     )

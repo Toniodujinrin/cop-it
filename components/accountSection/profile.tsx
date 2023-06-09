@@ -8,7 +8,7 @@ import 'react-phone-number-input/style.css'
 import PhoneInputComp from "../inputGroup/phoneInput";
 import AddressInput from "../inputGroup/addressInput";
 const Profile = ({}) => {
-  const { user, refreshUser, handleLogout } = useContext(UserContext);
+  const { user,  handleLogout } = useContext(UserContext);
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user._id);
@@ -17,9 +17,7 @@ const Profile = ({}) => {
   const [changeDetected, setChangeDetected] = useState(true);
   const [webcam, setWebCam] = useState(false);
   const router = useRouter();
-  useEffect(()=>{
-refreshUser()
-  },[])
+
    
   useEffect(() => {
     if (

@@ -1,28 +1,29 @@
 import * as React from "react";
 import Account from "../../components/accountSection";
 import NavBar from "../../components/navBar";
-import { useState, useEffect, useContext } from "react";
+import {  useEffect, useContext } from "react";
 import { ProductsContext } from "../../Contexts/ProductsContexts";
 import { UserContext } from "../../Contexts/UserContext";
-import { useQuery } from "react-query";
 import { ReviewContext } from "../../Contexts/ReviewContext";
+import { BasketContext } from "../../Contexts/BasketContext";
 
 const MyAccount = () => {
   const { refreshUser, user } = useContext(UserContext);
-  const { refreshProducts } = useContext(ProductsContext);
-  const {refetch} = useContext(ReviewContext)
+  const {refetch, reviewsByUserLoading} = useContext(ReviewContext)
+  const {productsByUserLoading, refreshProducts} = useContext(ProductsContext)
+  const {refetchBasket, basketLoading}= useContext(BasketContext)
  useEffect(()=>{
   refreshUser()
   refreshProducts()
   refetch()
-  
- },[])
+  refetchBasket()
+  },[])
 
   return (
     <div>
       <NavBar />
       <div className="w-full lg:mt-0 mt-[40px] ">
-        {Object.keys(user).includes("_id") ? (
+        {Object.keys(user).includes("_id") && !productsByUserLoading && !reviewsByUserLoading &&!basketLoading ? (
           <Account />
         ) : (
           <div className="spinner"></div>

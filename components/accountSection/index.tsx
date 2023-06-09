@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import Products from "./products";
 import Profile from "./profile";
-import { ProductsContext } from "./../../Contexts/ProductsContexts";
+
 import Reviews from "./reviews";
 
 const sections = ["Profile", "Products", "Reviews", "Orders"];
 const Account = ({}) => {
-  const { refreshProducts } = useContext(ProductsContext);
+  
   const [currentPage, setCurrentPage] = useState("Profile");
 
 

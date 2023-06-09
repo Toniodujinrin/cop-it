@@ -3,11 +3,8 @@ import { ReviewContext } from "../../Contexts/ReviewContext";
 import { useContext, useEffect } from "react";
 import { Review } from "../../types";
 const Reviews = () => {
-  const {reviews, refetch}= useContext(ReviewContext)
-   useEffect(()=>{
-    refetch()
-   },[])
-   
+  const {reviews}= useContext(ReviewContext)
+ 
 
   return (
     <div className="h-[600px] p-4 w-full">

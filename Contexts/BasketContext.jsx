@@ -14,37 +14,34 @@ const BasketContextProvider = ({ children }) => {
   const [cookie] = useCookies();
   const [basket, setBasket] = useState([]);
   const [amountInBasket, setAmountInBasket] = useState(0);
-  const [data, setData] = useState();
-  const { refetch: refetchBasket } = useQuery({
+ const { refetch: refetchBasket, isError, isLoading:basketLoading } = useQuery({
     queryKey: ["basketData"],
     queryFn: async () => {
-      try {
-        const { data } = await get(
+      const { data } = await get(
         `basket/getBasket?email=${cookie.token.user}`,
         {
           headers: { token: cookie.token._id },
         }
       );
-      setData(data);
-      } catch (error) {
-        console.log(error)
-        
+      if (data && data.data && data.data.items && data.data.items.length > 0) {
+        setBasket(data.data.items);
+     
+        setAmountInBasket(data.data.items.length);
+      } else {
+        setAmountInBasket(0)
+        setBasket([]);
       }
+      
+    
       
     },
   });
 
   useEffect(() => {
-  
-    if (data && data.data && data.data.items && data.data.items.length > 0) {
-      setBasket(data.data.items);
-   
-      setAmountInBasket(data.data.items.length);
-    } else {
-      setAmountInBasket(0)
-      setBasket([]);
+    if(isError){
+      refetchBasket()
     }
-  }, [data]);
+ }, [isError]);
 
   const addItemToBasket = async (payload) => {
     if (cookie.token) {
@@ -103,7 +100,8 @@ const BasketContextProvider = ({ children }) => {
         addItemToBasket,
         amountInBasket,
         removeItemFromBasket,
-        editBasketAmount
+        editBasketAmount,
+        basketLoading
       }}
     >
       {children}

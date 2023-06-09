@@ -22,6 +22,10 @@ input:focus{
 
 }
 
+p{
+  margin: 0 !important;
+}
+
 .spinner:before {
   content: "";
   box-sizing: border-box;

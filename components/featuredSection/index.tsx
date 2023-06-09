@@ -10,7 +10,7 @@ import ProductBoxLoader from "../productBox/productBoxLoader";
 
 const FeaturedSection = () => {
   const {featuredProducts}= useContext(ProductsContext)
- 
+  const [quickViewProduct,setQuickViewProduct]= useState('')
   
   return (
     <div className="flex flex-col pb-[50px]">
@@ -27,6 +27,8 @@ featuredProducts.length >0?
  
   featuredProducts.map((item:Product) => (
   <ProductBox
+    showQuickViewIcon={false}
+    setQuickViewProduct={setQuickViewProduct}
     productId={item._id}
     name={item.name}
     price={item.price}

@@ -28,7 +28,8 @@ const List=()=>{
     return(
   <>
     <NavBar/>
-    <h1 className="lg:mt-0 mt-[50px] ml-4">{`Search For: ${category?category:name}`}</h1>
+   
+   
     {
       productLoading?
       <div className="w-full grid-cols-4 grid justify-items-center">
