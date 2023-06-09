@@ -3,8 +3,8 @@ import { ProductsContext } from "../../Contexts/ProductsContexts";
 import { Product } from "../../types";
 import { useRouter } from "next/router";
 
-import ProductCard from "./../productCard";
-import DeletePopUp from "../deletePopUp";
+import ProductCard from "../productCard";
+import DeletePopUp from "../utilities/deletePopUp";
 
 const Products = () => {
   const router = useRouter();
