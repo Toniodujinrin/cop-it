@@ -1,4 +1,4 @@
-import QuantityCounter from "../quantityCounter"
+import QuantityCounter from "../utilities/quantityCounter"
 import { useRouter } from "next/router"
 import { Dispatch, SetStateAction, useEffect, useState, useContext } from "react"
 import { BasketContext } from "../../Contexts/BasketContext"

@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
-import QuantityCounter from "./quantityCounter";
+import QuantityCounter from "../utilities/quantityCounter";
 import { useContext, useState } from "react";
 
-import RateMeter from "./rateMeter";
-import { ProductsContext } from "./../Contexts/ProductsContexts";
-import { BasketContext } from "../Contexts/BasketContext";
-import UserCard from "./userCard";
-import { CheckoutContext } from "../Contexts/CheckoutContext";
+import RateMeter from "../utilities/rateMeter";
+import { ProductsContext } from "../../Contexts/ProductsContexts";
+import { BasketContext } from "../../Contexts/BasketContext";
+import UserCard from "../utilities/userCard";
+import { CheckoutContext } from "../../Contexts/CheckoutContext";
 import { toast } from "react-toastify";
 
 const DetailsComp = () => {

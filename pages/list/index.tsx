@@ -1,4 +1,4 @@
-import ListComp from "../../components/list";
+import ListComp from "../../components/list/list";
 import NavBar from "../../components/navBar";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";

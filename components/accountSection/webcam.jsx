@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import Webcam from "react-webcam";
-import { UserContext } from "./../Contexts/UserContext";
+import { UserContext } from "../../Contexts/UserContext";
 const videoConstraints = {
   width: 400,
   height: 400,

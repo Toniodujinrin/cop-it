@@ -15,6 +15,18 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "Contexts/SignUpContext.jsx", "DummyData/index.js", "pages/_app.js", "pages/_app.js", "pages/_app.js", "components/inputGroup/addressInput.jsx", "components/inputGroup/addressInput.jsx", "components/filterPanel.jsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "Contexts/SignUpContext.jsx",
+    "DummyData/index.js",
+    "pages/_app.js",
+    "pages/_app.js",
+    "pages/_app.js",
+    "components/inputGroup/addressInput.jsx",
+    "components/inputGroup/addressInput.jsx",
+    "components/list/filterPanel.jsx"
+  ],
   "exclude": ["node_modules"]
 }

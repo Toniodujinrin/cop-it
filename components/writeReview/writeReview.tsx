@@ -6,7 +6,7 @@ interface WriteReviewProps{
 }
 import Stars from './stars'
 import { Dispatch, SetStateAction, useState , useContext} from "react"
-import GreenButton from "../greenButton"
+import GreenButton from "../utilities/greenButton"
 import { useRouter } from 'next/router'
 import { ReviewContext } from '../../Contexts/ReviewContext'
 const WriteReview:React.FC<WriteReviewProps> = ({setReviewMode,type})=>{

@@ -1,8 +1,8 @@
 import FilterPanel from "./filterPanel"
 import { useContext, useEffect, useState } from "react"
-import { ProductsContext } from "../Contexts/ProductsContexts"
-import { Product } from "../types"
-import ProductBox from "./productBox"
+import { ProductsContext } from "../../Contexts/ProductsContexts"
+import { Product } from "../../types"
+import ProductBox from "../productBox"
 import { useRouter } from "next/router"
 import QuickView from "./quickView"
 

@@ -1,11 +1,11 @@
-import DetailsComp from "../../components/details";
+import DetailsComp from "../../components/details/details";
 import { useRouter } from "next/router";
 import { useContext, useEffect} from "react";
 
-import ImageAndReviews from "../../components/imageAndReviews";
+import ImageAndReviews from "../../components/details/imageAndReviews";
 import NavBar from "../../components/navBar";
 import { ProductsContext } from "./../../Contexts/ProductsContexts";
-import BackButton from "../../components/backButton";
+import BackButton from "../../components/utilities/backButton";
 
 
 const Details = () => {

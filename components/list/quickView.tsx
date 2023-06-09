@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, useState, useContext } from "react"
-import { Product } from "../types"
-import QuantityCounter from "./quantityCounter"
-import RateMeter from "./rateMeter"
+import { Product } from "../../types"
+import QuantityCounter from "../utilities/quantityCounter"
+import RateMeter from "../utilities/rateMeter"
 import {toast} from 'react-toastify'
-import { CheckoutContext } from "../Contexts/CheckoutContext"
-import { BasketContext } from "../Contexts/BasketContext"
+import { CheckoutContext } from "../../Contexts/CheckoutContext"
+import { BasketContext } from "../../Contexts/BasketContext"
 
 interface QuickViewProps{
 

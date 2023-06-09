@@ -1,7 +1,7 @@
 import InputGroup from "./../inputGroup/index";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "./../../Contexts/UserContext";
-import WebcamCapture from "./../webcam";
+import WebcamCapture from "./webcam";
 import { useRouter } from "next/router";
 import 'react-phone-number-input/style.css'
 

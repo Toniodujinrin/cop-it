@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useContext } from "react";
-import { ProductsContext } from "./../Contexts/ProductsContexts";
+import { ProductsContext } from "../../Contexts/ProductsContexts";
 
 const ImageAndReviews = () => {
   const { product } = useContext(ProductsContext);

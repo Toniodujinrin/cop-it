@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import { ProfileContext } from "../../Contexts/ProfileContext";
-import ReviewCard from "../reviewCard";
+import ReviewCard from "../utilities/reviewCard";
 import { Review } from "../../types";
 import WriteReview from "../writeReview/writeReview";
-import GreenButton from "../greenButton";
+import GreenButton from "../utilities/greenButton";
 import { ReviewContext } from "../../Contexts/ReviewContext";
 const ReviewsComp = () => {
   const {reviews} = useContext(ProfileContext)

@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import { BasketContext } from "../../Contexts/BasketContext";
 import { Product } from "../../types";
 import CartItem from "./cartItem";
-import DeletePopUp from "../deletePopUp";
-import GreenButton from "../greenButton";
+import DeletePopUp from "../utilities/deletePopUp";
+import GreenButton from "../utilities/greenButton";
 import { CheckoutContext } from "../../Contexts/CheckoutContext";
 import { Basket } from "../../types";
 const BasketComp = () => {

@@ -1,4 +1,4 @@
-import ReviewCard from "../reviewCard";
+import ReviewCard from "../utilities/reviewCard";
 import { ReviewContext } from "../../Contexts/ReviewContext";
 import { useContext, useEffect } from "react";
 import { Review } from "../../types";

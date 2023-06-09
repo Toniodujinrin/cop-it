@@ -9,7 +9,7 @@ interface ReviewCardProps{
 import RateMeter from "./rateMeter";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
-import ProfilePic from "./profilepic";
+import ProfilePic from "../profilepic";
 
 const ReviewCard:React.FC<ReviewCardProps> = ({imageUrl,fullName,email,review,rating, deleteAction}) => {
   const router = useRouter()

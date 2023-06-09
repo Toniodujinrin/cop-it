@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import RateMeter from "../rateMeter";
+import RateMeter from "../utilities/rateMeter";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useContext } from "react";
 import { BasketContext } from "../../Contexts/BasketContext";
