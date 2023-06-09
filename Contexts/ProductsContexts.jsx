@@ -30,19 +30,23 @@ const ProductsContextProvider = ({ children }) => {
   })
   
 
-  const { data: productData, refetch:refreshProducts } = useQuery({
+  const {refetch:refreshProducts, isLoading:productsByUserLoading, isError } = useQuery({
     queryKey: ["productsByUser"],
-    queryFn: async () =>
-      await get(
+    queryFn: async () =>{
+      console.log(cookies.token)
+      const productData = await get(
         `users/getAllProductsBeingSoldByUser?email=${cookies.token.user}`
-      ),
+      )
+      if (productData && productData.data && productData.data.data) {
+        setProducts(productData.data.data);
+      }
+  },
   });
-
   useEffect(() => {
-    if (productData && productData.data && productData.data.data) {
-      setProducts(productData.data.data);
+    if(isError){
+      refreshProducts()
     }
-  }, [productData]);
+  }, [isError]);
 
   const getProduct = async (productId) => {
     
@@ -148,6 +152,7 @@ const ProductsContextProvider = ({ children }) => {
     <ProductsContext.Provider
       value={{
         productLoading,
+        productsByUserLoading,
         products,
         deleteProduct,
         postProduct,
