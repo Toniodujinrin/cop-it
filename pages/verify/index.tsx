@@ -4,12 +4,12 @@ import { useState, useContext } from "react";
 import Joi from "joi";
 import { SignUpContext } from "../../Contexts/SignUpContext";
 import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
 import AddressInput from "../../components/inputGroup/addressInput";
 import PhoneInputComp from "../../components/inputGroup/phoneInput";
+import SignUpButton from "../../components/utilities/signupButtons";
 
 const Verify = () => {
-  const { processAccountVerification } = useContext(SignUpContext);
+  const { processAccountVerification, signupLoading } = useContext(SignUpContext);
   const Schema = Joi.object({
     firstName: Joi.string().required().label("First Name"),
     lastName: Joi.string().required().label("Last Name"),
@@ -28,9 +28,9 @@ const Verify = () => {
     phone: "",
   });
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async () => {
    
-    e.preventDefault();
+   
     const errorsObject = Schema.validate(
       { firstName, lastName, address, phone },
       { abortEarly: false }
@@ -100,7 +100,7 @@ const Verify = () => {
           Create an Account{" "}
         </h1>
 
-        <form className="lg:w-[700px]   pt-[40px] space-y-4" action="">
+        <div className="lg:w-[700px]   pt-[40px] space-y-4">
           <div className="w-full h-auto flex flex-col  lg:grid grid-cols-2 lg:justify-items-start justify-center">
             <InputGroup
               value={firstName}
@@ -123,17 +123,11 @@ const Verify = () => {
           </div>
           </div>
          <AddressInput label={'Address'} errors={errors.address} value={address} setValue={setAddress}/>
-          <div className="w-full flex flex-col items-center">
-            <button
-              className="w-[400px] h-[50px] rounded-md bg-forestGreen text-white font-semibold "
-              onClick={(e) => {
-                handleSubmit(e);
-              }}
-            >
-              Submit
-            </button>
+         <div className="w-full flex flex-col items-center">
+            <SignUpButton text="Submit" loading={signupLoading} onClick={()=>{handleSubmit()}} />
           </div>
-        </form>
+        </div>
+ 
       </section>
     </SignUpBar>
   );

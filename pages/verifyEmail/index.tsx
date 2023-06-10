@@ -2,11 +2,11 @@ import InputGroup from "../../components/inputGroup";
 import SignUpBar from "../../components/SignUpBar";
 import { useState, useContext } from "react";
 import Joi from "joi";
-import { useRouter } from "next/router";
 import { SignUpContext } from "../../Contexts/SignUpContext";
+import SignUpButton from "../../components/utilities/signupButtons";
 
 const VerifyEmail = () => {
-  const { processEmailVerfication } = useContext(SignUpContext);
+  const { processEmailVerfication, signupLoading } = useContext(SignUpContext);
 
   const Schema = Joi.object({
     otp: Joi.string().required().max(6).min(4).label("OTP"),
@@ -17,8 +17,8 @@ const VerifyEmail = () => {
     otp: "",
   });
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+  
     const errorsObject = Schema.validate({ otp }, { abortEarly: false });
     if (errorsObject.error) {
       const temporaryErrorObject = {
@@ -62,7 +62,7 @@ const VerifyEmail = () => {
           Verify Your Email{" "}
         </h1>
 
-        <form className="w-[400px] pt-[40px] space-y-[40px]" action="">
+        <div className="w-[400px] pt-[40px] space-y-[40px]" >
           <InputGroup
             value={otp}
             setValue={setOtp}
@@ -71,15 +71,8 @@ const VerifyEmail = () => {
             label={"OTP"}
           />
 
-          <button
-            className="w-full h-[50px] rounded-md bg-forestGreen text-white font-semibold "
-            onClick={(e) => {
-              handleSubmit(e);
-            }}
-          >
-            Submit
-          </button>
-        </form>
+       <SignUpButton text="Submit" loading={signupLoading} onClick={()=>{handleSubmit()}} />
+        </div>
       </section>
     </SignUpBar>
   );

@@ -147,6 +147,7 @@ const LoginPage = () => {
       </section>
       <section className="lg:flex lg:w-[50%] justify-center items-center hidden l">
         <img
+          onClick={()=>router.push('/')}
           className="w-[300px] h-[300px]"
           src="../assets/logog2.svg"
           alt=""

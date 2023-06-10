@@ -4,9 +4,9 @@ import { useState, useContext } from "react";
 import Joi from "joi";
 import { useRouter } from "next/router";
 import { SignUpContext } from "./../../Contexts/SignUpContext";
-
+import SignUpButton from "../../components/utilities/signupButtons";
 const SignUp = () => {
-  const { processFirstSignUp } = useContext(SignUpContext);
+  const { processFirstSignUp, signupLoading } = useContext(SignUpContext);
   const router = useRouter();
   const Schema = Joi.object({
     email: Joi.string()
@@ -27,8 +27,8 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    
     const errorsObject = Schema.validate(
       { email, password, confirmPassword },
       { abortEarly: false }
@@ -96,7 +96,7 @@ const SignUp = () => {
           Create an Account{" "}
         </h1>
 
-        <form className="w-[400px] pt-[40px] space-y-4" action="">
+        <div className="w-[400px] pt-[40px] space-y-4">
           <InputGroup
             value={email}
             setValue={setEmail}
@@ -118,17 +118,10 @@ const SignUp = () => {
             errors={errors.confirmPassword}
             label={"Confirm Password"}
           />
-
-          <button
-            className="w-full h-[50px] rounded-md bg-forestGreen text-white font-semibold "
-            onClick={(e) => {
-              handleSubmit(e);
-            }}
-          >
-            Submit
-          </button>
+         <SignUpButton text="Submit" loading={signupLoading} onClick={()=>{handleSubmit()}} />
           
-        </form>
+          
+        </div>
       </section>
     </SignUpBar>
   );
