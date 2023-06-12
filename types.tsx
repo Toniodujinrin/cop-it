@@ -13,6 +13,11 @@ export interface Product {
   }[];
   seller: string;
 }
+export interface Orders{
+  orderId:string
+  timeOrdered:number
+  products:Basket[]
+}
 
 export interface ReviewObject {
   productId: string;

@@ -13,10 +13,14 @@ const BasketContextProvider = ({ children }) => {
   const router = useRouter();
   const [cookie] = useCookies();
   const [basket, setBasket] = useState([]);
+  const [basketProcessLoading,setBasketProcessLoading]= useState(false)
   const [amountInBasket, setAmountInBasket] = useState(0);
  const { refetch: refetchBasket, isError, isLoading:basketLoading } = useQuery({
     queryKey: ["basketData"],
     queryFn: async () => {
+      if(cookie.token){
+
+      
       const { data } = await get(
         `basket/getBasket?email=${cookie.token.user}`,
         {
@@ -31,14 +35,14 @@ const BasketContextProvider = ({ children }) => {
         setAmountInBasket(0)
         setBasket([]);
       }
-      
+      }
     
       
     },
   });
 
   useEffect(() => {
-    if(isError){
+    if(isError && cookie.token){
       refetchBasket()
     }
  }, [isError]);
@@ -46,6 +50,7 @@ const BasketContextProvider = ({ children }) => {
   const addItemToBasket = async (payload) => {
     if (cookie.token) {
       try {
+        setBasketProcessLoading(true)
         payload.email = cookie.token.user;
         await post(
           "basket/add",
@@ -56,8 +61,10 @@ const BasketContextProvider = ({ children }) => {
         refetchBasket();
         toast.success("item added to basket");
       } catch (error) {
-        console.log(error);
         toast.error("could not add item to basket");
+      }
+      finally{
+        setBasketProcessLoading(false)
       }
     } else router.push("/login");
   };
@@ -65,6 +72,7 @@ const BasketContextProvider = ({ children }) => {
   const removeItemFromBasket = async (payload) => {
     payload.email = cookie.token.user;
     try {
+      setBasketProcessLoading(true)
       await post(
         "basket/removeItem",
         { headers: { token: cookie.token._id } },
@@ -75,23 +83,32 @@ const BasketContextProvider = ({ children }) => {
     } catch (error) {
       toast.error("could not remove item from basket");
     }
+    finally{
+      setBasketProcessLoading(false)
+    }
   };
 
   const editBasketAmount = async (payload)=>{
     try {
+      setBasketProcessLoading(true)
       payload.email = cookie.token.user
       console.log(payload)
       await post('basket/editItemAmount',{headers:{token:cookie.token._id}},payload)
       refetchBasket()
       toast.success('Basket Updated')
     } catch (error) {
-      console.log(error)
+      
       toast.error('Could not update Basket')
+    }
+    finally{
+      setBasketProcessLoading(false)
     }
     
     
   }
 
+  
+  
   return (
     <BasketContext.Provider
       value={{
@@ -101,7 +118,8 @@ const BasketContextProvider = ({ children }) => {
         amountInBasket,
         removeItemFromBasket,
         editBasketAmount,
-        basketLoading
+        basketLoading,
+        basketProcessLoading
       }}
     >
       {children}

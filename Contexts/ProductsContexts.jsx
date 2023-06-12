@@ -16,7 +16,7 @@ const ProductsContextProvider = ({ children }) => {
   const [searchedProducts,setSearchedProducts]= useState([])
   const [searchLoading, setSearchLoading] = useState()
   const [productLoading, setProductLoading]= useState(false)
-  
+  const [productsProcessLoading,setProductProcessLoading]= useState(false)
   
 
   const { refetch:refetchFeaured} = useQuery({
@@ -33,13 +33,14 @@ const ProductsContextProvider = ({ children }) => {
   const {refetch:refreshProducts, isLoading:productsByUserLoading, isError } = useQuery({
     queryKey: ["productsByUser"],
     queryFn: async () =>{
-      console.log(cookies.token)
+      if(cookies.token){
       const productData = await get(
         `users/getAllProductsBeingSoldByUser?email=${cookies.token.user}`
       )
       if (productData && productData.data && productData.data.data) {
         setProducts(productData.data.data);
       }
+    }
   },
   });
   useEffect(() => {
@@ -71,6 +72,7 @@ const ProductsContextProvider = ({ children }) => {
   const postProduct = async (payload) => {
     payload.email = cookies.token.user;
     try {
+      setProductProcessLoading(true)
       const res = await post(
         "products",
         {
@@ -91,20 +93,27 @@ const ProductsContextProvider = ({ children }) => {
 
         router.push("/account");
       } catch (error) {
-        toast.error(error.response.data.data);
+        toast.error('could not upload products at this time try again later');
       }
     } catch (err) {
-      toast.error(err.response.data.data);
+      toast.error('could not upload products at this time try again later');
+    }
+    finally{
+      setProductProcessLoading(false)
     }
   };
  
 
   const deleteProduct = async (_id) => {
     try {
+      setProductProcessLoading(true)
       await _delete(`products?productId=${_id}`, {});
       refetch();
     } catch (error) {
       toast.error(error.response.data.data);
+    }
+    finally{
+      setProductProcessLoading(false)
     }
   };
 
@@ -162,7 +171,8 @@ const ProductsContextProvider = ({ children }) => {
         searchProductsByCategory,
         searchedProducts,
         featuredProducts,
-        searchProductsByName
+        searchProductsByName,
+        productsProcessLoading
       }}
     >
       {children}

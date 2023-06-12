@@ -5,6 +5,7 @@ import ProductContextProvider from "../Contexts/ProductsContexts";
 import UserContextProvider from "../Contexts/UserContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import OrderContextProvider from '../Contexts/OrderContex'
 import { QueryClient, QueryClientProvider } from "react-query";
 import BasketContextProvider from "../Contexts/BasketContext";
 import NavContextProvider from "../Contexts/NavBarContext";
@@ -20,11 +21,10 @@ export default function App({ Component, pageProps,session }) {
       <SessionProvider session ={session}>
       <UserContextProvider>
         <ProductContextProvider>
-          
           <ProfileContextProvider>
             <ReviewContextProvider>
             <SignUpContextProvider>
-          
+             <OrderContextProvider>
               <BasketContextProvider>
                 <CheckoutContextProvider>
                 <NavContextProvider>
@@ -33,12 +33,11 @@ export default function App({ Component, pageProps,session }) {
                 </NavContextProvider>
                 </CheckoutContextProvider>
               </BasketContextProvider>
-             
+              </OrderContextProvider>
             </SignUpContextProvider>
           </ReviewContextProvider>
           </ProfileContextProvider>
-          
-        </ProductContextProvider>
+          </ProductContextProvider>
       </UserContextProvider> 
       </SessionProvider>
     </QueryClientProvider>
