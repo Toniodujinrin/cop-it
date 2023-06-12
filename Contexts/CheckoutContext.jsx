@@ -47,6 +47,7 @@ const CheckoutContextProvider = ({children})=>{
         if(cookie.token){
             
           try {
+            setCheckOutLoading(true)
             payload.email = cookie.token.user
             console.log(payload)
             await post('checkout',{headers:{token:cookie.token._id}},payload)
@@ -57,9 +58,13 @@ const CheckoutContextProvider = ({children})=>{
             toast.error('an error occured please try again later')
             
           }
+          finally{
+            setCheckOutLoading(false)
+          }
         }
         else{
             try {
+                setCheckOutLoading(true)
                 const res = await post('guestCheckout',{},payload)
                 if(res){
                   setCookie('checkoutId',res.data.data.checkoutId)
@@ -71,13 +76,27 @@ const CheckoutContextProvider = ({children})=>{
                 toast.error('an error occured please try again later')
                 
             }
+            finally{
+                setCheckOutLoading(false)
+            }
         }
         
        
     }
+    const processCheckout = async (payload)=>{
+        payload.email = cookie.token.user 
+        try {
+             await post('checkout/processCheckout',{headers:{token:cookie.token._id}},payload)
+
+        } catch (error) {
+            console.log(error)
+        }
+      
+
+    }
 
     return(
-            <CheckoutContext.Provider value={{ createCheckout, checkout, getCheckOut, checkoutLoading}}>
+            <CheckoutContext.Provider value={{ createCheckout, checkout, getCheckOut, checkoutLoading, processCheckout}}>
                 {children}
             </CheckoutContext.Provider>
     )

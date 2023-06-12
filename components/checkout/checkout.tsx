@@ -7,19 +7,16 @@ import PhoneInputComp from "../inputGroup/phoneInput";
 import AddressInput from '../inputGroup/addressInput'
 import { CheckoutContext } from "../../Contexts/CheckoutContext";
 import { Basket } from "../../types";
+import GreenButton from "../utilities/greenButton";
 
 const CheckOutComp = ()=>{
   const {user,refreshUserAndNotRoute}= useContext(UserContext)
-  const {checkout} = useContext(CheckoutContext)
+  const {checkout, processCheckout} = useContext(CheckoutContext)
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  useEffect(()=>{
-    console.log(checkout)
-  },[])
-
   useEffect(() => {
     refreshUserAndNotRoute()
     
@@ -32,6 +29,14 @@ const CheckOutComp = ()=>{
     } 
   }, [user]);
   
+  const handleCheckout = ()=>{
+    const payload = {
+       products:checkout.products
+    }
+    processCheckout(payload)
+    
+
+  }
     return(
         <div className="p-8 flex flex-col lg:flex-row gap-4 ">
           <section className=" w-full lg:w-[60%] p-4 flex items-center flex-col">
@@ -107,9 +112,7 @@ const CheckOutComp = ()=>{
                 <p className="lg:ext-[32px] text-[21px]">{`$${checkout.total}`}</p>
                </div>
 
-               <button className="w-[200px]  flex items-center justify-center border p-2 bg-forestGreen ">
-                <p className="text-white">Pay</p>
-               </button>
+               <GreenButton text="Pay" onCLick={()=>{handleCheckout()}} loading={false}/>
              </div>
           </section>
         </div>

@@ -12,16 +12,18 @@ const UserContextProvider = ({ children }) => {
   const {data:session}= useSession()
   const [cookie, setCookie, removeCookie] = useCookies();
   const [user, setUser] = useState({});
-  const [googleLoading, setGoogleLoading]= useState(false)
+  const [authLoading, setAuthLoading]= useState(false)
+  
   
   
   useEffect(()=>{
+    console.log(session)
     const googleSignInProcess = async ()=>{
       if(session && !cookie.token && session.user){
-        console.log('session email' ,session.user.email)
         try {
-        setGoogleLoading(true)
+        setAuthLoading(true)
         const googleAuthData = await post('auth/googleAuthenticate',{},{email:session.user.email})
+        console.log(googleAuthData)
         await authenticateProcess(googleAuthData.data.data) } 
         catch (error) {
         toast.error('an error occured')
@@ -30,10 +32,11 @@ const UserContextProvider = ({ children }) => {
     }
     googleSignInProcess()
   },[session])
-  
+
+
   
   const handleGoogleSignIn = async ()=>{
-    signIn(); 
+   signIn();
   }
   
   const refreshUserAndNotRoute = async()=>{
@@ -135,6 +138,9 @@ const UserContextProvider = ({ children }) => {
    catch (error) {
      toast.error('Could not log you in at the momment ')
   }
+  finally{
+    setAuthLoading(false)
+  }
 }
 
 }
@@ -142,6 +148,7 @@ const UserContextProvider = ({ children }) => {
 
   const returnToAccountIfLoggedIn = () => {
     if (cookie.token && cookie.token.expiry > Date.now()) {
+      console.log('push to account', cookie.token)
       router.push("/account");
     }
   };
@@ -173,7 +180,7 @@ const UserContextProvider = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
-        googleLoading,
+        authLoading,
         user,
         setUser,
         authenticate,

@@ -11,7 +11,7 @@ const Reviews = () => {
       {
 
         reviews.length>0?
-        <div className="lg:grid lg:grid-cols-2  flex gap-4 flex-col">
+        <div className="lg:grid lg:grid-cols-2  flex gap-4 items-center flex-col">
           {
           
           reviews.map((review:Review,index:number) => (

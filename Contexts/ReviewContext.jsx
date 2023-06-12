@@ -8,19 +8,21 @@ import { get, post,_delete } from "../api/config";
 import { useRouter } from "next/router";
 const ReviewContextProvider  =({children})=>{
     const [cookies]= useCookies()
+    const [postReviewLoading,setPostReviewLoading]= useState(false)
     const [reviews,setReviews] = useState([])
     const {getEntireProfile}= useContext(ProfileContext)
     const router = useRouter()
     const { refetch, isError, isLoading:reviewsByUserLoading } = useQuery({
         queryKey: ["reviewsAboutUser"],
         queryFn: async () =>{
+          if(cookies.token){
            const reviewData = await get(
             `reviews/getAllReviewsAboutUser?email=${cookies.token.user}`
           )
           if (reviewData && reviewData.data && reviewData.data.data) {
             setReviews(reviewData.data.data);
            }
-
+       }    
         }
           ,
       });
@@ -30,17 +32,22 @@ const ReviewContextProvider  =({children})=>{
         refetch()
        }
     }, [isError]);
+
     const postUserReview =async (payload)=>{
       payload.userId = cookies.token.user
-      console.log(payload)
       try {
+        setPostReviewLoading(true)
         await post('reviews',{headers:{token:cookies.token._id}},payload)
+       
         toast.success('Review Posted')
         getEntireProfile(payload.sellerId)
       } catch (error) {
-        console.log(error)
-        toast.error('COuld not post review')
         
+        toast.error('Could not post review')
+        
+      }
+      finally{
+        setPostReviewLoading(false)
       }
 
     }
@@ -56,7 +63,7 @@ const ReviewContextProvider  =({children})=>{
     
 
     return(
-    <ReviewContext.Provider value={{reviews, refetch, postUserReview, deleteReview, reviewsByUserLoading}}>
+    <ReviewContext.Provider value={{reviews, refetch, postUserReview, deleteReview, reviewsByUserLoading, postReviewLoading}}>
         {children}
     </ReviewContext.Provider>
     )

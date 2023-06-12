@@ -7,7 +7,7 @@ import { UserContext } from "./../../Contexts/UserContext";
 
 const LoginPage = () => {
   const router = useRouter()
-  const { authenticate, returnToAccountIfLoggedIn, handleGoogleSignIn, googleLoading } = useContext(UserContext);
+  const { authenticate, returnToAccountIfLoggedIn, handleGoogleSignIn, authLoading} = useContext(UserContext);
   returnToAccountIfLoggedIn();
   const Schema = Joi.object({
     email: Joi.string()
@@ -23,7 +23,7 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
+
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -61,18 +61,15 @@ const LoginPage = () => {
       setErrors(temporaryErrorObject);
     } else {
       setErrors(temporaryErrorObject);
-      setLoading(true);
+      
 
       const payload = {
         email: email,
         password: password,
       };
-      try {
-        await authenticate(payload);
-      } catch (error) {
-      } finally {
-        setLoading(false);
-      }
+      
+      await authenticate(payload);
+   
     }
   };
   return (
@@ -118,16 +115,16 @@ const LoginPage = () => {
             <p className="text-forestGreen">Forgot Password?</p>
 
             <button
-              disabled={loading}
+              disabled={authLoading}
               className="bg-forestGreen w-full py-2 flex justify-center items-center rounded-md text-white"
             >
-              {loading || googleLoading ? (
+              {authLoading? (
                 <div className="spinnerSmall"></div>
               ) : (
                 <p> Sign in </p>
               )}
             </button>
-            <button onClick={()=>{setLoading(true);handleGoogleSignIn()}} className="flex flex-row border border-black  items-center w-full py-2 rounded-md text-black justify-center">
+            <button onClick={()=>{handleGoogleSignIn()}} className="flex flex-row border border-black  items-center w-full py-2 rounded-md text-black justify-center">
               <img
                 className="w-[25px] h-[25px]
                 "

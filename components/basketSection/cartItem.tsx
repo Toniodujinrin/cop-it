@@ -19,23 +19,20 @@ const CartItem:React.FC<CartItemProps>=({price, imageUrl, name, amount, productI
     const router = useRouter()
     const [quantity, setQuantity]= useState(amount)
     const [edit, setEdit]= useState(false)
-    const [loading,setLoading]= useState(false)
+
     const [totalAmount, setTotalAmount]= useState(price*amount)
-    const {editBasketAmount}= useContext(BasketContext)
+    const {editBasketAmount, basketProcessLoading}= useContext(BasketContext)
     const handleAmountChange = async()=>{
         const payload = {
             productId:productId,
             amount:quantity
 
         }
-        setLoading(true)
+       
         await editBasketAmount(payload)
         setQuantity(amount)
-        setLoading(false)
+      
         setEdit(false)
-        
-        
-
     }
     useEffect(()=>{
         setTotalAmount(quantity*price)
@@ -75,7 +72,7 @@ const CartItem:React.FC<CartItemProps>=({price, imageUrl, name, amount, productI
                 }
                 {
                     edit?
-                    loading?
+                    basketProcessLoading?
                     <div className="spinnerSmallBlack"></div>
                     :
                     <div className="flex flex-row  gap-4">

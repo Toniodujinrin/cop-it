@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { NavContext } from "../../Contexts/NavBarContext";
-import BasketNotification from "../basketSection/basketNotification";
-const NavBarSmall = () => {
+import BasketNotePill from "../basketSection/basketNotePill";
+
+const NavBarSmall= () => {
   const { setNavBarOpen, navBarOpen } = useContext(NavContext);
   const router = useRouter();
   const items = [
@@ -55,9 +56,13 @@ const NavBarSmall = () => {
             }}
           >
             <p className="cursor-pointer">{item.name}</p>
-            {/* {item.name == "Basket" && <BasketNotification />} */}
+            
           </div>
         ))}
+        <div className="flex gap-3">
+          <p className="cursor-pointer">Basket</p>
+          <BasketNotePill/>
+        </div>
       </div>
     </div>
   );

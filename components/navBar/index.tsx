@@ -4,7 +4,8 @@ import NavItem from "./navItem";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import { NavContext } from "./../../Contexts/NavBarContext";
-import BasketNotification from "../basketSection/basketNotification";
+
+import BasketNotePill from "../basketSection/basketNotePill";
 
 const NavBar = () => {
   const router = useRouter();
@@ -95,7 +96,7 @@ const NavBar = () => {
             alt=""
           />
           <p className="text-darkGreen p-0 m-0">Basket</p>
-          <BasketNotification />
+         <BasketNotePill/>
         </button>
       </div>
     </div>

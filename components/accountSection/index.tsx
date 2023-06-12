@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import Orders from "./orders";
 import Products from "./products";
 import Profile from "./profile";
 
@@ -31,6 +32,7 @@ const Account = ({}) => {
       {currentPage == "Profile" && <Profile />}
       {currentPage == "Products" && <Products />}
       {currentPage == "Reviews" && <Reviews />}
+      {currentPage=='Orders' &&<Orders/>}
     </div>
   );
 };

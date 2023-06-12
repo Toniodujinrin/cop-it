@@ -4,8 +4,9 @@ import InputGroup from "../inputGroup";
 import FileUpload from "./fileUpload";
 import Joi from "joi";
 import { ProductsContext } from "../../Contexts/ProductsContexts";
+import GreenButton from "../utilities/greenButton";
 const SellComp = () => {
-  const { postProduct } = useContext(ProductsContext);
+  const { postProduct, productsProcessLoading } = useContext(ProductsContext);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Electronics");
   const [amountInStock, setAmountInStock] = useState("0");
@@ -13,8 +14,7 @@ const SellComp = () => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState("");
   const [fileDetails, setFileDetails] = useState<File | null>();
-  const fileTypes = ["JPG", "PNG", "GIF"];
-  const [isLoading, setIsLoading] = useState(false);
+
   const [errors, setErrors] = useState({
     description: "",
     category: "",
@@ -92,7 +92,7 @@ const SellComp = () => {
 
       setErrors(temporaryErrorObject);
     } else {
-      setIsLoading(true);
+      
       setErrors(temporaryErrorObject);
 
       const payload = {
@@ -103,8 +103,7 @@ const SellComp = () => {
         price: parseInt(price),
         file: file,
       };
-
-      await postProduct(payload);
+      postProduct(payload);
     }
   };
 
@@ -225,19 +224,13 @@ const SellComp = () => {
         </div>
 
         <div className="w-full flex items-end justify-end">
-          <button
-            disabled={isLoading}
-            onClick={() => {
-              handleSell();
-            }}
-            className={`w-[170px] p-2 flex justify-center  my-[20px] items-center border-2 
-           
-          bg-forestGreen border-forestGreen 
-          
-           text-white cursor-pointer  rounded-[20px]`}
-          >
-            {isLoading ? <div className="spinnerSmall"></div> : <p>Sell</p>}
-          </button>
+          <GreenButton
+           disabled={productsProcessLoading}
+           onCLick={()=>{handleSell}}
+           text='Sell'
+           loading={productsProcessLoading}
+          />
+
         </div>
       </div>
     </div>

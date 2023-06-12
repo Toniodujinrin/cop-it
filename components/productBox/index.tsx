@@ -26,22 +26,19 @@ const ProductBox: React.FC<ProductBoxProps> = ({
   showQuickViewIcon
 }) => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const { addItemToBasket } = useContext(BasketContext);
+  const { addItemToBasket, basketProcessLoading } = useContext(BasketContext);
 
   const handleBasketAdd = async () => {
     try {
-      setLoading(true);
+      
       const payload = {
         productId: productId,
         amount: 1,
       };
-      await addItemToBasket(payload);
+      addItemToBasket(payload);
     } catch (error) {
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+  }
 
   return (
     <div
@@ -77,7 +74,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({
             }}
             className=" border-forestGreen flex justify-center items-center border-2 sm:p-1 sm:w-fit sm:h-[35px] w-[20px] h-[20px] font-bold rounded-[18px] text-darkGreen"
           >
-            {loading ? (
+            {basketProcessLoading ? (
               <div className="spinnerSmallBlack"></div>
             ) : (
               <>

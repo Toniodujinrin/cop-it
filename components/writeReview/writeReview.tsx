@@ -11,12 +11,12 @@ import { useRouter } from 'next/router'
 import { ReviewContext } from '../../Contexts/ReviewContext'
 const WriteReview:React.FC<WriteReviewProps> = ({setReviewMode,type})=>{
     const [value,setValue] = useState('')
-    const{postUserReview} = useContext(ReviewContext)
+    const{postUserReview, postReviewLoading} = useContext(ReviewContext)
     const [star, setStar]= useState(0)
-    const [loading, setLoading]= useState(false)
+   
     const router = useRouter()
     const handleSubmit =()=>{
-        setLoading(true)
+      
         if(type =='user'){
             const payload ={
                 sellerId:router.query.email, 
@@ -28,7 +28,7 @@ const WriteReview:React.FC<WriteReviewProps> = ({setReviewMode,type})=>{
 
             postUserReview(payload)
         }
-        setLoading(false)
+        
         setReviewMode(false)
         
     }
@@ -50,7 +50,7 @@ const WriteReview:React.FC<WriteReviewProps> = ({setReviewMode,type})=>{
         }
 
         </div>
-         <GreenButton disabled={value.length<1} loading={loading} onCLick={()=>{handleSubmit()}} text={'Submit'}/>
+         <GreenButton disabled={value.length<1} loading={postReviewLoading} onCLick={()=>{handleSubmit()}} text={'Submit'}/>
       </div> 
     )
 

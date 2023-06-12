@@ -64,10 +64,12 @@ const Products = () => {
            <ul className="space-y-4 lg:hidden flex flex-col justify-items-center w-full  ">
            {products.map((product: Product) => (
              <li
-               className="w-full h-[150px] flex flex-row"
+               className="w-full h-fit flex flex-row"
                key={product._id}
              >
                <ProductCard
+                 price = {product.price}
+                 numberInStock = {product.numberInStock}
                  description={product.description}
                  name={product.name}
                  _id={product._id}
