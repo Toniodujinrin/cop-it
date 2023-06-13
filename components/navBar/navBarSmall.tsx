@@ -14,7 +14,7 @@ const NavBarSmall= () => {
     },
     {
       name: "Profiles",
-      link: "",
+      link: "/profiles",
       notication: 0,
     },
 

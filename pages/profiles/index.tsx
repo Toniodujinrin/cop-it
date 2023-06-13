@@ -29,7 +29,7 @@ const Profiles = ()=>{
               <div className="spinner"></div>
               :
               searchedProfiles.length>0?
-              <div className="lg:grid gap-4 grid-cols-4 mt-[50px] ">
+              <div className="lg:grid gap-4 grid-cols-4 mt-[50px] flex flex-col ">
                 {
                     searchedProfiles.map((profile:FullUser)=>(
                         

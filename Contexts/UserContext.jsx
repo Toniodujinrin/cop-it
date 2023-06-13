@@ -95,6 +95,7 @@ const UserContextProvider = ({ children }) => {
   const authenticate = async (payload) => {
 
       try {
+        setAuthLoading(true)
         const res = await post("auth", {}, payload); 
         console.log(res)
         await authenticateProcess(res.data.data)
@@ -113,7 +114,7 @@ const UserContextProvider = ({ children }) => {
       const token = authToken._id;
       const email = authToken.user;
       try {
-        setAuthLoading(true)
+       
         
        
       const verificationStatus = await get(
