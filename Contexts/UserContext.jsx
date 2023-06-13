@@ -111,6 +111,7 @@ const UserContextProvider = ({ children }) => {
       const token = authToken._id;
       const email = authToken.user;
       try {
+        setAuthLoading(true)
         
        
       const verificationStatus = await get(

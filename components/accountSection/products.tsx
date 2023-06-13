@@ -53,7 +53,7 @@ const Products = () => {
               setPopUpShowing(true);
               setId(product._id);
             }} className="w-[30px] h-[30px]" src="../assets/trash.svg" alt="" /></td>
-            <td><img className="w-[30px] h-[30px]" src="../assets/edit.svg" alt="" /></td>
+            <td><img onClick={()=>{router.push(`/sell?productId=${product._id}`)}} className="w-[30px] h-[30px]" src="../assets/edit.svg" alt="" /></td>
                </tr>
                
               ))}

@@ -16,7 +16,7 @@ const NavBar = () => {
     router.push(`list?search=${search}`)
   }
   return (
-    <div className="w-full h-[100px] lg:pt-0 pt-[20px] px-4 justify-around flex lg:flex-row flex-col items-center">
+    <div className="w-full dark:bg-black h-[100px] lg:pt-0 pt-[20px] px-4 justify-around flex lg:flex-row flex-col items-center">
       {/* logo div */}
       <div className="lg:py-0 py-4 w-full  lg:w-auto flex flex-row justify-between items-center  ">
         <img

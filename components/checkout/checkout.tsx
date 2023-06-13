@@ -11,7 +11,7 @@ import GreenButton from "../utilities/greenButton";
 
 const CheckOutComp = ()=>{
   const {user,refreshUserAndNotRoute}= useContext(UserContext)
-  const {checkout, processCheckout} = useContext(CheckoutContext)
+  const {checkout, processCheckout, checkoutLoading} = useContext(CheckoutContext)
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -112,7 +112,7 @@ const CheckOutComp = ()=>{
                 <p className="lg:ext-[32px] text-[21px]">{`$${checkout.total}`}</p>
                </div>
 
-               <GreenButton text="Pay" onCLick={()=>{handleCheckout()}} loading={false}/>
+               <GreenButton text="Pay" onCLick={()=>{handleCheckout()}} loading={checkoutLoading} disabled={checkoutLoading} />
              </div>
           </section>
         </div>

@@ -1,12 +1,14 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import InputGroup from "../inputGroup";
 import FileUpload from "./fileUpload";
 import Joi from "joi";
 import { ProductsContext } from "../../Contexts/ProductsContexts";
 import GreenButton from "../utilities/greenButton";
+import { useRouter } from "next/router";
+import BackButton from "../utilities/backButton";
 const SellComp = () => {
-  const { postProduct, productsProcessLoading } = useContext(ProductsContext);
+  const { postProduct, productsProcessLoading, product, getProduct, editProduct } = useContext(ProductsContext);
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Electronics");
   const [amountInStock, setAmountInStock] = useState("0");
@@ -14,7 +16,8 @@ const SellComp = () => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState("");
   const [fileDetails, setFileDetails] = useState<File | null>();
-
+  const router = useRouter()
+  const productId = router.query.productId
   const [errors, setErrors] = useState({
     description: "",
     category: "",
@@ -24,7 +27,21 @@ const SellComp = () => {
     file: "",
   });
 
-  const handleSell = async () => {
+  useEffect(()=>{
+    getProduct(productId)
+  },[productId])
+  useEffect(()=>{
+  if(product){
+    setName(product.name)
+    setCategory(product.category)
+    setPrice(product.price)
+    setDescription(product.description)
+    setAmountInStock(product.numberInStock)
+    setFile('ii')
+  }
+  },[product])
+
+  const handleProcess = async () => {
     const Schema = Joi.object({
       description: Joi.string().required().label("Description"),
       category: Joi.string().required().label("Category"),
@@ -102,8 +119,18 @@ const SellComp = () => {
         numberInStock: parseInt(amountInStock),
         price: parseInt(price),
         file: file,
+        productId:productId
       };
-      postProduct(payload);
+
+      if(productId){
+        
+        editProduct(payload)
+
+      }
+      else{
+         postProduct(payload);
+      }
+     
     }
   };
 
@@ -136,9 +163,12 @@ const SellComp = () => {
   };
 
   return (
-    <div className="w-full lg:p-8  flex justify-center ">
+    <div className="w-full lg:p-8 flex-col items-center  flex justify-center ">
+      <div className="w-full">
+      <BackButton/>
+      </div>
       <div className="lg:w-[60%] w-[80%] h-[800px] flex flex-col   ">
-        <h1 className="text-darkGreen text-[32px] font-bold mb-6 ">Sell</h1>
+        <h1 className="text-darkGreen text-[32px] font-bold mb-6 ">{productId?'Edit':'Sell'}</h1>
         <div className=" flex flex-col w-full lg:grid grid-cols-2 mb-4 gap-4 items-center ">
           <InputGroup
             value={name}
@@ -192,6 +222,7 @@ const SellComp = () => {
           ></textarea>
           <small className=" text-red-500">{errors.description}</small>
         </div>
+        {!productId &&
         <div className="mt-4 flex flex-col ">
           <label className="text-darkGreen font-semibold">
             Upload Product Images
@@ -222,14 +253,20 @@ const SellComp = () => {
             </div>
           )}
         </div>
-
+        }
         <div className="w-full flex items-end justify-end">
-          <GreenButton
-           disabled={productsProcessLoading}
-           onCLick={()=>{handleSell}}
-           text='Sell'
-           loading={productsProcessLoading}
-          />
+          {
+            !productId?
+            <GreenButton
+            disabled={productsProcessLoading}
+            onCLick={()=>{handleProcess()}}
+            text='Sell'
+            loading={productsProcessLoading}
+           />
+           :
+           <GreenButton disabled={productsProcessLoading} onCLick={()=>{handleProcess()}} text='Edit' loading={productsProcessLoading}/>
+          }
+
 
         </div>
       </div>

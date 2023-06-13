@@ -18,11 +18,7 @@ const NavBarSmall= () => {
       notication: 0,
     },
 
-    {
-      name: "Basket",
-      link: "/basket",
-      notification: 0,
-    },
+
   ];
   return (
     <div className="flex flex-col">
@@ -60,7 +56,7 @@ const NavBarSmall= () => {
           </div>
         ))}
         <div className="flex gap-3">
-          <p className="cursor-pointer">Basket</p>
+          <p onClick={()=>router.push('/basket')} className="cursor-pointer">Basket</p>
           <BasketNotePill/>
         </div>
       </div>

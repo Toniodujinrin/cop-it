@@ -86,10 +86,14 @@ const CheckoutContextProvider = ({children})=>{
     const processCheckout = async (payload)=>{
         payload.email = cookie.token.user 
         try {
+            setCheckOutLoading(true)
              await post('checkout/processCheckout',{headers:{token:cookie.token._id}},payload)
-
+             router.push('/account')
         } catch (error) {
-            console.log(error)
+            toast.error('unable to process checkout. Try again later')
+        }
+        finally{
+           setCheckOutLoading(false)
         }
       
 

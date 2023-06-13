@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import getAllProducts from "./../DummyData/index";
 import { useCookies } from "react-cookie";
-import { get, post, _delete } from "../api/config";
+import { get, post, _delete,put } from "../api/config";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useQuery, useQueryClient } from "react-query";
@@ -89,7 +89,7 @@ const ProductsContextProvider = ({ children }) => {
         console.log(result.data.data);
         products.push(result.data.data);
         toast.success("product uploaded successfuly ");
-        refetch();
+        
 
         router.push("/account");
       } catch (error) {
@@ -108,7 +108,7 @@ const ProductsContextProvider = ({ children }) => {
     try {
       setProductProcessLoading(true)
       await _delete(`products?productId=${_id}`, {});
-      refetch();
+     
     } catch (error) {
       toast.error(error.response.data.data);
     }
@@ -154,6 +154,27 @@ const ProductsContextProvider = ({ children }) => {
     }
 
   }
+
+  const editProduct = async (payload)=>{
+    try {
+       
+          payload.sellerId = cookies.token.user
+          setProductProcessLoading(true)
+          console.log(payload)
+          await put('products',{headers:{token:cookies.token._id}},payload)
+          router.push('/account')
+          toast.success('product updted')
+          
+          
+    } catch (error) {
+      toast.error('could not edit product, try again later')
+      console.log(error)
+    }
+    finally{
+      setProductProcessLoading(false)
+    }
+ 
+  }
  
   
 
@@ -172,7 +193,8 @@ const ProductsContextProvider = ({ children }) => {
         searchedProducts,
         featuredProducts,
         searchProductsByName,
-        productsProcessLoading
+        productsProcessLoading, 
+        editProduct
       }}
     >
       {children}

@@ -14,6 +14,7 @@ export interface Product {
   seller: string;
 }
 export interface Orders{
+  total:number
   orderId:string
   timeOrdered:number
   products:Basket[]

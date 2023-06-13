@@ -35,6 +35,7 @@ const OrderBox:React.FC<OrderBoxProps> = ({order})=>{
                 </div>
 
                 <div>
+                    <p className="font-bold ">{`$${order.total}`}</p>
                     <p className=" text-green-400">Paid</p>
                 </div>
             </div>
