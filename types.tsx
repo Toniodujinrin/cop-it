@@ -50,6 +50,24 @@ export interface User {
   address: string;
 }
 
+export interface FullUser{
+  _id:string
+  email:string
+  password:string
+  emailVerified:boolean
+  accountVerified:boolean
+  timeCreated:number
+  address:string
+  firstName:string
+  lastName:string
+  phone:string
+  imageConfig:{
+    url:string,
+    publicId:string
+  }
+
+}
+
 export interface Basket {
   product: Product;
   amount: number;

@@ -13,6 +13,8 @@ const UserContextProvider = ({ children }) => {
   const [cookie, setCookie, removeCookie] = useCookies();
   const [user, setUser] = useState({});
   const [authLoading, setAuthLoading]= useState(false)
+  const [searchLoading, setSearchLoading]= useState(false)
+  const [searchedProfiles, setSearchedProfiles]= useState([])
   
   
   
@@ -172,6 +174,24 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
+  const searchProfile = async (string)=>{
+    try {
+      setSearchLoading(true)
+      const res = await get(`users/searchUser?searchString=${string}`)
+      if(res){
+        setSearchedProfiles(res.data.data)
+
+      }
+      else {setSearchedProfiles([])}
+      
+    } catch (error) {
+      console.log(error)
+    }
+    finally{
+      setSearchLoading(false)
+    }
+  }
+
   const handleLogout = ()=>{
     removeCookie('token');
     signOut()
@@ -192,7 +212,10 @@ const UserContextProvider = ({ children }) => {
         uploadUserImage,
         handleGoogleSignIn, 
         handleLogout,
-        refreshUserAndNotRoute
+        refreshUserAndNotRoute,
+        searchLoading,
+        searchedProfiles,
+        searchProfile
       }}
     >
       {children}

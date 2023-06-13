@@ -34,6 +34,7 @@ const ReviewContextProvider  =({children})=>{
     }, [isError]);
 
     const postUserReview =async (payload)=>{
+      if(cookies.token){
       payload.userId = cookies.token.user
       try {
         setPostReviewLoading(true)
@@ -49,6 +50,10 @@ const ReviewContextProvider  =({children})=>{
       finally{
         setPostReviewLoading(false)
       }
+    }
+    else{
+      router.push('/login')
+    }
 
     }
     const deleteReview = async (reviewId)=>{
