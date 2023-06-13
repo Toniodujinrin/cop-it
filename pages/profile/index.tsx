@@ -1,5 +1,5 @@
 import ProfileComp from "../../components/profileSection/profileComp";
-import NavBar from "./../../components/navBar/index";
+import NavBar from "../../components/navBar/index";
 import { useContext } from "react";
 import { ProfileContext } from "../../Contexts/ProfileContext";
 
