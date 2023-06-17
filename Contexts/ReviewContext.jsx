@@ -16,11 +16,11 @@ const ReviewContextProvider  =({children})=>{
         queryKey: ["reviewsAboutUser"],
         queryFn: async () =>{
           if(cookies.token){
-           const reviewData = await get(
+           const {data:reviewData} = await get(
             `reviews/getAllReviewsAboutUser?email=${cookies.token.user}`
           )
-          if (reviewData && reviewData.data && reviewData.data.data) {
-            setReviews(reviewData.data.data);
+          if (reviewData) {
+            setReviews(reviewData);
            }
        }    
         }

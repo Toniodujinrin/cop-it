@@ -7,6 +7,8 @@ import { ProductsContext } from "../../Contexts/ProductsContexts";
 import GreenButton from "../utilities/greenButton";
 import { useRouter } from "next/router";
 import BackButton from "../utilities/backButton";
+import SellInputFields from "./inputFields";
+import FileUploadComp from "./fileUploadComp";
 const SellComp = () => {
   const { postProduct, productsProcessLoading, product, getProduct, editProduct } = useContext(ProductsContext);
   const [name, setName] = useState("");
@@ -17,6 +19,7 @@ const SellComp = () => {
   const [file, setFile] = useState("");
   const [fileDetails, setFileDetails] = useState<File | null>();
   const router = useRouter()
+  const[isAvailble, setIsAvailble]= useState(0)
   const productId = router.query.productId
   const [errors, setErrors] = useState({
     description: "",
@@ -26,18 +29,34 @@ const SellComp = () => {
     name: "",
     file: "",
   });
+  
+  const handleIsAvailable = (value:any)=>{
+   
+    isAvailble === 0 ?setIsAvailble(1):setIsAvailble(0)
+    
+  }
+  useEffect(()=>{
+    console.log()
+  },[isAvailble])
 
   useEffect(()=>{
-    getProduct(productId)
+    if(productId){
+      getProduct(productId)
+    }
+    else{
+      
+    }
+   
   },[productId])
   useEffect(()=>{
-  if(product){
+  if(product && productId){
     setName(product.name)
     setCategory(product.category)
     setPrice(product.price)
     setDescription(product.description)
     setAmountInStock(product.numberInStock)
     setFile('ii')
+   
   }
   },[product])
 
@@ -119,15 +138,17 @@ const SellComp = () => {
         numberInStock: parseInt(amountInStock),
         price: parseInt(price),
         file: file,
-        productId:productId
+        productId:productId,
+        isAvailable:true
       };
 
       if(productId){
-        
+        payload.isAvailable = isAvailble?true:false
         editProduct(payload)
 
       }
       else{
+        
          postProduct(payload);
       }
      
@@ -169,90 +190,10 @@ const SellComp = () => {
       </div>
       <div className="lg:w-[60%] w-[80%] h-[800px] flex flex-col   ">
         <h1 className="text-darkGreen text-[32px] font-bold mb-6 ">{productId?'Edit':'Sell'}</h1>
-        <div className=" flex flex-col w-full lg:grid grid-cols-2 mb-4 gap-4 items-center ">
-          <InputGroup
-            value={name}
-            label="Product Name"
-            errors={errors.name}
-            type="text"
-            setValue={setName}
-          />
-          <div className="w-full flex-col">
-            <label className="text-darkGreen font-semibold">Category</label>
-            <select
-              className="border focus:outline-none bg-white border-[#5A5353] h-[42px] w-full p-2 rounded-lg"
-              onChange={(e) => {
-                setCategory(e.currentTarget.value);
-              }}
-            >
-              <option value="Electronics">Electronics</option>
-              <option value="Clothing">Clothing</option>
-              <option value="Food">Food</option>
-              <option value="Fitness">Fitness</option>
-            </select>
-            <small className=" text-red-500">{errors.category}</small>
-          </div>
-
-          <InputGroup
-            value={amountInStock}
-            label={"Amount in Stock"}
-            type="number"
-            errors={errors.amountInStock}
-            setValue={setAmountInStock}
-          />
-          <InputGroup
-            value={price}
-            label={"Price"}
-            type="number"
-            errors={errors.price}
-            setValue={setPrice}
-          />
-        </div>
-        <div className="w-full flex flex-col space-y-2">
-          <label className="text-darkGreen font-semibold">Description</label>
-          <textarea
-            onChange={(e) => {
-              setDescription(e.currentTarget.value);
-            }}
-            value={description}
-            className={
-              "border focus:outline-none p-2 bg-white border-[#5A5353] rounded-md resize-none w-full h-[140px]"
-            }
-            placeholder="Type in a meaningfull description of what you want to sell"
-          ></textarea>
-          <small className=" text-red-500">{errors.description}</small>
-        </div>
+         <SellInputFields isAvailable={isAvailble} handleIsAvailable={handleIsAvailable} productId={productId} name={name} nameErrors={errors.name} setName={setName} setCategory={setCategory} categoryErrors={errors.category} amountInStock={amountInStock} setAmountInStock={setAmountInStock} price={price} amountInStockErrors={errors.amountInStock} priceErrors={errors.price} setPrice={setPrice} description={description} descriptionErrors={errors.description} setDescription={setDescription}/>
         {!productId &&
-        <div className="mt-4 flex flex-col ">
-          <label className="text-darkGreen font-semibold">
-            Upload Product Images
-          </label>{" "}
-          <FileUploader
-            children={<FileUpload uploadFile={uploadFile} />}
-            handleChange={handleChange}
-          />
-          <small className="text-red-500">{errors.file}</small>
-          {fileDetails && (
-            <div
-              className="w-full mt-4 flex justify-between bg-forestGreen rounded-lg p-2 text-white
-              "
-            >
-              <img
-                className="lg:w-[100px] w-[80px] h-[80px] lg:h-[100px] rounded-lg"
-                src={file}
-                alt=""
-              />
-              <p className="lg:text-[18px] text-[14px]"> {`${fileDetails?.name.slice(0,7)}...`}</p>
 
-              <img
-                onClick={() => removeFile()}
-                className="lg:w-[30px] w-[15px] h-[15px] lg:h-[30px] cursor-pointer items-center"
-                src="../assets/close-white.svg"
-                alt=""
-              />
-            </div>
-          )}
-        </div>
+          <FileUploadComp uploadFile={uploadFile} removeFile={removeFile} handleChange={handleChange} fileDetails={fileDetails} fileErrors={errors.file} file={file}  />
         }
         <div className="w-full flex items-end justify-end">
           {

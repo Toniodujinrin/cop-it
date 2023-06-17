@@ -22,6 +22,7 @@ const DetailsComp = () => {
       const payload = {
         products:[{product:product, amount:quantity}]
       }
+      console.log(payload)
       createCheckout(payload)
     } catch (error) {
     }
@@ -53,19 +54,20 @@ const DetailsComp = () => {
       <h1 className="mt-[20px] text-darkGreen text-[24px] font-semibold">{`$${product.price}`}</h1>
       <div className="mt-[20px] space-x-2 flex flex-row items-center">
         <QuantityCounter quantity={quantity} setQuantity={setQuantity} />
-        {product.numberInStock < 20 && product.numberInStock > 0 && (
+        {product.numberInStock < 20 && product.numberInStock > 0 && product.isAvailable && (
           <small className="font-semibold text-forestGreen">{`Only ${product.numberInStock} left in stock. Hurry!`}</small>
         )}
         {
-          product.numberInStock <= 0 &&
+          (product.numberInStock == 0 || !(product.isAvailable)) &&
           <small className="font-semibold text-red-500">{`Not Available`}</small>
         }
       </div>
       <div className="flex flex-row items-center mt-[30px] space-x-2">
-        <button onClick={()=>handleBuyNow()} className="w-[170px] p-2 items-center border-2 border-forestGreen rounded-[20px]">
+        <button disabled={!product.isAvailable||product.numberInStock <= 0} onClick={()=>handleBuyNow()} className="w-[170px] p-2 items-center border-2 border-forestGreen rounded-[20px]">
         {checkoutLoading? <div className="spinnerSmallBlack"></div> : <p>Buy Now</p>}
         </button>
         <button
+          disabled={!product.isAvailable||product.numberInStock <= 0}
           onClick={() => handleBasketAdd()}
           className="w-[170px] p-2 items-center border-2 bg-forestGreen text-white border-forestGreen rounded-[20px]"
         >

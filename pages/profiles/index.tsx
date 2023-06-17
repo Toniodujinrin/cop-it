@@ -19,9 +19,15 @@ const Profiles = ()=>{
     return(
         <>
         <NavBar/>
-        <div className="w-full flex flex-col items-center mt-[50px]">
-        <SearchBar handleSearch={handleSearch} value={value} setValue={setValue} placeholder="search for a profile"/>
+        <div  className="w-full p-4 lg:mt-0 mt-6 flex items-center bg-forestGreen h-[70px]">
+        <img
+        className="w-[25px] h-[25px]"
+        src="../../assets/searchIconWhite.svg"
+        alt=""
+        />
+            <input value={value} onChange={(e)=>setValue(e.currentTarget.value)} placeholder="Search for a profile" className="bg-transparent focus:outline-none border-none outline-none placeholder:text-white text-white w-full p-3 " onKeyUp={(e)=>{ if(e.key == 'Enter')handleSearch()}} type="text" name="" id="" />
         </div>
+      
 
         <div className="w-full flex flex-col items-center h-full ">
             {

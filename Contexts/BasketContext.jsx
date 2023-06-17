@@ -27,10 +27,10 @@ const BasketContextProvider = ({ children }) => {
           headers: { token: cookie.token._id },
         }
       );
-      if (data && data.data && data.data.items && data.data.items.length > 0) {
-        setBasket(data.data.items);
+      if (data && data.items && data.items.length > 0) {
+        setBasket(data.items);
      
-        setAmountInBasket(data.data.items.length);
+        setAmountInBasket(data.items.length);
       } else {
         setAmountInBasket(0)
         setBasket([]);
@@ -92,7 +92,6 @@ const BasketContextProvider = ({ children }) => {
     try {
       setBasketProcessLoading(true)
       payload.email = cookie.token.user
-      console.log(payload)
       await post('basket/editItemAmount',{headers:{token:cookie.token._id}},payload)
       refetchBasket()
       toast.success('Basket Updated')

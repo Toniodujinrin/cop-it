@@ -22,9 +22,9 @@ const ProductsContextProvider = ({ children }) => {
   const { refetch:refetchFeaured} = useQuery({
     queryKey:['featuredProducts'],
     queryFn:async()=>{
-      const featuredProduct = await get('products/getFeatured',{})
-      if(featuredProduct && featuredProduct.data &&featuredProduct.data.data){
-        setFeaturedProducts(featuredProduct.data.data)
+      const {data:featuredProducts} = await get('products/getFeatured',{})
+      if(featuredProducts){
+        setFeaturedProducts(featuredProducts)
       }
     }
   })
@@ -34,11 +34,11 @@ const ProductsContextProvider = ({ children }) => {
     queryKey: ["productsByUser"],
     queryFn: async () =>{
       if(cookies.token){
-      const productData = await get(
+      const {data:productData} = await get(
         `users/getAllProductsBeingSoldByUser?email=${cookies.token.user}`
       )
-      if (productData && productData.data && productData.data.data) {
-        setProducts(productData.data.data);
+      if (productData) {
+        setProducts(productData);
       }
     }
   },
@@ -53,15 +53,14 @@ const ProductsContextProvider = ({ children }) => {
     
     try {
       setProductLoading(true)
-      const product = await get(`products?productId=${productId}`);
+      const {data:product} = await get(`products?productId=${productId}`);
       if (product) {
-        const seller = await get(`users/getProfile?email=${product.data.data.sellerId}`, {});
-        product.data.data.seller = seller.data.data
-        setProduct(product.data.data);
+        const {data:seller} = await get(`users/getProfile?email=${product.sellerId}`, {});
+        product.seller = seller
+        setProduct(product);
       }
-     
-    } catch (error) {
-      console.log(error);
+     } catch (error) {
+      
       toast.error("product not found");
     }
     finally{
@@ -73,7 +72,7 @@ const ProductsContextProvider = ({ children }) => {
     payload.email = cookies.token.user;
     try {
       setProductProcessLoading(true)
-      const res = await post(
+      const {data} = await post(
         "products",
         {
           headers: { token: cookies.token._id },
@@ -82,15 +81,13 @@ const ProductsContextProvider = ({ children }) => {
       );
       const _payload = {
         image: payload.file,
-        productId: res.data.data.productId,
+        productId: data.productId,
       };
       try {
-        const result = await post("images/uploadProductImage", {}, _payload);
-        console.log(result.data.data);
-        products.push(result.data.data);
+        const {data:res} = await post("images/uploadProductImage", {}, _payload);
+        console.log(res);
+       
         toast.success("product uploaded successfuly ");
-        
-
         router.push("/account");
       } catch (error) {
         toast.error('could not upload products at this time try again later');
@@ -120,9 +117,9 @@ const ProductsContextProvider = ({ children }) => {
   const searchProductsByCategory = async (category)=>{
     try {
       setProductLoading(true)
-      const data = await get(`products/getByCategory?category=${category}`)
+      const {data} = await get(`products/getByCategory?category=${category}`)
       if(data){
-       setSearchedProducts(data.data.data)
+       setSearchedProducts(data)
       }
       
 
@@ -139,9 +136,9 @@ const ProductsContextProvider = ({ children }) => {
   const searchProductsByName = async (name)=>{
     try {
       setProductLoading(true)
-      const data = await get(`products/getByName?name=${name}`)
+      const {data} = await get(`products/getByName?name=${name}`)
       if(data){
-       setSearchedProducts(data.data.data)
+       setSearchedProducts(data)
       }
       
     } catch (error) {

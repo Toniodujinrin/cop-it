@@ -17,9 +17,10 @@ const CheckOutComp = ()=>{
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  useEffect(() => {
+  useEffect(()=>{
     refreshUserAndNotRoute()
-    
+  },[])
+  useEffect(() => {
     if (user) {
       setFirstName(user.firstName)
       setLastName(user.lastName)
@@ -31,12 +32,15 @@ const CheckOutComp = ()=>{
   
   const handleCheckout = ()=>{
     const payload = {
-       products:checkout.products
+       products:checkout.products,
+       firstName:firstName,
+       email:email,
+       lastName:lastName,
+       phone:phone,
+       address:address
     }
     processCheckout(payload)
-    
-
-  }
+    }
     return(
         <div className="p-8 flex flex-col lg:flex-row gap-4 ">
           <section className=" w-full lg:w-[60%] p-4 flex items-center flex-col">

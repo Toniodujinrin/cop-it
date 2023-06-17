@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { useCookies } from "react-cookie";
-import { get, post } from "./../api/config";
+import { get, post, put } from "./../api/config";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import {useSession,signIn,signOut} from 'next-auth/react'
@@ -24,11 +24,12 @@ const UserContextProvider = ({ children }) => {
       if(session && !cookie.token && session.user){
         try {
         setAuthLoading(true)
-        const googleAuthData = await post('auth/googleAuthenticate',{},{email:session.user.email})
-        console.log(googleAuthData)
-        await authenticateProcess(googleAuthData.data.data) } 
+        const {data} = await post('auth/googleAuthenticate',{},{email:session.user.email})
+        
+        await authenticateProcess(data) } 
         catch (error) {
-        toast.error('an error occured')
+          
+        setAuthLoading(false)
         }
       }
     }
@@ -64,19 +65,19 @@ const UserContextProvider = ({ children }) => {
   };
   const getUser = async (email, token) => {
     try {
-      const user = await get(`users?email=${email}`, {
+      const {data} = await get(`users?email=${email}`, {
         headers: { token: token },
       });
-      return user;
+      return data;
     } catch (error) {
       throw error;
     }
   };
   const sendOTPCode = async (email) => {
     try {
-      const res = await post(`auth/sendEmailCode?email=${email}`);
+      const {data}= await post(`auth/sendEmailCode?email=${email}`);
       if (res) {
-        toast.success(res.data.data.message);
+        toast.success(data.message);
       }
     } catch (error) {
       throw error;
@@ -85,7 +86,7 @@ const UserContextProvider = ({ children }) => {
   const updateUser = async (email, token) => {
     try {
       const user = await getUser(email, token);
-      if (user) setUser(user.data.data);
+      if (user) setUser(user);
     } catch (error) {
       console.log(error)
     }
@@ -96,12 +97,14 @@ const UserContextProvider = ({ children }) => {
 
       try {
         setAuthLoading(true)
-        const res = await post("auth", {}, payload); 
-        console.log(res)
-        await authenticateProcess(res.data.data)
+        const {data} = await post("auth", {}, payload); 
+       
+        await authenticateProcess(data)
       } catch (error) {
+        setAuthLoading(false)
         toast.error(error.response.data.data);
       }
+    
       
      
       
@@ -117,13 +120,13 @@ const UserContextProvider = ({ children }) => {
        
         
        
-      const verificationStatus = await get(
+      const {data:verificationObject} = await get(
         `auth/checkVerified?email=${email}`,
         {
           headers: { token: token },
         }
       );
-      const verificationObject = verificationStatus.data.data;
+     
       if (
         verificationObject.accountVerified &&
         verificationObject.emailVerified
@@ -137,10 +140,10 @@ const UserContextProvider = ({ children }) => {
         router.replace("/verify");
       }
     else {
-      toast.error("could not log you in at the moment try again later");
+      router.push('/login')
     }}
    catch (error) {
-     toast.error('Could not log you in at the momment ')
+     router.push('/login')
   }
   finally{
     setAuthLoading(false)
@@ -160,12 +163,12 @@ const UserContextProvider = ({ children }) => {
     try {
       payload.email = cookie.token.user;
 
-      const res = await post(
+      const {data} = await post(
         "images/uploadUserImage",
         { headers: { token: cookie.token._id } },
         payload
       );
-      if (res.data.data) {
+      if (data) {
         await updateUser(cookie.token.user, cookie.token._id);
         toast.success("user profile updated");
       }
@@ -178,9 +181,9 @@ const UserContextProvider = ({ children }) => {
   const searchProfile = async (string)=>{
     try {
       setSearchLoading(true)
-      const res = await get(`users/searchUser?searchString=${string}`)
-      if(res){
-        setSearchedProfiles(res.data.data)
+      const {data} = await get(`users/searchUser?searchString=${string}`)
+      if(data){
+        setSearchedProfiles(data)
 
       }
       else {setSearchedProfiles([])}
@@ -191,6 +194,19 @@ const UserContextProvider = ({ children }) => {
     finally{
       setSearchLoading(false)
     }
+  }
+
+  const updateUserInfo  =async (payload)=>{
+    try {
+      payload.email = cookie.token.user 
+      await put('users',{headers:{token:cookie.token._id}},payload)
+      await refreshUser()
+      toast.success('user profile updated')
+    } catch (error) {
+      console.log(error)
+      toast.error('failed to update profile, try again later')
+    }
+    
   }
 
   const handleLogout = ()=>{
@@ -216,7 +232,8 @@ const UserContextProvider = ({ children }) => {
         refreshUserAndNotRoute,
         searchLoading,
         searchedProfiles,
-        searchProfile
+        searchProfile,
+        updateUserInfo
       }}
     >
       {children}

@@ -1,16 +1,13 @@
 import React from "react";
 import { useState, createContext, useEffect } from "react";
 
-import { useCookies } from "react-cookie";
 
-import { useRouter } from "next/router";
 import NavBarSmall from "../components/navBar/navBarSmall";
 
 export const NavContext = createContext();
 
 const NavContextProvider = ({ children }) => {
-  const router = useRouter();
-  const [cookie] = useCookies();
+ 
   const [navBarOpen, setNavBarOpen] = useState(false);
   useEffect(() => {
     console.log(navBarOpen);

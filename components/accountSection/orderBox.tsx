@@ -1,5 +1,8 @@
 import { toast } from "react-toastify";
 import { Orders } from "../../types"
+import 'dayjs/locale/es'
+import dayjs from "dayjs";
+
 
 
 interface OrderBoxProps{
@@ -28,10 +31,15 @@ const OrderBox:React.FC<OrderBoxProps> = ({order})=>{
                     <div className="flex flex-row items-center gap-3">
                     <p className="font-bold lg:text-[18px]`   text-[16px]  ">{`Order ID: ${order.orderId}`}</p>
                      
-                        <img onClick={()=>{navigator.clipboard.writeText(order.orderId); toast.success('Order ID copied to clipboard')}} className="w-[15px] h-[15px] cursor-pointer " src="../assets/copy.svg" alt="" />
+                        <img onClick={()=>{navigator.clipboard.writeText(order.orderId).then(() => {
+        toast.success("successfully copied");
+      })
+      .catch(() => {
+        toast.error("something went wrong");
+      });}} className="w-[15px] h-[15px] cursor-pointer " src="../assets/copy.svg" alt="" />
                     
                     </div>
-                    <p>{order.timeOrdered}</p>
+                    <p>{dayjs(order.timeOrdered).format('YYYY-MM-DD')}</p>
                 </div>
 
                 <div>

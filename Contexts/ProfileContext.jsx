@@ -12,23 +12,23 @@ const ProfileContextProvider = ({ children }) => {
 
   const getEntireProfile = async (email) => {
     try {
-      const userProfile = await get(`users/getProfile?email=${email}`, {});
-      const userProducts = await get(
+      const {data:userProfile} = await get(`users/getProfile?email=${email}`, {});
+      const {data:userProducts}= await get(
         `users/getAllProductsBeingSoldByUser?email=${email}`,
         {}
       );
-      const userReviews = await get(
+      const {data:userReviews} = await get(
         `reviews/getAllReviewsAboutUser?email=${email}`,
         {}
       );
      
       if ((userReviews, userProducts, userProfile)) {
-        setProfile(userProfile.data.data);
-        setProducts(userProducts.data.data);
-        setReviews(userReviews.data.data);
+        setProfile(userProfile);
+        setProducts(userProducts);
+        setReviews(userReviews);
       } else toast.error("could not get user info");
     } catch (error) {
-      console.log(error);
+    
       toast.error("could not get user info");
     }
   };

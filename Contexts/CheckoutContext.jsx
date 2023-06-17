@@ -13,10 +13,10 @@ const CheckoutContextProvider = ({children})=>{
         if(cookie.token){
            try {
             setCheckOutLoading(true)
-            const res = await get(`checkout?email=${cookie.token.user}`,{headers:{token:cookie.token._id}})
+            const {data} = await get(`checkout?email=${cookie.token.user}`,{headers:{token:cookie.token._id}})
 
-            if(res){
-                setCheckOut(res.data.data)
+            if(data){
+                setCheckOut(data)
             }
             
         } catch (error) {
@@ -29,9 +29,9 @@ const CheckoutContextProvider = ({children})=>{
         else if(cookie.checkoutId){
             try {
                 setCheckOutLoading(true)
-                const res = await get(`guestCheckout?checkoutId=${cookie.checkoutId}`)
-                if(res){
-                    setCheckOut(res.data.data)
+                const {data} = await get(`guestCheckout?checkoutId=${cookie.checkoutId}`)
+                if(data){
+                    setCheckOut(data)
                 }
             } catch (error) {
                 
@@ -65,9 +65,9 @@ const CheckoutContextProvider = ({children})=>{
         else{
             try {
                 setCheckOutLoading(true)
-                const res = await post('guestCheckout',{},payload)
-                if(res){
-                  setCookie('checkoutId',res.data.data.checkoutId)
+                const {data} = await post('guestCheckout',{},payload)
+                if(data){
+                  setCookie('checkoutId',data.checkoutId)
                 }
                 router.push('/checkout')
                 
@@ -84,19 +84,34 @@ const CheckoutContextProvider = ({children})=>{
        
     }
     const processCheckout = async (payload)=>{
-        payload.email = cookie.token.user 
+        if(cookie.token){
         try {
             setCheckOutLoading(true)
              await post('checkout/processCheckout',{headers:{token:cookie.token._id}},payload)
              router.push('/account')
+             toast.success('checkout successfull')
         } catch (error) {
+            
             toast.error('unable to process checkout. Try again later')
         }
         finally{
            setCheckOutLoading(false)
         }
-      
+        }
+        else{
+            try {
+                setCheckOutLoading(true)
+                await post('checkout/processGuestCheckout',{},payload)
+                router.push('/account')
+                toast.success('checkout successful')
+            } catch (error) {
+                toast.error('unable to process checkout. TRy again later')
+            }
+            finally{
+                setCheckOutLoading(false)
+            }
 
+        }
     }
 
     return(

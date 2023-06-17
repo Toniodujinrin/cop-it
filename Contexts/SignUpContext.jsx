@@ -17,10 +17,10 @@ const SignUpContextProvider = ({ children }) => {
   const processFirstSignUp = async (payload) => {
     try {
       setSignUpLoading(true)
-      const res = await post("users", {}, payload);
-      if (res.data) {
+      const {data} = await post("users", {}, payload);
+      if (data) {
         setFirstSignUp(true);
-        setCookie("token", res.data.data);
+        setCookie("token", data);
         router.push("/verifyEmail");
       } else return false;
     } catch (error) {
@@ -34,21 +34,21 @@ const SignUpContextProvider = ({ children }) => {
     try {
       setSignUpLoading(true)
       payload.email = cookie.token.user;
-      const res = await post("users/verifyEmail", {}, payload);
-      console.log(res)
-      if (res.data) {
-        const tokenObject = res.data.data;
-        const token = res.data.data._id;
-        const email = res.data.data.user;
+      const {data} = await post("users/verifyEmail", {}, payload);
+      
+      if (data) {
+        const tokenObject = data;
+        const token = data._id;
+        const email = data.user;
         setEmailVerified(true);
         setCookie("token", tokenObject);
-        const verificationStatus = await get(
+        const {data:verificationStatus} = await get(
           `auth/checkVerified?email=${email}`,
           {
             headers: { token: token },
           }
         );
-        if (verificationStatus.data.data.accountVerified) {
+        if (verificationStatus.accountVerified) {
           updateUser(email, token);
           router.push("/account");
         } else {
@@ -65,32 +65,32 @@ const SignUpContextProvider = ({ children }) => {
   };
 
   const processAccountVerification = async (payload) => {
-    console.log(cookie.token)
+   
     if(cookie.token){
 
    
     try {
       setSignUpLoading(true)
       payload.email = cookie.token.user;
-      const res = await post(
+      const {data} = await post(
         "users/verifyAccount",
         { headers: { token: cookie.token._id } },
         payload
       );
       console.log(res)
       if (res.data) {
-        const tokenObject = res.data.data;
-        const token = res.data.data._id;
-        const email = res.data.data.user;
+        const tokenObject = data;
+        const token =data._id;
+        const email = data.user;
         setAccountVerified(true);
         setCookie("token", tokenObject);
-        const verificationStatus = await get(
+        const {data:verificationStatus} = await get(
           `auth/checkVerified?email=${email}`,
           {
             headers: { token: token },
           }
         );
-        if (verificationStatus.data.data.emailVerified) {
+        if (verificationStatus.emailVerified) {
           updateUser(email, token);
          router.push("/account");
         } else router.push("/verifyEmail");
