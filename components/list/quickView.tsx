@@ -56,7 +56,7 @@ const QuickView:React.FC<QuickViewProps> = ({product,setQuickViewProductId})=>{
 
         <>
         { product &&
-        <div className="bg-white items-start border-lightGray border flex p-4 flex-row shadow-lg gap-4 w-[40%] h-[60%]  absolute z-20">
+        <div className="bg-white items-start border-lightGray border flex p-4 flex-row shadow-lg gap-4 lg:w-[40%] w-[90%] h-[60%]  absolute z-20">
             <div className="w-[40%]">
                 <h1 className="text-[24px] font-bold mb-4">{product.name}</h1>
                 <img className=" w-[300px] aspect-square rounded-md" src={product.imageConfig[0].url} alt="" />
@@ -69,7 +69,7 @@ const QuickView:React.FC<QuickViewProps> = ({product,setQuickViewProductId})=>{
                <p>{`availablity: ${product.numberInStock}`}</p>
                <RateMeter rating={product.rating}/>
                <QuantityCounter quantity={quantity} setQuantity={setQuantity}/>
-               <div className="flex flex-row items-center mt-[30px] space-x-2">
+               <div className="flex flex-col gap-3 lg:flex-row items-center mt-[30px] space-x-2">
         <button onClick={()=>handleBuyNow()} className="w-[170px] p-2 items-center border-2 border-forestGreen rounded-[20px]">
         {buyLoading ? <div className="spinnerSmallBlack"></div> : <p>Buy Now</p>}
         </button>

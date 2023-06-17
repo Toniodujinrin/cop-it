@@ -32,7 +32,7 @@ const List=()=>{
    
     {
       productLoading?
-      <div className="w-full grid-cols-4 grid justify-items-center">
+      <div className="w-ful mt-4 gap-4 grid-cols-2 lg:grid-cols-4 grid justify-items-center">
         {
       new Array(8).fill(0).map(
         item => <ProductBoxLoader/>
