@@ -27,7 +27,7 @@ const BasketComp = () => {
   }
   const handleCheckout = async ()=>{
    
-    const checkedOut = basket.filter((item:Basket) =>  selected.includes(item.product._id))
+    const checkedOut = basket.filter((item:Basket) =>  selected.includes(item.productId))
     const payload = {
      products : checkedOut
     }
