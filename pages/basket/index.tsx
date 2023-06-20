@@ -11,7 +11,7 @@ const Basket = () => {
  },[])
   return (
     <div>
-      <NavBar />
+      <NavBar hideSearchBar={false} />
       {basketLoading ? (
         <div className="spinner"></div>
       ) : (

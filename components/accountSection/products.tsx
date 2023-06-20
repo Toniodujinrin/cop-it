@@ -5,11 +5,14 @@ import { useRouter } from "next/router";
 
 import ProductCard from "../productCard";
 import DeletePopUp from "../utilities/deletePopUp";
+import Pagination from "../utilities/pagination";
+import GreenButton from "../utilities/greenButton";
 
 const Products = () => {
   const router = useRouter();
   const [popUpShowing, setPopUpShowing] = useState(false);
   const { products, deleteProduct} = useContext(ProductsContext);
+  const [currentItems, setCurrentItems]= useState<any[]>([])
   const [_id, setId] = useState("");
   const handleDelete = () => {
     deleteProduct(_id);
@@ -17,12 +20,12 @@ const Products = () => {
 
 
   return (
-    <div className="h-[600px] mb-4 w-full p-4 ">
+    <div className="lg:h-[600px] h-full mb-4 w-full p-4 ">
       {products.length > 0 ?
         <div
-          className={` h-[600px] w-full flex ${
+          className={` lg:h-[600px] h-full w-full flex ${
             popUpShowing && "items-center justify-center"
-          }  overflow-y-scroll overflow-x-hidden `}
+          }    `}
         >
           {popUpShowing ? (
             <DeletePopUp
@@ -62,7 +65,7 @@ const Products = () => {
             </table>
 
            <ul className="space-y-4 lg:hidden flex flex-col justify-items-center w-full  ">
-           {products.map((product: Product) => (
+           {currentItems.map((product: Product) => (
              <li
                className="w-full h-fit flex flex-row"
                key={product._id}
@@ -79,6 +82,7 @@ const Products = () => {
                />
              </li>
            ))}
+           <Pagination items={products} setCurrentItems={setCurrentItems} itemsPerPage={2}/>
          </ul>
          </>
           )}
@@ -90,18 +94,9 @@ const Products = () => {
 
         </div>
       }
-      <div className="w-full flex items-end justify-end">
-        <button
-          onClick={() => router.push("/sell")}
-          className={`w-[170px] p-2 mt-[20px] items-center border-2 
-           
-         bg-forestGreen border-forestGreen 
-          
-           text-white cursor-pointer  rounded-[20px]`}
-        >
-          <p>Sell</p>
-        </button>
-      </div>
+
+      <GreenButton text="Sell" disabled={false} loading={false} onCLick={() => router.push("/sell")}/>
+  
     </div>
   );
 };

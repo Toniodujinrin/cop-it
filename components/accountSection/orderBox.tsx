@@ -26,7 +26,7 @@ const OrderBox:React.FC<OrderBoxProps> = ({order})=>{
                     )
                 }
             </div>
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between gap-3">
                 <div>
                     <div className="flex flex-row items-center gap-3">
                     <p className="font-bold lg:text-[18px]`   text-[16px]  ">{`Order ID: ${order.orderId}`}</p>

@@ -18,8 +18,12 @@ const Profiles = ()=>{
 
     return(
         <>
-        <NavBar/>
-        <div  className="w-full p-4 lg:mt-0 mt-6 flex items-center bg-forestGreen h-[70px]">
+        <NavBar hideSearchBar={true}/>
+        <div className="lg:hidden p-4">
+        <SearchBar value={value} setValue={setValue} handleSearch={handleSearch} placeholder={'Search Users'}/>
+        </div>
+        
+        <div  className="w-full lg: p-4 lg:mt-0 mt-6 hidden lg:flex items-center bg-forestGreen h-[70px]">
         <img
         className="w-[25px] h-[25px]"
         src="../../assets/searchIconWhite.svg"

@@ -23,7 +23,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const router = useRouter();
   return (
-    <div className="flex w-full p-4 h-fit rounded-lg gap-4 shadow-lg border border-lightGray flex-row">
+    <div className="flex w-full p-4 h-fit rounded-lg gap-4 shadow-md  border border-lightGray flex-row">
       <div >
         <img
           onClick={() => router.push(`/details?id=${_id}`)}

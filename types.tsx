@@ -69,7 +69,6 @@ export interface FullUser{
 }
 
 export interface Basket {
-  productId:string
   product: Product
   amount: number;
 }

@@ -85,12 +85,12 @@ const Categories = () => {
                   index <= (carouselIndex + 1) * getNumberOfCategories(300) &&
                   index >= carouselIndex * getNumberOfCategories(300) && (
                     <div onClick={()=>router.push(item.href)} className="w-[300px]  h-[100px] cursor-pointer justify-between rounded-[18px] overflow-hidden flex items-center px-2  shadow-md">
-                      <h1 className=" lg:text-[24px] text-[14px] p-2 text-darkGreen">
+                      <h1 className=" lg:text-[24px] w-[50%] text-[14px] p-2 text-darkGreen">
                         {item.name}
                       </h1>
 
                       <img
-                        className=" h-[80%] rounded-[18px] w-[50%] my-auto  "
+                        className=" h-[80%]  rounded-[18px] w-[50%] my-auto  "
                         src={item.iconUrl}
                         alt=""
                       />

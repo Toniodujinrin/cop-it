@@ -23,7 +23,7 @@ const MyAccount = () => {
 
   return (
     <div>
-      <NavBar />
+      <NavBar hideSearchBar={false} />
       <div className="w-full lg:mt-0 mt-[40px] ">
         {Object.keys(user).includes("_id") && !productsByUserLoading && !reviewsByUserLoading &&!basketLoading  && !ordersByUserLoading? (
           <Account />

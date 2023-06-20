@@ -9,6 +9,7 @@ const Products = () => {
     <div className="grid lg:grid-cols-4 gap-x-4 gap-y-4 justify-items-center grid-cols-2 ">
       {products.map((item: Product) => (
         <ProductBox
+         numberInStock={item.numberInStock}
         setQuickViewProduct={setQuickViewProduct}
           showQuickViewIcon={false}
           productId={item._id}

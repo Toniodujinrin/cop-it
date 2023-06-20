@@ -8,6 +8,11 @@ const NavBarSmall= () => {
   const router = useRouter();
   const items = [
     {
+      name: "Account",
+      link: "/account",
+      notification: 0,
+    },
+    {
       name: "Categories",
       link: "",
       notification: 0,
@@ -24,20 +29,7 @@ const NavBarSmall= () => {
     <div className="flex flex-col">
       <div className="bg-forestGreen text-white flex flex-row justify-between p-4 items-center  h-[150px] w-full ">
         <img className="w-[60px] h-[60px]" src="../assets/logo3.svg" alt="" />
-        <button
-          onClick={() => {
-            router.push("/account");
-            setNavBarOpen(false);
-          }}
-          className="flex space-x-2 flex-row items-center justify-center"
-        >
-          <img
-            src="../assets/profileWhite.svg"
-            className="w-[30px] h-[30px]"
-            alt=""
-          />
-          <p>Your Account</p>
-        </button>
+
       </div>
 
       <div className="w-full flex flex-col mt-4 ml-4  ">

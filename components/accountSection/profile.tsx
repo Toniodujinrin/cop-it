@@ -7,6 +7,7 @@ import 'react-phone-number-input/style.css'
 
 import PhoneInputComp from "../inputGroup/phoneInput";
 import AddressInput from "../inputGroup/addressInput";
+import GreenButton from "../utilities/greenButton";
 const Profile = ({}) => {
   const { user,  handleLogout } = useContext(UserContext);
   const [firstName, setFirstName] = useState(user.firstName);
@@ -88,17 +89,9 @@ const Profile = ({}) => {
             <div></div>
             
 
-            <button
-              disabled={!changeDetected}
-              className={`w-[170px] p-2 mt-[20px] items-center border-2 ${
-                changeDetected
-                   ? `bg-forestGreen border-forestGreen `
-                  : `bg-slate-500`
-              }  text-white cursor-pointer  rounded-[20px]`}
-            >
-              <p className="m-0 p-0">Save</p>
-            </button>
-            <button onClick={()=>handleLogout()} className="flex border-2 rounded-[20px] text-red-600 border-red-600 hover:bg-red-600 transition-[1000ms] hover:text-white bg-white w-[170px] p-2 mt-[20px] items-center  justify-center">
+           <GreenButton text="Save" disabled={!changeDetected} loading={false} onCLick={()=>{}}/>
+       
+            <button onClick={()=>handleLogout()} className="flex border-2 rounded-[20px] text-red-600 border-red-600 hover:bg-red-600 transition-[1000ms] hover:text-white bg-white w-full lg:w-[170px] p-2 mt-[20px] items-center  justify-center">
               <p className="m-0 p-0">Log out</p>
             </button>
           </div>

@@ -5,6 +5,7 @@ import { ProfileContext } from "../../Contexts/ProfileContext";
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import BackButton from "../../components/utilities/backButton";
 const Profile = () => {
   const email = useRouter().query.email;
   const { getEntireProfile, profile } = useContext(ProfileContext);
@@ -18,8 +19,11 @@ const Profile = () => {
   }, [email]);
   return (
     <>
-      <NavBar />;
+      <NavBar hideSearchBar={false} />;
       <div>
+        <div className="ml-4">
+          <BackButton/>
+        </div>
         {!Object.keys(profile).includes("firstName") ? (
           <div className="spinner"></div>
         ) : (

@@ -11,6 +11,7 @@ interface ProductBoxProps {
   imgUrl: string;
   setQuickViewProduct : Dispatch<SetStateAction<string>>
   showQuickViewIcon: boolean
+  numberInStock:number
 
   productId: string;
 }
@@ -23,21 +24,28 @@ const ProductBox: React.FC<ProductBoxProps> = ({
   imgUrl,
   productId,
   setQuickViewProduct,
-  showQuickViewIcon
+  showQuickViewIcon,
+  numberInStock
 }) => {
   const router = useRouter();
-  const { addItemToBasket, basketProcessLoading } = useContext(BasketContext);
-
+  const { addItemToBasket } = useContext(BasketContext);
+  const [loading,setLoading]= useState(false)
   const handleBasketAdd = async () => {
     try {
-      
+      if(numberInStock >0){
+      setLoading(true)
       const payload = {
         productId: productId,
         amount: 1,
       };
-      addItemToBasket(payload);
+     
+       await addItemToBasket(payload); 
+      }
     } catch (error) {
-    };
+    }
+    finally{
+      setLoading(false)
+    }
   }
 
   return (
@@ -72,15 +80,15 @@ const ProductBox: React.FC<ProductBoxProps> = ({
             onClick={() => {
               handleBasketAdd();
             }}
-            className=" border-forestGreen flex justify-center items-center border-2 sm:p-1 sm:w-fit sm:h-[35px] w-[20px] h-[20px] font-bold rounded-[18px] text-darkGreen"
+            className=" border-forestGreen flex justify-center items-center border-2 sm:p-1 sm:w-fit sm:h-[35px] w-[30px] h-[30px] font-bold rounded-[18px] text-darkGreen"
           >
-            {basketProcessLoading ? (
+            {loading ? (
               <div className="spinnerSmallBlack"></div>
             ) : (
               <>
                 <p className="m-0 lg:block hidden p-0"> Add to Basket</p>
                 <img
-                  className="lg:hidden sm:w-[20px] sm:h-[20px] w-[10px] h-[20px]"
+                  className="lg:hidden sm:w-[20px] sm:h-[20px] w-[20px] h-[20px]"
                   src="../../assets/cartIcon.svg"
                   alt=""
                 />{" "}
@@ -88,10 +96,10 @@ const ProductBox: React.FC<ProductBoxProps> = ({
             )}
           </button>
           {showQuickViewIcon&&
-          <button onClick={()=>setQuickViewProduct(productId)} className=" border-forestGreen flex justify-center items-center border-2 sm:w-[35px] sm:h-[35px] w-[20px] h-[20px] font-bold rounded-full text-darkGreen">
+          <button onClick={()=>setQuickViewProduct(productId)} className=" border-forestGreen flex justify-center items-center border-2 sm:w-[35px] sm:h-[35px] w-[30px] h-[30px] font-bold rounded-full text-darkGreen">
             <img
               src="../../assets/previewIcon.svg"
-              className="sm:w-[20px] sm:h-[20px] w-[10px] h-[20px]"
+              className="sm:w-[20px] sm:h-[20px] w-[20px] h-[20px]"
               alt=""
             />
           </button>

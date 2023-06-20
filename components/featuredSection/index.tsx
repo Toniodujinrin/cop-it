@@ -27,6 +27,7 @@ featuredProducts.length >0?
  
   featuredProducts.map((item:Product) => (
   <ProductBox
+    numberInStock={item.numberInStock}
     showQuickViewIcon={false}
     setQuickViewProduct={setQuickViewProduct}
     productId={item._id}

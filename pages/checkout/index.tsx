@@ -12,7 +12,7 @@ const CheckOut = ()=>{
     },[])
     return(
         <>
-        <NavBar/>
+        <NavBar hideSearchBar={false}/>
         {
             checkoutLoading?
             <div className="spinner"></div>

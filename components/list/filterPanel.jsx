@@ -6,9 +6,9 @@ const FilterPanel = ()=>{
     const [ value, setValue ] = useState(0); 
     const [rangeSliderShowing, setRangeSLiderShowing] = useState(false)
 return(
-    <div className=" lg:w-[90%] hidden  p-4 lg:flex flex-row items-center  gap-[300px] h-[100px] rounded-lg ">
+    <div className=" lg:w-[90%] w-full   p-4 flex flex-row items-center  lg:gap-[300px] gap-4 h-[100px] rounded-lg ">
             <div className=" flex  flex-col ">
-                <div className="text-[21px] justify-between items-center flex flex-row w-[120px] border border-darkGreen rounded-lg p-2  font-semibold">
+                <div className="lg:text-[21px] text-[14px] justify-between items-center flex flex-row w-[120px] border border-darkGreen rounded-lg p-2  font-semibold">
                 <p className='p-0 m-0'>Price</p> 
                 <img onClick={()=>setRangeSLiderShowing(!rangeSliderShowing)} className='w-[20px] h-[20px]' src="../assets/chevron.svg" alt="" />
                 </div>
@@ -22,7 +22,7 @@ return(
             <div className='flex flex-col'>
          
                 
-              <select className="text-[21px] justify-between items-center flex flex-row bg-white border border-darkGreen rounded-lg p-2  font-semibold" id="Sort">
+              <select className="lg:text-[21px] text-[14px] justify-between items-center flex flex-row bg-white border border-darkGreen rounded-lg p-2  font-semibold" id="Sort">
                 <option value="">Price:Low to High</option>
                 <option value="">Price:High to Low</option>
                 <option value="">High number in stock</option>

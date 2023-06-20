@@ -6,17 +6,21 @@ import { useCookies } from "react-cookie";
 import { NavContext } from "./../../Contexts/NavBarContext";
 
 import BasketNotePill from "../basketSection/basketNotePill";
+interface NavBarProps{
+  hideSearchBar:boolean
+}
 
-const NavBar = () => {
+const NavBar:React.FC<NavBarProps> = ({hideSearchBar}) => {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const { setNavBarOpen } = useContext(NavContext);
   const [cookie] = useCookies();
+  
   const handleSearch = ()=>{
     router.push(`list?search=${search}`)
   }
   return (
-    <div className="w-full dark:bg-black h-[100px] lg:pt-0 pt-[20px] px-4 justify-around flex lg:flex-row flex-col items-center">
+    <div className="w-full lg:mb-0 mb-4 dark:bg-black h-[100px] lg:pt-0 pt-[20px] px-4 justify-around flex lg:flex-row flex-col items-center">
       {/* logo div */}
       <div className="lg:py-0 py-4 w-full  lg:w-auto flex flex-row justify-between items-center  ">
         <img
@@ -66,12 +70,12 @@ const NavBar = () => {
        
       </div>
       {/* serch bar div */}
-      <div className="flex flex-row items-center space-x-[40px] ">
+      <div className={`lg:flex ${hideSearchBar&&'hidden'}  flex-row items-center space-x-[40px] `}>
         <SearchBar
         handleSearch={handleSearch}
           value={search}
           setValue={setSearch}
-          placeholder={"search for any item"}
+          placeholder={"Search"}
         />
         <button
           onClick={() => {

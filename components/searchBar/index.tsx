@@ -14,7 +14,12 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   
   return (
-    <div className="lg:w-[400px] h-[30px]    border-b-2 border-darkGreen flex flex-row justify-between items-center px-4  ">
+    <div className="lg:w-[400px] h-[50px] rounded-[18px] bg-lightGray     flex flex-row justify-between items-center px-4  ">
+          <img
+        className="w-[25px] h-[25px]"
+        src="../../assets/searchIcon.svg"
+        alt=""
+      />
       <input
         onKeyUp={(e)=>{ if(e.key == 'Enter')handleSearch()}}
         className="h-full w-[80%] bg-transparent   placeholder:text-[#5A5353]  focus:outline-none outline-none border-none "
@@ -25,11 +30,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           setValue(e.currentTarget.value);
         }}
       />
-      <img
-        className="w-[25px] h-[25px]"
-        src="../../assets/searchIcon.svg"
-        alt=""
-      />
+ 
     </div>
   );
 };

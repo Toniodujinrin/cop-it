@@ -43,8 +43,8 @@ const CartItem:React.FC<CartItemProps>=({price, imageUrl, name, amount, productI
   
 
     return(
-        <div className="w-full flex p-4 rounded-lg h-[70px] bg-[#e9e9e9] shadow-md  flex-row items-center gap-2">
-           <div onClick={()=> handleSelect(productId)} className={`  aspect-square w-[20px] h-[20px] ${selected.includes(productId) && 'bg-forestGreen'} flex items-center justify-center rounded-sm border  cursor-pointer border-darkGreen`}>
+        <div className="w-full flex p-4 rounded-lg border border-lightGray shadow-md  flex-row items-center gap-2">
+           <div onClick={()=> handleSelect(productId)} className={`  aspect-square w-[25px] border border-forestGreen h-[25px] ${selected.includes(productId) && 'bg-forestGreen'} flex items-center justify-center rounded-md   cursor-pointer `}>
             {
                 selected.includes(productId)&&
                <img src="../assets/whiteTick.svg" alt="" /> 
@@ -57,14 +57,16 @@ const CartItem:React.FC<CartItemProps>=({price, imageUrl, name, amount, productI
                <div className=" flex flex-row gap-3">
                 <div   onClick={() => {
             router.push({ pathname: "/details", query: { id: productId } });
-          }} className="rounded-lg w-[50px] aspect-square">
+          }} className="w-[100px] h-[70px] rounded-lg">
                 <img src={imageUrl} className="w-full rounded-lg h-full" alt="" />
                 </div>
-                <p className="font-semibold text-[18px]  ">{`${name.length>= 10 ?name.slice(0,10):name}...`}</p>
-           </div>
+                <div className=" flex flex-col items-start gap-3">
+                <p className="font-semibold text-[16px]  ">{name}</p>
+                <p className="font-bold text-[18px] lg:text-[24px]">{`$${totalAmount}`}</p>
+         
 
                 
-                <div className="flex flex-col items-center gap-2 ">
+                <div className={`flex  ${edit?`flex-col`:`flex-row`} items-center gap-2 `}>
                 {
                     !edit?
                     <p className=" text-[16px] font-semibold">{amount}</p>:
@@ -78,20 +80,23 @@ const CartItem:React.FC<CartItemProps>=({price, imageUrl, name, amount, productI
                     <div className="flex flex-row  gap-4">
                     <img onClick={()=>{handleAmountChange()}} className=" w-[15px] cursor-pointer h-[15px] " src="../assets/tick.svg" alt="" />
                     <img onClick={( )=>{setEdit(false); setQuantity(amount)}} className=" w-[15px] cursor-pointer h-[15px] " src="../assets/close.svg" alt="" />
-                </div>
+                    </div>
 
                     :
-                    <div className="flex flex-row  gap-4">
-                    <img onClick={()=>{setDeleteAction(true); setProductId(productId)}} className=" cursor-pointer w-[15px] h-[15px] " src="../assets/trash.svg" alt="" />
+                   
+                    
                     <img onClick={( )=>{setEdit(true)}} className=" w-[15px] cursor-pointer h-[15px] " src="../assets/edit.svg" alt="" />
-                </div>
+                
 
                 }
               
                 </div>
 
-                <p className="font-bold text-[18px] lg:text-[24px]">{`$${totalAmount}`}</p>
+                </div>
+           </div>
 
+                
+                <img onClick={()=>{setDeleteAction(true); setProductId(productId)}} className=" cursor-pointer w-[20px] h-[20px] " src="../assets/trash.svg" alt="" />
             
         </div>
         </div>

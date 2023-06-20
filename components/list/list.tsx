@@ -27,7 +27,7 @@ const ListComp = () =>{
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 w-full mt-4 justify-items-center ">
             {
               searchedProducts.map(
-                (item: Product) => <ProductBox showQuickViewIcon={true} setQuickViewProduct={setQuickViewProductId} name={item.name} imgUrl={item.imageConfig[0].url} rating={item.rating} price={item.price} productId={item._id} href=''/>
+                (item: Product) => <ProductBox numberInStock={item.numberInStock} showQuickViewIcon={true} setQuickViewProduct={setQuickViewProductId} name={item.name} imgUrl={item.imageConfig[0].url} rating={item.rating} price={item.price} productId={item._id} href=''/>
               )
             }
           
