@@ -27,7 +27,7 @@ const Details = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar hideSearchBar={false} />
       <div className="pl-4">
         <BackButton/>
       </div>
