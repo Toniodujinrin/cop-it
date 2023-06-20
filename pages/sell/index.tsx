@@ -3,7 +3,7 @@ import SellComp from "../../components/sellSection/sell";
 const Sell = () => {
   return (
     <div>
-      <NavBar />
+      <NavBar hideSearchBar={false} />
       <div className="lg:mt-0 mt-[50px] ">
       <SellComp />
       </div>

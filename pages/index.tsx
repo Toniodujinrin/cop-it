@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div>
       <div className="lg:pb-0 pb-[30px]">
-        <NavBar />
+        <NavBar hideSearchBar={false} />
       </div>
       <div className="w-full  mt-[30px]">
         <HeroSection />
