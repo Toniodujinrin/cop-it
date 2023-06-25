@@ -46,7 +46,7 @@ p{
   animation: spinner 0.8s ease infinite;
 }
 .spinnerSmall {
-  display: inline-block;
+  margin:auto;
   width: 24px;
   height: 24px;
 }

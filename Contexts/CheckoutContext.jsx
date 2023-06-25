@@ -9,8 +9,10 @@ const CheckoutContextProvider = ({children})=>{
     const [cookie, setCookie]= useCookies()
     const [checkoutLoading, setCheckOutLoading] = useState(false)
     const [checkout, setCheckOut]= useState()
+  
     const getCheckOut = async ()=>{
         if(cookie.token){
+            
            try {
             setCheckOutLoading(true)
             const {data} = await get(`checkout?email=${cookie.token.user}`,{headers:{token:cookie.token._id}})
@@ -49,7 +51,7 @@ const CheckoutContextProvider = ({children})=>{
           try {
             setCheckOutLoading(true)
             payload.email = cookie.token.user
-            console.log(payload)
+            
             await post('checkout',{headers:{token:cookie.token._id}},payload)
             
             router.push('/checkout')
@@ -72,7 +74,7 @@ const CheckoutContextProvider = ({children})=>{
                 router.push('/checkout')
                 
             } catch (error) {
-                console.log(error)
+              
                 toast.error('an error occured please try again later')
                 
             }

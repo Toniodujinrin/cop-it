@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import {useSession,signIn,signOut} from 'next-auth/react'
 import { toast } from "react-toastify";
 export const UserContext = createContext();
-
+console
 const UserContextProvider = ({ children }) => {
   const router = useRouter();
   const {data:session}= useSession()
@@ -19,7 +19,7 @@ const UserContextProvider = ({ children }) => {
   
   
   useEffect(()=>{
-    console.log(session)
+    
     const googleSignInProcess = async ()=>{
       if(session && !cookie.token && session.user){
         try {
@@ -47,7 +47,7 @@ const UserContextProvider = ({ children }) => {
     try {
       await updateUser(cookie.token.user, cookie.token._id);
     } catch (error) {
-      console.log(error)
+      
     }
     }
   
@@ -76,11 +76,12 @@ const UserContextProvider = ({ children }) => {
   const sendOTPCode = async (email) => {
     try {
       const {data}= await post(`auth/sendEmailCode?email=${email}`);
-      if (res) {
+      if (data) {
         toast.success(data.message);
       }
     } catch (error) {
-      throw error;
+      
+      toast.error('could not send OTP')
     }
   };
   const updateUser = async (email, token) => {
@@ -88,7 +89,7 @@ const UserContextProvider = ({ children }) => {
       const user = await getUser(email, token);
       if (user) setUser(user);
     } catch (error) {
-      console.log(error)
+    
     }
   };
 
@@ -102,6 +103,7 @@ const UserContextProvider = ({ children }) => {
         await authenticateProcess(data)
       } catch (error) {
         setAuthLoading(false)
+        
         toast.error(error.response.data.data);
       }
     
@@ -126,7 +128,7 @@ const UserContextProvider = ({ children }) => {
           headers: { token: token },
         }
       );
-     
+      console.log(verificationObject)
       if (
         verificationObject.accountVerified &&
         verificationObject.emailVerified
@@ -134,8 +136,9 @@ const UserContextProvider = ({ children }) => {
         await updateUser(email, token);
         router.replace("/account");
       } else if (!verificationObject.emailVerified) {
-        await sendOTPCode(email);
         router.replace("/verifyEmail");
+        await sendOTPCode(email);
+        
       } else if (!verificationObject.accountVerified) {
         router.replace("/verify");
       }
@@ -154,10 +157,10 @@ const UserContextProvider = ({ children }) => {
 
 
   const returnToAccountIfLoggedIn = () => {
-    if (cookie.token && cookie.token.expiry > Date.now()) {
-      console.log('push to account', cookie.token)
-      router.push("/account");
-    }
+    // if (cookie.token && cookie.token.expiry > Date.now()) {
+    //   console.log('push to account', cookie.token)
+    //   router.push("/account");
+    // }
   };
   const uploadUserImage = async (payload) => {
     try {
@@ -189,7 +192,7 @@ const UserContextProvider = ({ children }) => {
       else {setSearchedProfiles([])}
       
     } catch (error) {
-      console.log(error)
+     
     }
     finally{
       setSearchLoading(false)
@@ -203,7 +206,7 @@ const UserContextProvider = ({ children }) => {
       await refreshUser()
       toast.success('user profile updated')
     } catch (error) {
-      console.log(error)
+      
       toast.error('failed to update profile, try again later')
     }
     

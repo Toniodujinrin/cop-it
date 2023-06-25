@@ -35,14 +35,14 @@ const List=()=>{
       <div className="w-full p-4 mt-4 gap-4 grid-cols-2 lg:grid-cols-4 grid justify-items-center">
         {
       new Array(8).fill(0).map(
-        item => <ProductBoxLoader/>
+        (item:number,index:number) => <ProductBoxLoader key={index}/>
       )}
       </div>
       :
       searchedProducts.length>0?
       <ListComp/>
       :
-      <div className="w-full flex flex-col h-full  items-center justify-center">
+      <div className="w-full flex flex-col h-[calc(100vh-100px)]  items-center justify-center">
         <img className="w-[200px] h-[200px]" src="../assets/magnifyingGlass.svg" alt="" />
        <p className="text-[21px] text-forestGreen "> No products fit search</p>
         

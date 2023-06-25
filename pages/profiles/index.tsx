@@ -33,7 +33,7 @@ const Profiles = ()=>{
         </div>
       
 
-        <div className="w-full flex flex-col items-center h-full ">
+        <div className="w-full h-full  lg:h-[calc(100vh-100px)] flex flex-col items-center  ">
             {
                searchLoading?
               <div className="spinner"></div>
@@ -41,16 +41,16 @@ const Profiles = ()=>{
               searchedProfiles.length>0?
               <div className="lg:grid gap-4 grid-cols-4 mt-[50px] flex flex-col ">
                 {
-                    searchedProfiles.map((profile:FullUser)=>(
+                    searchedProfiles.map((profile:FullUser, index:number)=>(
                         
-                       <UserCard email={profile.email} fullName={`${profile.firstName} ${profile.lastName}`} imageUrl={profile.imageConfig.url}  />
+                       <UserCard key={index} email={profile.email} fullName={`${profile.firstName} ${profile.lastName}`} imageUrl={profile.imageConfig.url}  />
                     ))
                     
                     }
 
               </div>
               :
-              <div className="flex m-auto flex-col gap-4 items-center">
+              <div className="flex h-full flex-col gap-4 items-center justify-center">
                  <img className="w-[200px] h-[200px]" src="../assets/magnifyingGlass.svg" alt="" />
                  <p className="text-forestGreen text-[21px] ">No Profile Found</p>
               </div>

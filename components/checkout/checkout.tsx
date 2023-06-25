@@ -42,7 +42,7 @@ const CheckOutComp = ()=>{
     processCheckout(payload)
     }
     return(
-        <div className="p-8 flex flex-col lg:flex-row gap-4 ">
+        <div className="lg:p-8 flex flex-col lg:flex-row gap-4 ">
           <section className=" w-full lg:w-[60%] p-4 flex items-center flex-col">
             <div className="w-full">
             <BackButton/>
@@ -96,7 +96,7 @@ const CheckOutComp = ()=>{
             </div>
             </div>
           </section>
-          <section className="w-full lg:w-[40%] lg:mt-0 mt-[50px] flex items-center justify-center ">
+          <section className="w-full lg:w-[40%] p-4 lg:mt-0 mt-[50px] flex items-center justify-center ">
              <div className="lg:w-[80%]w-[90%] shadow-lg border border-lightGray rounded-[18px] flex flex-col items-center lg:p-4 p-2 gap-3">
               <div className="flex flex-col gap-3 p-4 w-full">
                {

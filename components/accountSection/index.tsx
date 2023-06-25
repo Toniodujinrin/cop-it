@@ -12,7 +12,7 @@ const Account = ({}) => {
 
 
   return (
-    <div className="mx-auto lg:w-[70%] w-full  ">
+    <div className="mx-auto lg:w-[70%] w-full h-full  ">
       <h1 className="font-bold ml-2 text-[32px]">My Account</h1>
       <ul className="flex flex-row text-darkGreen font-semibold lg:text-[24px] text-[16px] justify-between p-4 ">
         {sections.map((section) => (
@@ -29,10 +29,12 @@ const Account = ({}) => {
           </li>
         ))}
       </ul>
+      <div className="lg:h-[calc(100%-120px)]">
       {currentPage == "Profile" && <Profile />}
       {currentPage == "Products" && <Products />}
       {currentPage == "Reviews" && <Reviews />}
       {currentPage=='Orders' &&<Orders/>}
+      </div>
     </div>
   );
 };

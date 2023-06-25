@@ -24,11 +24,11 @@ const Pagination:React.FC<PaginationProps> = ({itemsPerPage, items, setCurrentIt
    
     
     return(
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full flex items-center mb-4 justify-center">
             <ul className=" flex flex-row gap-4 ">
                 {
                    pageNUmbers.map((index)=>(
-                    <li className={`border ${index == currentPage? 'bg-forestGreen text-white':'text-forestGreen'} border-forestGreen w-[40px] aspect-square flex items-center justify-center rounded-[10px] `} onClick={()=>setCurrentPage(index)} key={index}>
+                    <li key={index} className={`border ${index == currentPage? 'bg-forestGreen text-white':'text-forestGreen'} border-forestGreen w-[40px] aspect-square flex items-center justify-center rounded-[10px] `} onClick={()=>setCurrentPage(index)} key={index}>
                         <p>{index}</p>
                     </li>
                    ))

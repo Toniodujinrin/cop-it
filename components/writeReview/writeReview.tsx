@@ -34,9 +34,9 @@ const WriteReview:React.FC<WriteReviewProps> = ({setReviewMode,type})=>{
     }
     
     return(
-        <div className=" p-4 border border-darkGreen items-center flex flex-col w-[300px] h-[400px] rounded-md shadow-lg">
+        <div className=" p-4 border  border-lightGray items-center flex flex-col w-[400px] h-[400px] rounded-[18px] shadow-lg">
         <button className=" self-end" onClick={()=>setReviewMode(false)}> <img className="w-[30px] h-[30px]" src="../assets/close.svg" alt="" /></button>
-         <textarea name="" onChange={(e)=>setValue(e.target.value)} value={value} className=" resize-none bg-slate-100 p-3 focus:outline-none h-[200px] w-full mt-2 rounded-md" ></textarea>
+         <textarea name="" onChange={(e)=>setValue(e.target.value)} placeholder={'Write a review'} maxLength={200} value={value} className=" resize-none p-3 focus:outline-none h-[200px] w-full mt-2 rounded-md" ></textarea>
         <div className='flex mt-3 flex-row items-center'>{
             
             [0,0,0,0,0].map((item, index)=>(

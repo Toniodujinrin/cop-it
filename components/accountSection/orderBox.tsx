@@ -15,8 +15,8 @@ const OrderBox:React.FC<OrderBoxProps> = ({order})=>{
         <div className="w-full rounded-lg border h-fit border-lightGray shadow-lg gap-6 flex flex-col p-4">
             <div className="flex flex-col gap-4">
                 {
-                    order.products.map((product)=>
-                         <div className="flex flex-row gap-4">
+                    order.products.map((product, index)=>
+                         <div key={index} className="flex flex-row gap-4">
                             <img className="w-[100px] h-[70px] rounded-lg" src={product.product.imageConfig[0].url} alt="" />
                             <div>
                                 <h1 className="font-bold text-[21px]">{product.product.name}</h1>

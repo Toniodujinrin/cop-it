@@ -50,7 +50,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({
 
   return (
     <div
-      className="lg:w-[250px] sm:w-[225px] w-full p-2 bg-white
+      className="lg:w-[250px] border border-lightGray sm:w-[225px] w-full p-2 bg-white
 
    sm:min-h-[300px] h-[200px]  flex flex-col items-center rounded-[18px] shadow-lg"
     >
@@ -80,7 +80,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({
             onClick={() => {
               handleBasketAdd();
             }}
-            className=" border-forestGreen flex justify-center items-center border-2 sm:p-1 sm:w-fit sm:h-[35px] w-[30px] h-[30px] font-bold rounded-[18px] text-darkGreen"
+            className=" border-black flex justify-center items-center border-2 sm:p-1 sm:w-fit sm:h-[35px] w-[30px] h-[30px] font-bold rounded-[18px] text-black"
           >
             {loading ? (
               <div className="spinnerSmallBlack"></div>
@@ -96,7 +96,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({
             )}
           </button>
           {showQuickViewIcon&&
-          <button onClick={()=>setQuickViewProduct(productId)} className=" border-forestGreen flex justify-center items-center border-2 sm:w-[35px] sm:h-[35px] w-[30px] h-[30px] font-bold rounded-full text-darkGreen">
+          <button onClick={()=>setQuickViewProduct(productId)} className=" border-black flex justify-center items-center border-2 sm:w-[35px] sm:h-[35px] w-[30px] h-[30px] font-bold rounded-full text-black">
             <img
               src="../../assets/previewIcon.svg"
               className="sm:w-[20px] sm:h-[20px] w-[20px] h-[20px]"

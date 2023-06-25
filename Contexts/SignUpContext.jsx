@@ -56,8 +56,8 @@ const SignUpContextProvider = ({ children }) => {
         }
       }
     } catch (error) {
-      toast.error('could not verify email please try again');
-      console.log(error);
+      toast.error('could not verify email please try again later');
+      
     }
     finally{
       setSignUpLoading(false)
@@ -77,7 +77,7 @@ const SignUpContextProvider = ({ children }) => {
         { headers: { token: cookie.token._id } },
         payload
       );
-      console.log(res)
+   
       if (res.data) {
         const tokenObject = data;
         const token =data._id;
@@ -96,9 +96,9 @@ const SignUpContextProvider = ({ children }) => {
         } else router.push("/verifyEmail");
       }
     } catch (error) {
-      // toast.error(error.response.data.data);
+      toast.error('something went wrong please try again later');
       router.push("./login");
-      console.log(error);
+      
     }
     finally{
       setSignUpLoading(false)

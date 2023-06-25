@@ -8,7 +8,7 @@ const ProfileContextProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [products, setProducts] = useState([]);
   const [reviews, setReviews] = useState([]);
-   
+
 
   const getEntireProfile = async (email) => {
     try {

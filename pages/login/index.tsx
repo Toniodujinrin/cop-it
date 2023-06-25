@@ -83,7 +83,7 @@ const LoginPage = () => {
             alt=""
           />
         </div>
-        <div className="w-[60%] h-full flex flex-col  pt-[30px] ">
+        <div className="lg:w-[60%] w-full lg:px-0 px-4 h-full flex flex-col  pt-[30px] ">
           <div className=" mt-[30px] mb-[60px]">
             <h1 className="text-darkGreen font-bold text-[32px]">
               Welcome Back
@@ -112,7 +112,7 @@ const LoginPage = () => {
               type="password"
             />
 
-            <p className="text-forestGreen">Forgot Password?</p>
+            
 
             <button
               disabled={authLoading}

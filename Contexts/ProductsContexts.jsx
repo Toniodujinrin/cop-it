@@ -85,7 +85,7 @@ const ProductsContextProvider = ({ children }) => {
       };
       try {
         const {data:res} = await post("images/uploadProductImage", {}, _payload);
-        console.log(res);
+        
        
         toast.success("product uploaded successfuly ");
         router.push("/account");
@@ -124,7 +124,7 @@ const ProductsContextProvider = ({ children }) => {
       
 
     } catch (error) {
-      console.log(error)
+       
       
     }
     finally{
@@ -142,7 +142,7 @@ const ProductsContextProvider = ({ children }) => {
       }
       
     } catch (error) {
-      console.log(error)
+     
       
     }
     finally{
@@ -157,7 +157,7 @@ const ProductsContextProvider = ({ children }) => {
        
           payload.sellerId = cookies.token.user
           setProductProcessLoading(true)
-          console.log(payload)
+          
           await put('products',{headers:{token:cookies.token._id}},payload)
           router.push('/account')
           toast.success('product updted')
@@ -165,7 +165,7 @@ const ProductsContextProvider = ({ children }) => {
           
     } catch (error) {
       toast.error('could not edit product, try again later')
-      console.log(error)
+    
     }
     finally{
       setProductProcessLoading(false)

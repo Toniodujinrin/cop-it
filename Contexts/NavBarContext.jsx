@@ -7,10 +7,10 @@ import NavBarSmall from "../components/navBar/navBarSmall";
 export const NavContext = createContext();
 
 const NavContextProvider = ({ children }) => {
- 
+
   const [navBarOpen, setNavBarOpen] = useState(false);
   useEffect(() => {
-    console.log(navBarOpen);
+    
   }, [navBarOpen]);
   return (
     <NavContext.Provider value={{ setNavBarOpen, navBarOpen }}>

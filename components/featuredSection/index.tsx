@@ -25,8 +25,9 @@ featuredProducts.length >0?
         
 
  
-  featuredProducts.map((item:Product) => (
+  featuredProducts.map((item:Product, index:number) => (
   <ProductBox
+   key={index}
     numberInStock={item.numberInStock}
     showQuickViewIcon={false}
     setQuickViewProduct={setQuickViewProduct}
@@ -41,8 +42,8 @@ featuredProducts.length >0?
 
 
 :
-  new Array(8).fill(0).map(item=>
-  <ProductBoxLoader/>
+  new Array(8).fill(0).map((item,index)=>
+  <ProductBoxLoader key={index}/>
    )
   }
   </div>

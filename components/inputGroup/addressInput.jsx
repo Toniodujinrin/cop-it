@@ -15,7 +15,7 @@ const AddressInput= ({ label,
    setValue(_value.label)
   },[_value])
 
-  console.log(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY)
+  
     return(
         <div className="flex flex-col items-start">
         <label className="text-[#9c9c9c] focus:text-forestGreen text-[16px] font-semibold">{label}</label>

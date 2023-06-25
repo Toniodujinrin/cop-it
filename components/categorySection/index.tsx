@@ -69,7 +69,7 @@ const Categories = () => {
     );
     return new Array(numberOfCarousels).fill(0);
   };
-  console.log(getNumberOfCategories(300), getNumberOfCarousels());
+  
   return (
     <div>
       <h1 className="text-darkGreen text-[32px] font-semibold mb-[14px]">
@@ -78,14 +78,14 @@ const Categories = () => {
 
       <CCarousel className="w-full">
         {getNumberOfCarousels().map((item, carouselIndex) => (
-          <CCarouselItem className="h-[150px] w-[330px]">
+          <CCarouselItem key={carouselIndex} className="h-[150px] w-[330px]">
             <ul className="flex flex-row  py-4  space-x-4">
               {categoryData.map(
                 (item, index) =>
                   index <= (carouselIndex + 1) * getNumberOfCategories(300) &&
                   index >= carouselIndex * getNumberOfCategories(300) && (
-                    <div onClick={()=>router.push(item.href)} className="w-[300px]  h-[100px] cursor-pointer justify-between rounded-[18px] overflow-hidden flex items-center px-2  shadow-md">
-                      <h1 className=" lg:text-[24px] w-[50%] text-[14px] p-2 text-darkGreen">
+                    <div key={index} onClick={()=>router.push(item.href)} className="w-[300px]  h-[100px] border border-lightGray cursor-pointer justify-between rounded-[18px] overflow-hidden flex items-center px-2  shadow-md">
+                      <h1 className=" lg:text-[24px] w-[50%] text-[14px] p-2 text-black">
                         {item.name}
                       </h1>
 

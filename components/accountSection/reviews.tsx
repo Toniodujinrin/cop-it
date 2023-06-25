@@ -15,7 +15,7 @@ const Reviews = () => {
           {
           
           reviews.map((review:Review,index:number) => (
-        <ReviewCard deleteAction={()=>{}} key={index} rating={review.rating} review={review.review} email={review.userId} imageUrl={review.author.imageConfig.url} fullName={`${review.author.firstName} ${review.author.lastName} `} />
+        <ReviewCard datePosted={review.datePosted} deleteAction={()=>{}} key={index} rating={review.rating} review={review.review} email={review.userId} imageUrl={review.author.imageConfig.url} fullName={`${review.author.firstName} ${review.author.lastName} `} />
          
       ))
        }</div>

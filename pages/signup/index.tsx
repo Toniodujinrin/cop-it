@@ -2,6 +2,7 @@ import InputGroup from "../../components/inputGroup";
 import SignUpBar from "../../components/SignUpBar";
 import { useState, useContext } from "react";
 import Joi from "joi";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { SignUpContext } from "./../../Contexts/SignUpContext";
 import SignUpButton from "../../components/utilities/signupButtons";
@@ -119,7 +120,12 @@ const SignUp = () => {
             label={"Confirm Password"}
           />
          <SignUpButton text="Submit" loading={signupLoading} onClick={()=>{handleSubmit()}} />
-          
+         <div>
+              <span>Already have an account?</span>{" "}
+              <span className="text-forestGreen cursor-pointer">
+                <Link href={"/login"}>Login</Link>
+              </span>
+            </div>
           
         </div>
       </section>

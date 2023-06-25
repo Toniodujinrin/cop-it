@@ -17,7 +17,8 @@ module.exports = {
         lightGreen: `#BABFB0`,
         beige: `#EDCBB1`,
         alabaster: "#D7DECF",
-        lightGray: "#e9e9e9"
+        lightGray: "#e9e9e9",
+        mediumGray: "#a6a6a6"
       },
     },
   },

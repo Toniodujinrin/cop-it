@@ -4,14 +4,16 @@ interface ReviewCardProps{
   email:string,
   review:string,
   rating:number
-  deleteAction:any
+  deleteAction:()=>any
+  datePosted:number
 }
 import RateMeter from "./rateMeter";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import ProfilePic from "../profilepic";
+import dayjs from "dayjs";
 
-const ReviewCard:React.FC<ReviewCardProps> = ({imageUrl,fullName,email,review,rating, deleteAction}) => {
+const ReviewCard:React.FC<ReviewCardProps> = ({imageUrl,fullName,email,review,rating, deleteAction,datePosted}) => {
   const router = useRouter()
   const [cookie]= useCookies()
   return (
@@ -35,6 +37,7 @@ const ReviewCard:React.FC<ReviewCardProps> = ({imageUrl,fullName,email,review,ra
          {review}
         </p>
         <RateMeter rating={rating} />
+        <p>{dayjs(datePosted).format('YYYY-MM-DD')}</p>
       </div>
     </div>
   );
