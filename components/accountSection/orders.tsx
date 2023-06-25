@@ -11,16 +11,16 @@ return(
     <div>
         {
             orders.orders.length>0?
-            <div>
-            <div className="flex flex-col gap-4 lg:mb-4 lg:p-0 p-4">
+            <div className="flex flex-col justify-between">
+            <div className="flex h-full flex-col gap-4 lg:mb-4 lg:p-0 p-4">
                 {
-                    currentItems.map((order:Orders)=>
-                        <OrderBox order={order}/>
+                    currentItems.map((order:Orders, index:number)=>
+                        <OrderBox key={index} order={order}/>
 
                     )
                 }
             </div>
-            <Pagination setCurrentItems={setCurrentItems} items={orders.orders} itemsPerPage={1} />
+            <Pagination setCurrentItems={setCurrentItems} items={orders.orders} itemsPerPage={2} />
             </div>
             :
             <div>No orders</div>

@@ -14,7 +14,7 @@ const NavBar:React.FC<NavBarProps> = ({hideSearchBar}) => {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const { setNavBarOpen } = useContext(NavContext);
-  const [cookie] = useCookies();
+  
   
   const handleSearch = ()=>{
     router.push(`list?search=${search}`)
