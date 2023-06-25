@@ -28,7 +28,7 @@ const Pagination:React.FC<PaginationProps> = ({itemsPerPage, items, setCurrentIt
             <ul className=" flex flex-row gap-4 ">
                 {
                    pageNUmbers.map((index)=>(
-                    <li key={index} className={`border ${index == currentPage? 'bg-forestGreen text-white':'text-forestGreen'} border-forestGreen w-[40px] aspect-square flex items-center justify-center rounded-[10px] `} onClick={()=>setCurrentPage(index)} key={index}>
+                    <li  className={`border ${index == currentPage? 'bg-forestGreen text-white':'text-forestGreen'} border-forestGreen w-[40px] aspect-square flex items-center justify-center rounded-[10px] `} onClick={()=>setCurrentPage(index)} key={index}>
                         <p>{index}</p>
                     </li>
                    ))
