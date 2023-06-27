@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import getAllProducts from "./../../DummyData/index";
 import ProductBox from "../productBox";
 import { useContext } from "react";
 import { ProductsContext } from "../../Contexts/ProductsContexts";
