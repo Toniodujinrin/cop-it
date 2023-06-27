@@ -1,11 +1,16 @@
 import NavBar from "../../components/navBar";
 import BasketComp from "../../components/basketSection/basket";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { BasketContext } from "../../Contexts/BasketContext";
+import { NavContext } from "../../Contexts/NavBarContext";
 
 const Basket = () => {
+  const {setNavBarOpen} = useContext(NavContext)
   const { refetchBasket, basketLoading  } = useContext(BasketContext);
+  useEffect(()=>{
+   setNavBarOpen(false)
+  },[])
  useEffect(()=>{
   refetchBasket()
  },[])

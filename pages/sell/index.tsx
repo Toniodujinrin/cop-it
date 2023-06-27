@@ -4,7 +4,7 @@ const Sell = () => {
   return (
     <div>
       <NavBar hideSearchBar={false} />
-      <div className="lg:mt-0 mt-[50px] ">
+      <div className="lg:mt-0 mt-[20px] ">
       <SellComp />
       </div>
     </div>

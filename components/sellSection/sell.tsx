@@ -185,7 +185,7 @@ const SellComp = () => {
 
   return (
     <div className="w-full lg:p-8 flex-col items-center  flex justify-center ">
-      <div className="w-full">
+      <div className="w-full p-4">
       <BackButton/>
       </div>
       <div className="lg:w-[60%] w-[80%] h-[800px] flex flex-col   ">
@@ -195,7 +195,7 @@ const SellComp = () => {
 
           <FileUploadComp uploadFile={uploadFile} removeFile={removeFile} handleChange={handleChange} fileDetails={fileDetails} fileErrors={errors.file} file={file}  />
         }
-        <div className="w-full  mb-4 flex items-end justify-end">
+        <div className="w-full  pb-4 flex items-end justify-end">
           {
             !productId?
             <GreenButton
