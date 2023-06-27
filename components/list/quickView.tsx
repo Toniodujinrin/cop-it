@@ -7,6 +7,7 @@ import { CheckoutContext } from "../../Contexts/CheckoutContext"
 import { BasketContext } from "../../Contexts/BasketContext"
 import { AnimatePresence } from "framer-motion"
 import { motion } from "framer-motion"
+import GreenButton from "../utilities/greenButton"
 interface QuickViewProps{
 
     product:Product|undefined
@@ -65,8 +66,8 @@ const QuickView:React.FC<QuickViewProps> = ({product,setQuickViewProductId})=>{
         //   )}
         // </AnimatePresence>
         <AnimatePresence>
-        <motion.div initial={{ opacity: 0 , y:10 }} animate={{ opacity: 1,y:0 }}   exit={{ opacity: [0.5,0] }} className="bg-white items-start border-lightGray border flex p-4 flex-row shadow-lg gap-4 lg:w-[40%] w-[90%] h-[60%]  absolute z-20">
-            <div className="w-[40%]">
+        <motion.div initial={{ opacity: 0 , y:10 }} animate={{ opacity: 1,y:0 }}   exit={{ opacity: [0.5,0] }} className="bg-white items-start  hidden border-lightGray border sm:flex p-4 flex-row shadow-lg gap-4 lg:w-[40%] w-[90%] h-[60%]  absolute z-20">
+            <div className="w-[40%]   ">
                 <h1 className="text-[24px] font-bold mb-4">{product.name}</h1>
                 <img className=" w-[300px] aspect-square rounded-md" src={product.imageConfig[0].url} alt="" />
             </div>
@@ -92,6 +93,35 @@ const QuickView:React.FC<QuickViewProps> = ({product,setQuickViewProductId})=>{
       
             </div>
         </motion.div>
+
+        <motion.div initial={{ opacity: 0 , y:10 }} animate={{ opacity: 1,y:0 }}   exit={{ opacity: [0.5,0] }} className="bg-white items-start  sm:hidden border-lightGray border flex p-4 flex-col shadow-lg gap-2  w-[90%] h-fit  absolute z-20">
+        <div className="w-full flex justify-end">
+                    <img onClick={()=>setQuickViewProductId('')} src="../assets/close.svg" className="w-[30px] h-[30px]" alt="" />
+                </div>
+            
+            <div className="w-full flex items-center flex-col">
+                <h1 className="text-[24px] font-bold mb-4">{product.name}</h1>
+                <img className=" w-[300px] aspect-square rounded-md" src={product.imageConfig[0].url} alt="" />
+            </div>
+            <div className="w-full flex flex-col gap-2">
+               
+               <p className="text-[21px] font-semibold">{`$${product.price}`}</p>
+               <p>{`availablity: ${product.numberInStock}`}</p>
+               <RateMeter rating={product.rating}/>
+               <QuantityCounter quantity={quantity} setQuantity={setQuantity}/>
+               <div className="flex flex-row gap-2 justify-between w-full items-center space-x-2">
+        <button onClick={()=>handleBuyNow()} className="w-[50%] mt-[20px]  p-2 items-center border-2 border-forestGreen rounded-[20px]">
+        {buyLoading ? <div className="spinnerSmallBlack"></div> : <p>Buy Now</p>}
+        </button>
+        <div className="w-[50%]">
+        <GreenButton text="Add to Basket" loading={loading} onCLick={()=>handleBasketAdd()} disabled={false}/>
+        </div>
+        </div>
+      
+            </div>
+        </motion.div>
+
+
         </AnimatePresence>
         }
         </>

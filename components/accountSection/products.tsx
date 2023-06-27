@@ -21,7 +21,7 @@ const Products = () => {
 
 
   return (
-    <motion.div initial={{scale:1.1}} animate={{scale:1}} className=" h-full flex flex-col mb-4 w-full p-4 ">
+    <motion.div initial={{y:10, opacity:0.8}} animate={{y:0, opacity:1}} className=" h-full flex flex-col mb-4 w-full p-4 ">
       {products.length > 0 ?
         <div
           className={`  w-full  ${
