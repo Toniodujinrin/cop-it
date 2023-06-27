@@ -1,17 +1,15 @@
 import React from "react";
 import { useState, createContext, useEffect } from "react";
-
+import { useRouter } from "next/router";
 
 import NavBarSmall from "../components/navBar/navBarSmall";
 
 export const NavContext = createContext();
 
 const NavContextProvider = ({ children }) => {
-
+ 
   const [navBarOpen, setNavBarOpen] = useState(false);
-  useEffect(() => {
-    
-  }, [navBarOpen]);
+
   return (
     <NavContext.Provider value={{ setNavBarOpen, navBarOpen }}>
       <div
