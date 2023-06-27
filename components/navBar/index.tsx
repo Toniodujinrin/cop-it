@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 import { NavContext } from "./../../Contexts/NavBarContext";
 
 import BasketNotePill from "../basketSection/basketNotePill";
+import getCategories from "../../AppData/categories";
 interface NavBarProps{
   hideSearchBar:boolean
 }
@@ -47,22 +48,7 @@ const NavBar:React.FC<NavBarProps> = ({hideSearchBar}) => {
           <NavItem
           href=""
             title="Categories"
-            menus={[
-              { label: "Games", icon: "../../assets/gamesCategory.jpg", href: "/list?category=Games" },
-              { label: "Food", icon: "../../assets/foodCategory.jpg", href: "/list?category=Food" },
-              {
-                label: "Clothes",
-                icon: "../../assets/clothesCategory.jpg",
-                href: "/list?category=Clothing",
-              },
-              { label: "Shoes", icon: "../../assets/shoesCategory.jpg", href: "/list?category=Shoes" },
-              { label: "Electronics", icon: "../../assets/electronicsCategory.jpg", href: "/list?category=Electronics" },
-              {
-                label: "Furniture",
-                icon: "../../assets/furnitureCategory.jpg",
-                href: "/list?category=Furniture",
-              },
-            ]}
+            menus={getCategories()}
           />
       
           <NavItem href="/login" title="Login" />

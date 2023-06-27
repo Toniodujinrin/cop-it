@@ -1,6 +1,7 @@
 import { Product } from "../../types"
 import { useRouter } from "next/router"
 import { Dispatch, SetStateAction } from "react"
+import { motion } from "framer-motion"
 interface ProductTableProps{
     currentItems: Product[]
     setPopUpShowing:Dispatch<SetStateAction<boolean>>
@@ -11,7 +12,7 @@ interface ProductTableProps{
 const ProductTable:React.FC<ProductTableProps> = ({currentItems,setPopUpShowing,setId})=>{
   const router = useRouter()
     return(
-        <table className="table-auto lg:table  hidden h-fit rounded-t-lg bg-lightGray rounded-lg  w-full ">
+        <motion.table transition={{duration:2}} className="table-auto transition-[8000ms] lg:table  hidden h-fit rounded-t-lg bg-lightGray rounded-lg  w-full ">
               <thead className=" h-[100px] rounded-lg ">
                 <tr className="text-[21px] text-white h-[100px]  ">
                   <td className="rounded-tl-lg bg-forestGreen"></td>
@@ -39,7 +40,7 @@ const ProductTable:React.FC<ProductTableProps> = ({currentItems,setPopUpShowing,
               ))}
               </tbody>
 
-            </table>
+            </motion.table>
 
 
     )

@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-// import type { AppProps } from "next/app";
+
 import SignUpContextProvider from "../Contexts/SignUpContext";
 import ProductContextProvider from "../Contexts/ProductsContexts";
 import UserContextProvider from "../Contexts/UserContext";

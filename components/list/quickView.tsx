@@ -5,7 +5,8 @@ import RateMeter from "../utilities/rateMeter"
 import {toast} from 'react-toastify'
 import { CheckoutContext } from "../../Contexts/CheckoutContext"
 import { BasketContext } from "../../Contexts/BasketContext"
-
+import { AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 interface QuickViewProps{
 
     product:Product|undefined
@@ -56,7 +57,15 @@ const QuickView:React.FC<QuickViewProps> = ({product,setQuickViewProductId})=>{
 
         <>
         { product &&
-        <div className="bg-white items-start border-lightGray border flex p-4 flex-row shadow-lg gap-4 lg:w-[40%] w-[90%] h-[60%]  absolute z-20">
+        //   <AnimatePresence>
+        //   {isVisible && (
+        //     <motion.div
+        //       
+        //     />
+        //   )}
+        // </AnimatePresence>
+        <AnimatePresence>
+        <motion.div initial={{ opacity: 0 , y:10 }} animate={{ opacity: 1,y:0 }}   exit={{ opacity: [0.5,0] }} className="bg-white items-start border-lightGray border flex p-4 flex-row shadow-lg gap-4 lg:w-[40%] w-[90%] h-[60%]  absolute z-20">
             <div className="w-[40%]">
                 <h1 className="text-[24px] font-bold mb-4">{product.name}</h1>
                 <img className=" w-[300px] aspect-square rounded-md" src={product.imageConfig[0].url} alt="" />
@@ -82,7 +91,8 @@ const QuickView:React.FC<QuickViewProps> = ({product,setQuickViewProductId})=>{
       </div>
       
             </div>
-        </div>
+        </motion.div>
+        </AnimatePresence>
         }
         </>
     )

@@ -134,7 +134,7 @@ const UserContextProvider = ({ children }) => {
         verificationObject.emailVerified
       ) {
         await updateUser(email, token);
-        router.replace("/account");
+        if(router.pathname == '/login') router.replace("/account");
       } else if (!verificationObject.emailVerified) {
         router.replace("/verifyEmail");
         await sendOTPCode(email);

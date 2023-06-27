@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
 type menu = {
-  label: string;
-  icon: string;
+  name: string;
+  iconUrl: string;
   href: string;
 };
 interface NavItemProps {
@@ -41,13 +42,13 @@ const NavItem: React.FC<NavItemProps> = ({ title, menus, href }) => {
           } w-auto shadow-xl grid grid-cols-2 gap-4 top-[58px]  rounded-[18px] bg-[#ECEAEA] h-auto py-[20px]  `}
         >
           {menus.map((menu,index) => (
-            <div key={index} onClick={()=>router.push(menu.href)} className=" cursor-pointer  flex flex-row  items-center w-full px-4 ">
+            <motion.div initial={{y:-10}} animate={{y:0}} key={index} onClick={()=>router.push(menu.href)} className=" cursor-pointer  flex flex-row  items-center w-full px-4 ">
             
-              <img className="w-[100px] mr-4 rounded-lg  h-[70px]" src={menu.icon} alt="" />
+              <img className="w-[100px] mr-4 rounded-lg  h-[70px]" src={menu.iconUrl} alt="" />
               <p className="text-darkGreen font-semibold text-[21px]">
-                {menu.label}
+                {menu.name}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       )}

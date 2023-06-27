@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import { useState, useEffect, useContext } from "react";
 import Orders from "./orders";
 import Products from "./products";
@@ -30,10 +31,12 @@ const Account = ({}) => {
         ))}
       </ul>
       <div className="lg:h-[calc(100%-120px)]">
+      <AnimatePresence>
       {currentPage == "Profile" && <Profile />}
       {currentPage == "Products" && <Products />}
       {currentPage == "Reviews" && <Reviews />}
       {currentPage=='Orders' &&<Orders/>}
+      </AnimatePresence>
       </div>
     </div>
   );

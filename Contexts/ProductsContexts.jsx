@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import getAllProducts from "./../DummyData/index";
+
 import { useCookies } from "react-cookie";
 import { get, post, _delete,put } from "../api/config";
 import { toast } from "react-toastify";

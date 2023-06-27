@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { ProductsContext } from "../../Contexts/ProductsContexts";
 import { Product } from "../../types";
 import { useRouter } from "next/router";
-
+import { motion } from "framer-motion";
 import ProductCard from "../productCard";
 import DeletePopUp from "../utilities/deletePopUp";
 import Pagination from "../utilities/pagination";
@@ -21,7 +21,7 @@ const Products = () => {
 
 
   return (
-    <div className=" h-full flex flex-col mb-4 w-full p-4 ">
+    <motion.div initial={{scale:1.1}} animate={{scale:1}} className=" h-full flex flex-col mb-4 w-full p-4 ">
       {products.length > 0 ?
         <div
           className={`  w-full  ${
@@ -58,6 +58,8 @@ const Products = () => {
          </ul>
          <Pagination items={products} setCurrentItems={setCurrentItems} itemsPerPage={2}/>
          </div>
+          
+          
           )}
         </div>
         :
@@ -67,10 +69,14 @@ const Products = () => {
 
         </div>
       }
-
-      <GreenButton text="Sell" disabled={false} loading={false} onCLick={() => router.push("/sell")}/>
-  
-    </div>
+        <>
+        {
+          !popUpShowing &&
+          <GreenButton text="Sell" disabled={false} loading={false} onCLick={() => router.push("/sell")}/>
+        }
+        
+        </>
+    </motion.div>
   );
 };
 

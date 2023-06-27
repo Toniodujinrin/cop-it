@@ -3,51 +3,10 @@ import "@coreui/coreui/dist/css/coreui.min.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-
+import getCategories from '../../AppData/categories'
 const Categories = () => {
   const router = useRouter()
-  const categoryData = [
-    {
-      name: "Electronics",
-      href: "/list?category=Electronics",
-      iconUrl: "../../assets/electronicsCategory.jpg",
-    },
-    {
-      name: "Clothing",
-      href: "/list?category=Clothing",
-      iconUrl: "../../assets/clothesCategory.jpg",
-    },
-    {
-      name: "Games",
-      href: "/list?category=Games",
-      iconUrl: "../../assets/gamesCategory.jpg",
-    },
-    {
-      name: "Food",
-      href: "/list?category=Food",
-      iconUrl: "../../assets/foodCategory.jpg",
-    },
-    {
-      name: "Books",
-      href: "/list?category=Books",
-      iconUrl: "../../assets/booksCategory.jpg",
-    },
-    {
-      name: "Shoes",
-      href: "/list?category=Shoes",
-      iconUrl: "../../assets/shoesCategory.jpg",
-    },
-    {
-      name: "Stationary",
-      href: "/list?category=Stationary",
-      iconUrl: "../../assets/stationaryCategory.jpg",
-    },
-    {
-      name: "Furniture",
-      href: "/list?category=Furniture",
-      iconUrl: "../../assets/furnitureCategory.jpg",
-    },
-  ];
+  const categoryData = getCategories()
   const [windowLength, setWindowLength] = useState(1200);
   useEffect(() => {
     if (window !== undefined) {

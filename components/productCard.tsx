@@ -48,6 +48,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             alt=""
           />
           <img
+          onClick={()=>{router.push(`/sell?productId=${_id}`)}}
             className="w-[20px] h-[20px] cursor-pointer"
             src="../assets/edit.svg"
             alt=""

@@ -195,7 +195,7 @@ const SellComp = () => {
 
           <FileUploadComp uploadFile={uploadFile} removeFile={removeFile} handleChange={handleChange} fileDetails={fileDetails} fileErrors={errors.file} file={file}  />
         }
-        <div className="w-full flex items-end justify-end">
+        <div className="w-full  mb-4 flex items-end justify-end">
           {
             !productId?
             <GreenButton

@@ -49,7 +49,7 @@ const SellInputFields:React.FC<SellInputFieldsProps> = ({
             <option value="Games">Games</option>
             <option value="Shoes">Shoes</option>
             <option value="Stationary">Stationary</option>
-            <option value="Furniture"></option>
+            <option value="Furniture">Furniture</option>
             <option value="Books">Books</option>
           </select>
           <small className=" text-red-500">{categoryErrors}</small>
