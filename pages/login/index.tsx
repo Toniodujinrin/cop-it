@@ -4,7 +4,8 @@ import Joi from "joi";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { UserContext } from "./../../Contexts/UserContext";
-
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 const LoginPage = () => {
   const router = useRouter()
   const { authenticate, returnToAccountIfLoggedIn, handleGoogleSignIn, authLoading} = useContext(UserContext);
@@ -73,8 +74,9 @@ const LoginPage = () => {
     }
   };
   return (
+    <AnimatePresence>
     <main className="flex flex-row justify-between min-h-screen">
-      <section className="lg:w-[50%] w-full flex flex-col justify-center items-center">
+      <motion.section initial={{y:30, opacity:0.8}} animate={{y:0, opacity:1}} className="lg:w-[50%] w-full flex flex-col justify-center items-center">
         <div className="w-full lg:hidden pt-3 pl-4">
           <img
           onClick={()=>{router.push('/')}}
@@ -141,7 +143,7 @@ const LoginPage = () => {
             </div>
           </form>
         </div>
-      </section>
+      </motion.section>
       <section className="lg:flex lg:w-[50%] justify-center items-center hidden l">
         <img
           onClick={()=>router.push('/')}
@@ -151,6 +153,7 @@ const LoginPage = () => {
         />
       </section>
     </main>
+    </AnimatePresence>
   );
 };
 

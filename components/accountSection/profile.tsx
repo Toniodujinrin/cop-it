@@ -4,7 +4,7 @@ import { UserContext } from "./../../Contexts/UserContext";
 import WebcamCapture from "./webcam";
 import { useRouter } from "next/router";
 import 'react-phone-number-input/style.css'
-
+import { motion } from "framer-motion";
 import PhoneInputComp from "../inputGroup/phoneInput";
 import AddressInput from "../inputGroup/addressInput";
 import GreenButton from "../utilities/greenButton";
@@ -33,7 +33,7 @@ const Profile = ({}) => {
   }, [firstName, lastName, email, phone, address]);
 
   return (
-    <div className="flex justify-content items-center">
+    <motion.div initial={{y:10, opacity:0.8}} animate={{y:0, opacity:1}} className="flex justify-content items-center">
       {webcam ? (
         <WebcamCapture setWebCam={setWebCam} />
       ) : (
@@ -97,7 +97,7 @@ const Profile = ({}) => {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

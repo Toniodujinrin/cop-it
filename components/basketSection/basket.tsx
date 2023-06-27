@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { BasketContext } from "../../Contexts/BasketContext";
 import { Product } from "../../types";
+import { motion } from "framer-motion";
 import CartItem from "./cartItem";
 import DeletePopUp from "../utilities/deletePopUp";
 import GreenButton from "../utilities/greenButton";
@@ -41,7 +42,7 @@ const BasketComp = () => {
   };
 
   return (
-    <div className="mx-auto  lg:w-[70%]">
+    <motion.div initial={{y:10, opacity:0.8}} animate={{y:0, opacity:1}} className="mx-auto  lg:w-[70%]">
       <h1 className="font-bold text-[32px] ml-2 mb-4 ">My Basket</h1>
 
       <div className="w-full p-4 flex items-center justify-center">
@@ -52,7 +53,7 @@ const BasketComp = () => {
               handleDelete={handleDelete}
             />
           ) : (
-            <div className="flex flex-col gap-2 w-full items-center ">
+            <div className="flex flex-col gap-4 w-full items-center ">
               {basket.map((item: Basket, index:number) => (
                 
                   
@@ -89,7 +90,7 @@ const BasketComp = () => {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

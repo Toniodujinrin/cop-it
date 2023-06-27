@@ -44,7 +44,7 @@ const CartItem:React.FC<CartItemProps>=({price, imageUrl, name, amount, productI
 
     return(
         <div className="w-full flex p-4 rounded-lg border border-lightGray shadow-md  flex-row items-center gap-2">
-           <div onClick={()=> handleSelect(productId)} className={`  aspect-square w-[25px] border border-forestGreen h-[25px] ${selected.includes(productId) && 'bg-forestGreen'} flex items-center justify-center rounded-md   cursor-pointer `}>
+           <div onClick={()=> handleSelect(productId)} className={`  aspect-square w-[25px] border-2 border-forestGreen h-[25px] ${selected.includes(productId) && 'bg-forestGreen'} flex items-center justify-center rounded-md   cursor-pointer `}>
             {
                 selected.includes(productId)&&
                <img src="../assets/whiteTick.svg" alt="" /> 
@@ -52,12 +52,12 @@ const CartItem:React.FC<CartItemProps>=({price, imageUrl, name, amount, productI
             
             </div> 
    
-        <div className="w-[90%] flex flex-row items-center justify-between">
+        <div className="w-[90%] flex flex-row  justify-between">
                
                <div className=" flex flex-row gap-3">
                 <div   onClick={() => {
             router.push({ pathname: "/details", query: { id: productId } });
-          }} className="w-[100px] h-[70px] rounded-lg">
+          }} className="lg:w-[150px] w-[100px] h-[70px] lg:h-[150px] lg:aspect-square rounded-lg">
                 <img src={imageUrl} className="w-full rounded-lg h-full" alt="" />
                 </div>
                 <div className=" flex flex-col items-start gap-3">
@@ -95,9 +95,12 @@ const CartItem:React.FC<CartItemProps>=({price, imageUrl, name, amount, productI
                 </div>
            </div>
 
+                <button onClick={()=>{setDeleteAction(true); setProductId(productId)}} className="lg:flex hidden h-fit items-center justify-center rounded-lg border-2 border-red-600 p-2 text-red-600">
+                    <p>Delete Item</p>
+                </button>
                 
-                <img onClick={()=>{setDeleteAction(true); setProductId(productId)}} className=" cursor-pointer w-[20px] h-[20px] " src="../assets/trash.svg" alt="" />
-            
+                <img onClick={()=>{setDeleteAction(true); setProductId(productId)}} className=" lg:hidden cursor-pointer w-[20px] h-[20px] " src="../assets/trash.svg" alt="" />
+                
         </div>
         </div>
     )
