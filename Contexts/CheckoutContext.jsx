@@ -90,7 +90,7 @@ const CheckoutContextProvider = ({children})=>{
         try {
             setCheckOutLoading(true)
              await post('checkout/processCheckout',{headers:{token:cookie.token._id}},payload)
-             router.push('/account')
+             router.push('/success')
              toast.success('checkout successfull')
         } catch (error) {
             
@@ -104,7 +104,7 @@ const CheckoutContextProvider = ({children})=>{
             try {
                 setCheckOutLoading(true)
                 await post('checkout/processGuestCheckout',{},payload)
-                router.push('/account')
+                router.push('/success')
                 toast.success('checkout successful')
             } catch (error) {
                 toast.error('unable to process checkout. TRy again later')
