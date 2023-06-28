@@ -7,7 +7,7 @@ import 'react-phone-number-input/style.css'
 import AddressInput from "../../components/inputGroup/addressInput";
 import PhoneInputComp from "../../components/inputGroup/phoneInput";
 import SignUpButton from "../../components/utilities/signupButtons";
-
+import { motion } from "framer-motion";
 const Verify = () => {
   const { processAccountVerification, signupLoading } = useContext(SignUpContext);
   const Schema = Joi.object({
@@ -88,7 +88,7 @@ const Verify = () => {
   };
   return (
     <SignUpBar>
-      <section className="flex flex-col mt-[50px] h-screen  lg:w-[60%] items-center w-full  ">
+      <motion.section initial={{y:30, opacity:0.8}} animate={{y:0, opacity:1}} className="flex flex-col mt-[50px] h-screen  lg:w-[60%] items-center w-full  ">
         <div>
           <img
             src="../assets/logog2.svg"
@@ -128,7 +128,7 @@ const Verify = () => {
           </div>
         </div>
  
-      </section>
+      </motion.section>
     </SignUpBar>
   );
 };

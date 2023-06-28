@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 import Joi from "joi";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
 import { SignUpContext } from "./../../Contexts/SignUpContext";
 import SignUpButton from "../../components/utilities/signupButtons";
 const SignUp = () => {
@@ -84,7 +85,7 @@ const SignUp = () => {
   };
   return (
     <SignUpBar>
-      <section className="flex flex-col mt-[50px]  lg:w-[60%] items-center w-full h-full ">
+      <motion.section  initial={{y:30, opacity:0.8}} animate={{y:0, opacity:1}}  className="flex flex-col mt-[50px]  lg:w-[60%] items-center w-full h-full ">
         <div>
           <img
             onClick={()=>{router.push('/')}}
@@ -128,7 +129,7 @@ const SignUp = () => {
             </div>
           
         </div>
-      </section>
+      </motion.section>
     </SignUpBar>
   );
 };

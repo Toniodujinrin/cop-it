@@ -4,7 +4,7 @@ import { useState, useContext } from "react";
 import Joi from "joi";
 import { SignUpContext } from "../../Contexts/SignUpContext";
 import SignUpButton from "../../components/utilities/signupButtons";
-
+import { motion } from "framer-motion";
 const VerifyEmail = () => {
   const { processEmailVerfication, signupLoading } = useContext(SignUpContext);
 
@@ -50,7 +50,7 @@ const VerifyEmail = () => {
   };
   return (
     <SignUpBar>
-      <section className="flex flex-col mt-[50px]  lg:w-[60%] items-center w-full h-full ">
+      <motion.section initial={{y:30, opacity:0.8}} animate={{y:0, opacity:1}} className="flex flex-col mt-[50px]  lg:w-[60%] items-center w-full h-full ">
         <div>
           <img
             src="../assets/logog2.svg"
@@ -73,7 +73,7 @@ const VerifyEmail = () => {
 
        <SignUpButton text="Submit" loading={signupLoading} onClick={()=>{handleSubmit()}} />
         </div>
-      </section>
+      </motion.section>
     </SignUpBar>
   );
 };
