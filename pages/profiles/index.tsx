@@ -51,8 +51,8 @@ const Profiles = ()=>{
               </div>
               :
               <div className="flex h-full flex-col gap-4 items-center justify-center">
-                 <img className="w-[200px] h-[200px]" src="../assets/magnifyingGlass.svg" alt="" />
-                 <p className="text-forestGreen text-[21px] ">No Profile Found</p>
+                 <img className="lg:w-[200px] aspect-square w-[150px]" src="../assets/magnifyingGlass.svg" alt="" />
+                 <p className=" lg:text-[21px] text-[18px] ">No Profile Found</p>
               </div>
                
             }

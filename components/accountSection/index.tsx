@@ -14,7 +14,7 @@ const Account = ({}) => {
 
   return (
     <div className="mx-auto lg:w-[70%] w-full h-full  ">
-      <h1 className="font-bold ml-2 text-[32px]">My Account</h1>
+      {/* <h1 className="font-bold ml-2 text-[32px]">My Account</h1> */}
       <ul className="flex flex-row text-darkGreen font-semibold lg:text-[24px] text-[16px] justify-between p-4 ">
         {sections.map((section) => (
           <li
@@ -30,7 +30,7 @@ const Account = ({}) => {
           </li>
         ))}
       </ul>
-      <div className="lg:h-[calc(100%-120px)]">
+    <div className="h-[calc(100%-120px)]">
       <AnimatePresence>
       {currentPage == "Profile" && <Profile />}
       {currentPage == "Products" && <Products />}

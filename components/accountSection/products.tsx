@@ -21,7 +21,7 @@ const Products = () => {
 
 
   return (
-    <motion.div initial={{y:10, opacity:0.8}} animate={{y:0, opacity:1}} className=" h-full flex flex-col mb-4 w-full p-4 ">
+    <motion.div initial={{y:10, opacity:0.8}} animate={{y:0, opacity:1}} className=" h-full flex flex-col justify-between mb-4 w-full p-4 ">
       {products.length > 0 ?
         <div
           className={`  w-full  ${
@@ -64,8 +64,8 @@ const Products = () => {
         </div>
         :
         <div className="w-full h-full flex items-center flex-col justify-center">
-          <img className="w-[200px] h-[200px] " src="../assets/emptyBox.svg" alt="" />
-          <p className="text-[24px] text-forestGreen ">You are not selling any products</p>
+          <img className="lg:w-[200px] aspect-square w-[150px] " src="../assets/emptyBox.svg" alt="" />
+          <p className="lg:text-[24px] text-[18px]  ">No products</p>
 
         </div>
       }

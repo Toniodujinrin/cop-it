@@ -22,8 +22,8 @@ const Reviews = () => {
 
       :
       <div className="w-full h-full flex flex-col items-center justify-center ">
-       <img className="w-[200px] h-[200px]" src="../assets/noReview.svg" alt="" />
-       <p className="text-[21px] text-forestGreen ">You have no reviews</p>
+       <img className="lg:w-[200px] w-[150px] aspect-square" src="../assets/noReview.svg" alt="" />
+       <p className="text-[21px]  ">No reviews</p>
          
       </div>
       }
