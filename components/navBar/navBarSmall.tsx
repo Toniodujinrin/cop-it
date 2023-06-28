@@ -12,6 +12,11 @@ const NavBarSmall= () => {
   const [dropDownShowing, setDropDownShowing]= useState(false)
   const items = [
     {
+      name: "Home",
+      link: "/",
+      notification: 0,
+    },
+    {
       name: "Account",
       link: "/account",
       notification: 0,
