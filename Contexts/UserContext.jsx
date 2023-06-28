@@ -15,7 +15,7 @@ const UserContextProvider = ({ children }) => {
   const [authLoading, setAuthLoading]= useState(false)
   const [searchLoading, setSearchLoading]= useState(false)
   const [searchedProfiles, setSearchedProfiles]= useState([])
-  
+  const [userUpdateLoading,setUserUpdateLoading] = useState(false)
   
   
   useEffect(()=>{
@@ -201,13 +201,16 @@ const UserContextProvider = ({ children }) => {
 
   const updateUserInfo  =async (payload)=>{
     try {
-      payload.email = cookie.token.user 
+      setUserUpdateLoading(true)
       await put('users',{headers:{token:cookie.token._id}},payload)
       await refreshUser()
       toast.success('user profile updated')
     } catch (error) {
       
       toast.error('failed to update profile, try again later')
+    }
+    finally{
+      setUserUpdateLoading(false)
     }
     
   }
@@ -222,6 +225,7 @@ const UserContextProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         authLoading,
+        userUpdateLoading,
         user,
         setUser,
         authenticate,

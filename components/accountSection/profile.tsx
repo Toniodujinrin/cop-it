@@ -9,7 +9,7 @@ import PhoneInputComp from "../inputGroup/phoneInput";
 import AddressInput from "../inputGroup/addressInput";
 import GreenButton from "../utilities/greenButton";
 const Profile = ({}) => {
-  const { user,  handleLogout } = useContext(UserContext);
+  const { user,  handleLogout, updateUserInfo, userUpdateLoading } = useContext(UserContext);
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user._id);
@@ -18,6 +18,17 @@ const Profile = ({}) => {
   const [changeDetected, setChangeDetected] = useState(true);
   const [webcam, setWebCam] = useState(false);
   const router = useRouter();
+  const handleAccountUpdate = ()=>{
+    const payload = {
+      firstName :firstName,
+      lastName:lastName,
+      phone:phone,
+      email:email,
+      address:address
+    }
+    updateUserInfo(payload)
+
+  }
 
    
   useEffect(() => {
@@ -89,7 +100,7 @@ const Profile = ({}) => {
             <div></div>
             
 
-           <GreenButton text="Save" disabled={!changeDetected} loading={false} onCLick={()=>{}}/>
+           <GreenButton text="Save" disabled={!changeDetected} loading={userUpdateLoading} onCLick={()=>{handleAccountUpdate()}}/>
        
             <button onClick={()=>handleLogout()} className="flex border-2 rounded-[20px] text-red-600 border-red-600 hover:bg-red-600 transition-[1000ms] hover:text-white bg-white w-full lg:w-[170px] p-2 mt-[20px] items-center  justify-center">
               <p className="m-0 p-0">Log out</p>

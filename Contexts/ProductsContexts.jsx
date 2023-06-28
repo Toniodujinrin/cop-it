@@ -105,6 +105,8 @@ const ProductsContextProvider = ({ children }) => {
     try {
       setProductProcessLoading(true)
       await _delete(`products?productId=${_id}`, {});
+      refreshProducts()
+
      
     } catch (error) {
       toast.error(error.response.data.data);
