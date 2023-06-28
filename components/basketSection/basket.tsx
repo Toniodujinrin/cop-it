@@ -43,7 +43,7 @@ const BasketComp = () => {
 
   return (
     <motion.div initial={{y:10, opacity:0.8}} animate={{y:0, opacity:1}} className="mx-auto  lg:w-[70%]">
-      <h1 className="font-bold text-[32px] ml-2 mb-4 ">My Basket</h1>
+      <h1 className="font-bold mt-4 text-[32px] ml-2 mb-4 ">My Basket</h1>
 
       <div className="w-full p-4 flex items-center justify-center">
         {basket.length > 0 ? (

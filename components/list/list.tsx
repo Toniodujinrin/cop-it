@@ -8,10 +8,34 @@ import QuickView from "./quickView"
 
 
 const ListComp = () =>{
+    const [filter,setFilter]= useState('low')
     const {searchedProducts}= useContext(ProductsContext)
+    const [filteredProducts,setFilteredProducts]= useState<any[]>([])
     const [quickViewProductId, setQuickViewProductId]= useState('')
     const [quickViewProduct, setQuickViewProduct]= useState()
-
+    useEffect(()=>{
+      const _filtered = [...searchedProducts]
+      if(filter == 'low'){
+        
+        _filtered.sort((a:Product,b:Product)=> a.price-b.price)
+        
+      }
+      else if(filter =='high'){
+        _filtered.sort((a:Product,b:Product)=> b.price-a.price)
+      }
+      else if( filter == 'high stock'){
+        _filtered.sort((a:Product,b:Product)=> b.numberInStock-a.numberInStock)
+      }
+      else if(filter == 'low stock'){
+        _filtered.sort((a:Product,b:Product)=> a.numberInStock-b.numberInStock)
+      }
+      
+      setFilteredProducts(_filtered)
+    },[filter])
+    
+   
+    
+    
    
     useEffect(()=>{
       const _product =searchedProducts.find((product:Product) => product._id == quickViewProductId)
@@ -23,10 +47,10 @@ const ListComp = () =>{
         
         <QuickView setQuickViewProductId={setQuickViewProductId} product={quickViewProduct}/>
         
-        <FilterPanel/>
+        <FilterPanel setFilter={setFilter}/>
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 w-full mt-4 justify-items-center ">
             {
-              searchedProducts.map(
+              filteredProducts.map(
                 (item: Product, index:number) => <ProductBox key={index} numberInStock={item.numberInStock} showQuickViewIcon={true} setQuickViewProduct={setQuickViewProductId} name={item.name} imgUrl={item.imageConfig[0].url} rating={item.rating} price={item.price} productId={item._id} href=''/>
               )
             }
