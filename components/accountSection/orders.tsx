@@ -9,7 +9,7 @@ const {orders}= useContext(OrderContext)
 const [currentItems, setCurrentItems]= useState<any[]>([])
 
 return(
-    <div>
+    <div className="h-full">
         {
             orders.orders.length>0?
             <motion.div initial={{y:10, opacity:0.8}} animate={{y:0, opacity:1}} className="flex flex-col justify-between">
@@ -24,7 +24,11 @@ return(
             <Pagination setCurrentItems={setCurrentItems} items={orders.orders} itemsPerPage={2} />
             </motion.div>
             :
-            <div>No orders</div>
+            <div className="w-full h-full flex flex-col items-center justify-center ">
+       <img className="lg:w-[200px] w-[150px] aspect-square" src="../assets/noOrders.svg" alt="" />
+       <p className="text-[21px]  ">No Orders</p>
+         
+      </div>
         }
         
     </div>
