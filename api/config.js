@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiConfig = axios.create({
-  baseURL: "https://copit.onrender.com",
+  baseURL: "http://127.0.0.1:4300",
 });
 
 export const get = async (route, auth = {}) => {

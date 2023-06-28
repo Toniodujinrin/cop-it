@@ -22,7 +22,7 @@ const DetailsComp = () => {
       const payload = {
         products:[{product:product, amount:quantity}]
       }
-      console.log(payload)
+     
       createCheckout(payload)
     } catch (error) {
     }
