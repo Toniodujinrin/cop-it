@@ -85,7 +85,7 @@ const SignUp = () => {
   };
   return (
     <SignUpBar>
-      <motion.section  initial={{y:30, opacity:0.8}} animate={{y:0, opacity:1}}  className="flex flex-col mt-[50px]  lg:w-[60%] items-center w-full h-full ">
+      <motion.section  initial={{y:30, opacity:0.8}} animate={{y:0, opacity:1}}  className="flex flex-col mt-[50px] lg:p-0 p-2  lg:w-[60%] items-center w-full h-full ">
         <div>
           <img
             onClick={()=>{router.push('/')}}

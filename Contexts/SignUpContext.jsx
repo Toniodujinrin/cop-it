@@ -96,7 +96,7 @@ const SignUpContextProvider = ({ children }) => {
         } else router.push("/verifyEmail");
       }
     } catch (error) {
-      toast.error('something went wrong please try again later');
+      //toast.error('something went wrong please try again later');
       router.push("./login");
       
     }
