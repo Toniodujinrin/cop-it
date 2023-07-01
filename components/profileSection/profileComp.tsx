@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import Products from "./products";
 
 import { ProfileContext } from "../../Contexts/ProfileContext";
-
+import { motion } from "framer-motion";
 import ReviewsComp from "./reviews";
 import ProfilePic from "../profilepic";
 const ProfileComp = () => {
@@ -10,7 +10,8 @@ const ProfileComp = () => {
   const { profile } = useContext(ProfileContext);
   const sections = ["Products", "Reviews"];
   return (
-    <div className="w-full p-4">
+    <motion.div initial={{ scale:0.8, opacity: 0 }}
+    animate={{ opacity: 1, scale:1 }} className="w-full p-4">
       <div className="flex flex-col items-center ">
         <div
           className="border-darkGreen border
@@ -38,7 +39,7 @@ const ProfileComp = () => {
         {currentSection == "Reviews" && <ReviewsComp />}
       
       </div>
-    </div>
+    </motion.div>
   );
 };
 
