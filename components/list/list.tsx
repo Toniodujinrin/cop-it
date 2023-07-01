@@ -5,7 +5,7 @@ import { Product } from "../../types"
 import ProductBox from "../productBox"
 import { useRouter } from "next/router"
 import QuickView from "./quickView"
-
+import { motion } from "framer-motion"
 
 const ListComp = () =>{
     const [filter,setFilter]= useState('low')
@@ -43,7 +43,8 @@ const ListComp = () =>{
       setQuickViewProduct(_product)
     },[quickViewProductId])
     return(
-        <div className="flex flex-col items-center p-4">
+        <motion.div initial={{ y:30, opacity: 0 }}
+        animate={{ opacity: 1,y:0}} exit={{opacity:0, y:30 ,scale:10}}  className="flex flex-col items-center p-4">
         
         <QuickView setQuickViewProductId={setQuickViewProductId} product={quickViewProduct}/>
         
@@ -56,7 +57,7 @@ const ListComp = () =>{
             }
           
         </div> 
-        </div>
+        </motion.div>
     )
 }
 

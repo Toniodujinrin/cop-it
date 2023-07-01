@@ -12,9 +12,9 @@ const DeletePopUp: React.FC<DeletePopUpProps> = ({
   return (
     <motion.div
     initial={{y:10, opacity:0.8}} animate={{y:0, opacity:1}}
-      className={` bg-lightGray  w-[400px] flex flex-col  items-center font-semibold text-[20px] rounded-[20px] p-4 h-[300px]`}
+      className={` bg-lightGray   w-[400px] flex flex-col  items-center font-semibold text-[20px] rounded-[20px] p-4 h-[300px]`}
     >
-      <h1 className=" mt-6 ">
+      <h1 className=" mt-6 text-center ">
         Are you sure you want to delete this product.This action is
         irreversible.
       </h1>

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import QuantityCounter from "../utilities/quantityCounter";
 import { useContext, useState } from "react";
-
+import {motion} from 'framer-motion'
 import RateMeter from "../utilities/rateMeter";
 import { ProductsContext } from "../../Contexts/ProductsContexts";
 import { BasketContext } from "../../Contexts/BasketContext";
@@ -46,7 +46,8 @@ const DetailsComp = () => {
   };
 
   return (
-    <div className="lg:p-0 p-4 w-full">
+    <motion.div  initial={{ scale:0.8, opacity: 0 }}
+    animate={{ opacity: 1, scale:1 }} className="lg:p-0 p-4 w-full">
       <h1 className="text-[32px] font-bold text-darkGreen">{product.name}</h1>
       <p>{product.description}</p>
       <RateMeter rating={product.rating} />
@@ -78,7 +79,7 @@ const DetailsComp = () => {
         <h1 className="text-darkGreen font-semibold text-[24px] mb-[30px]">Sold By:</h1>
          <UserCard email={product.sellerId} fullName={`${product.seller.firstName} ${product.seller.lastName}`} imageUrl={product.seller.imageConfig.url}/>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

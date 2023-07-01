@@ -20,7 +20,7 @@ const Basket = () => {
       {basketLoading ? (
         <div className="spinner"></div>
       ) : (
-        <div className="w-full lg:mt-0 mt-[40px] ">
+        <div className="w-full h-[calc(100vh-100px)] lg:mt-0 mt-[40px] ">
           <BasketComp />
         </div>
       )}
