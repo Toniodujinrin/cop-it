@@ -9,6 +9,7 @@ const CheckoutContextProvider = ({children})=>{
     const [cookie, setCookie]= useCookies()
     const [checkoutLoading, setCheckOutLoading] = useState(false)
     const [checkout, setCheckOut]= useState()
+    const [processCheckoutLoading,setProcessCheckoutLoading]= useState(false)
   
     const getCheckOut = async ()=>{
         if(cookie.token){
@@ -88,7 +89,7 @@ const CheckoutContextProvider = ({children})=>{
     const processCheckout = async (payload)=>{
         if(cookie.token){
         try {
-            setCheckOutLoading(true)
+            setProcessCheckoutLoading(true)
              await post('checkout/processCheckout',{headers:{token:cookie.token._id}},payload)
              router.push('/success')
              toast.success('checkout successfull')
@@ -97,12 +98,12 @@ const CheckoutContextProvider = ({children})=>{
             toast.error('unable to process checkout. Try again later')
         }
         finally{
-           setCheckOutLoading(false)
+           setProcessCheckoutLoading(false)
         }
         }
         else{
             try {
-                setCheckOutLoading(true)
+                setCheckOutLoading(setProcessCheckoutLoading(true))
                 await post('checkout/processGuestCheckout',{},payload)
                 router.push('/success')
                 toast.success('checkout successful')
@@ -110,14 +111,14 @@ const CheckoutContextProvider = ({children})=>{
                 toast.error('unable to process checkout. TRy again later')
             }
             finally{
-                setCheckOutLoading(false)
+                setProcessCheckoutLoading(false)
             }
 
         }
     }
 
     return(
-            <CheckoutContext.Provider value={{ createCheckout, checkout, getCheckOut, checkoutLoading, processCheckout}}>
+            <CheckoutContext.Provider value={{ createCheckout, checkout, getCheckOut, checkoutLoading, processCheckout, processCheckoutLoading}}>
                 {children}
             </CheckoutContext.Provider>
     )

@@ -19,7 +19,7 @@ const Profile = () => {
   }, [email]);
   return (
     <>
-      <NavBar hideSearchBar={false} />;
+      <NavBar hideSearchBar={false} />
       <div>
         <div className="ml-4">
           <BackButton/>

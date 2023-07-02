@@ -11,7 +11,7 @@ import CheckOutBox from "./checkoutBox";
 
 const CheckOutComp = ()=>{
   const {user,refreshUserAndNotRoute}= useContext(UserContext)
-  const {checkout, processCheckout, checkoutLoading} = useContext(CheckoutContext)
+  const {checkout, processCheckout, processCheckoutLoading} = useContext(CheckoutContext)
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -98,7 +98,7 @@ const CheckOutComp = ()=>{
             </div>
           </section>
           <section className="w-full lg:w-[40%] p-4 lg:mt-0 mt-[50px] flex items-center justify-center ">
-             <CheckOutBox checkout={checkout} checkoutLoading={checkoutLoading} handleCheckout={handleCheckout}/>
+             <CheckOutBox checkout={checkout} checkoutLoading={processCheckoutLoading} handleCheckout={handleCheckout}/>
           </section>
         </motion.div>
     )

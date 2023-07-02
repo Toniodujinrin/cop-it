@@ -40,10 +40,10 @@ const WriteReview:React.FC<WriteReviewProps> = ({setReviewMode,type})=>{
         animate={{ opacity: 1,y:0}} exit={{opacity:0, y:30 ,scale:10}} className=" p-4 border  border-lightGray items-center flex flex-col w-[400px] h-[400px] rounded-[18px] shadow-lg">
         <button className=" self-end" onClick={()=>setReviewMode(false)}> <img className="w-[30px] h-[30px]" src="../assets/close.svg" alt="" /></button>
          <textarea name="" onChange={(e)=>setValue(e.target.value)} placeholder={'Write a review'} maxLength={200} value={value} className=" resize-none p-3 focus:outline-none h-[200px] w-full mt-2 rounded-md" ></textarea>
-        <div className='flex mt-3 flex-row items-center'>{
+        <div className='flex w-full border-t-2 gap-4 border-b-2 border-solid border-lightGray justify-center py-4 mt-3 flex-row items-center'>{
             
             [0,0,0,0,0].map((item, index)=>(
-                <div className='w-[30px] h-[30px]' key={index} onClick={()=>{setStar(index)}}>
+                <div className='' key={index} onClick={()=>{setStar(index)}}>
                      <Stars color={index<=star?'#000000':'#ffffff'}></Stars>
                 </div>
                

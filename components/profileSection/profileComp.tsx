@@ -14,7 +14,7 @@ const ProfileComp = () => {
     animate={{ opacity: 1, scale:1 }} className="w-full p-4">
       <div className="flex flex-col items-center ">
         <div
-          className="border-darkGreen border
+          className="border-black border-2
        rounded-full w-[200px] h-[200px] mb-4 flex flex-col  overflow-hidden "
         >
           <ProfilePic email='' imageUrl={profile.imageConfig.url} />

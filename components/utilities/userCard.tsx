@@ -13,16 +13,16 @@ import ProfilePic from "../profilepic";
     const router = useRouter()
     
     return (
-      <div  onClick={()=>router.push(`/profile?email=${email}`)} className=" flex border border-lightGreen cursor-pointer flex-row w-[350px] items-center gap-x-2 p-4 shadow-lg rounded-[20px] ">
-        <div className="w-[40%]">
-          <div className="w-[100px] rounded-full h-[100px]   overflow-hidden">
+      <div  onClick={()=>router.push(`/profile?email=${email}`)} className=" flex border  cursor-pointer flex-row w-[350px] items-center gap-x-2 p-4 shadow-lg rounded-[20px] ">
+        <div className="">
+          <div className="w-[50px] border-2 border-black border-solid rounded-full h-[50px]   overflow-hidden">
             <ProfilePic email={email} imageUrl={imageUrl}/>
           </div>
         </div>
   
-        <div className="flex w-[60%] flex-col">
+        <div className="flex  flex-col">
        
-          <h1 className="font-semibold text-[21px] text-darkGreen">
+          <h1 className="font-bold lg:text-[21px] text-[18px] text-darkGreen">
             {fullName}
           </h1>
           </div>
