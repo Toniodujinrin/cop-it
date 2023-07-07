@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { useState, useEffect, useContext } from "react";
+import { useState} from "react";
 import Orders from "./orders";
 import Products from "./products";
 import Profile from "./profile";
