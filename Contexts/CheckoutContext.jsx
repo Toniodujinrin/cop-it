@@ -13,15 +13,12 @@ const CheckoutContextProvider = ({children})=>{
   
     const getCheckOut = async ()=>{
         if(cookie.token){
-            
-           try {
+            try {
             setCheckOutLoading(true)
-            const {data} = await get(`checkout?email=${cookie.token.user}`,{headers:{token:cookie.token._id}})
-
+            const {data} = await get(`checkout?email=${cookie.token.user}`)
             if(data){
                 setCheckOut(data)
             }
-            
         } catch (error) {
             
         }
@@ -53,7 +50,7 @@ const CheckoutContextProvider = ({children})=>{
             setCheckOutLoading(true)
             payload.email = cookie.token.user
             
-            await post('checkout',{headers:{token:cookie.token._id}},payload)
+            await post('checkout',payload)
             
             router.push('/checkout')
 
@@ -68,7 +65,7 @@ const CheckoutContextProvider = ({children})=>{
         else{
             try {
                 setCheckOutLoading(true)
-                const {data} = await post('guestCheckout',{},payload)
+                const {data} = await post('guestCheckout',payload)
                 if(data){
                   setCookie('checkoutId',data.checkoutId)
                 }
@@ -90,7 +87,7 @@ const CheckoutContextProvider = ({children})=>{
         if(cookie.token){
         try {
             setProcessCheckoutLoading(true)
-             await post('checkout/processCheckout',{headers:{token:cookie.token._id}},payload)
+             await post('checkout/processCheckout',payload)
              router.push('/success')
              toast.success('checkout successfull')
         } catch (error) {
@@ -104,7 +101,7 @@ const CheckoutContextProvider = ({children})=>{
         else{
             try {
                 setCheckOutLoading(setProcessCheckoutLoading(true))
-                await post('checkout/processGuestCheckout',{},payload)
+                await post('checkout/processGuestCheckout',payload)
                 router.push('/success')
                 toast.success('checkout successful')
             } catch (error) {

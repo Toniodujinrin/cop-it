@@ -12,14 +12,12 @@ const ProfileContextProvider = ({ children }) => {
 
   const getEntireProfile = async (email) => {
     try {
-      const {data:userProfile} = await get(`users/getProfile?email=${email}`, {});
+      const {data:userProfile} = await get(`users/getProfile?email=${email}`);
       const {data:userProducts}= await get(
-        `users/getAllProductsBeingSoldByUser?email=${email}`,
-        {}
+        `users/getAllProductsBeingSoldByUser?email=${email}`
       );
       const {data:userReviews} = await get(
-        `reviews/getAllReviewsAboutUser?email=${email}`,
-        {}
+        `reviews/getAllReviewsAboutUser?email=${email}`
       );
      
       if ((userReviews, userProducts, userProfile)) {

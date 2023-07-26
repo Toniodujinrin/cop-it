@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-
+import CookieContextProvider from "../Contexts/CookieContext"
 import SignUpContextProvider from "../Contexts/SignUpContext";
 import ProductContextProvider from "../Contexts/ProductsContexts";
 import UserContextProvider from "../Contexts/UserContext";
@@ -19,6 +19,7 @@ export default function App({ Component, pageProps,session }) {
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider session ={session}>
+      <CookieContextProvider>
       <UserContextProvider>
         <ProductContextProvider>
           <ProfileContextProvider>
@@ -39,6 +40,7 @@ export default function App({ Component, pageProps,session }) {
           </ProfileContextProvider>
           </ProductContextProvider>
       </UserContextProvider> 
+      </CookieContextProvider>
       </SessionProvider>
     </QueryClientProvider>
   );

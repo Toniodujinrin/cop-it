@@ -31,8 +31,7 @@ const SideBar = () => {
     const _items = [...items];
     _items.forEach((item) => {
       item.completed = signUpContext[item.identifier];
-      console.log(signUpContext[item.identifier]);
-      console.log(item);
+   
     });
     setItems(_items);
   }, [emailVerified, accountVerified, firstSignUp]);

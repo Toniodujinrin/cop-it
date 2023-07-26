@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 export const SignUpContext = createContext();
 import { UserContext } from "./UserContext";
+import { setTokenHeaders } from "../api/config";
 
 const SignUpContextProvider = ({ children }) => {
   const router = useRouter();
@@ -14,10 +15,12 @@ const SignUpContextProvider = ({ children }) => {
   const [accountVerified, setAccountVerified] = useState(false);
   const [cookie, setCookie] = useCookies();
   const [signupLoading, setSignUpLoading]= useState(false)
+
+  
   const processFirstSignUp = async (payload) => {
     try {
       setSignUpLoading(true)
-      const {data} = await post("users", {}, payload);
+      const {data} = await post("users",payload);
       if (data) {
         setFirstSignUp(true);
         setCookie("token", data);
@@ -30,24 +33,21 @@ const SignUpContextProvider = ({ children }) => {
       setSignUpLoading(false)
     }
   };
+
+
   const processEmailVerfication = async (payload) => {
     try {
       setSignUpLoading(true)
       payload.email = cookie.token.user;
-      const {data} = await post("users/verifyEmail", {}, payload);
-      
-      if (data) {
+      const {data} = await post("users/verifyEmail", payload);
+      if(data){
         const tokenObject = data;
         const token = data._id;
         const email = data.user;
         setEmailVerified(true);
         setCookie("token", tokenObject);
-        const {data:verificationStatus} = await get(
-          `auth/checkVerified?email=${email}`,
-          {
-            headers: { token: token },
-          }
-        );
+        setTokenHeaders(token)
+        const {data:verificationStatus} = await get(`auth/checkVerified?email=${email}`);
         if (verificationStatus.accountVerified) {
           updateUser(email, token);
           router.push("/account");
@@ -65,11 +65,8 @@ const SignUpContextProvider = ({ children }) => {
   };
 
   const processAccountVerification = async (payload) => {
-   
-    if(cookie.token){
-
-   
-    try {
+   if(cookie.token){
+      try {
       setSignUpLoading(true)
       payload.email = cookie.token.user;
       const {data} = await post(
@@ -77,29 +74,23 @@ const SignUpContextProvider = ({ children }) => {
         { headers: { token: cookie.token._id } },
         payload
       );
-   
       if (res.data) {
         const tokenObject = data;
         const token =data._id;
         const email = data.user;
         setAccountVerified(true);
         setCookie("token", tokenObject);
-        const {data:verificationStatus} = await get(
-          `auth/checkVerified?email=${email}`,
-          {
-            headers: { token: token },
-          }
-        );
+        setTokenHeaders(token)
+        const {data:verificationStatus} = await get(`auth/checkVerified?email=${email}`);
         if (verificationStatus.emailVerified) {
           updateUser(email, token);
          router.push("/account");
-        } else router.push("/verifyEmail");
+        } 
+        else router.push("/verifyEmail");
       }
     } catch (error) {
-      //toast.error('something went wrong please try again later');
       router.push("./login");
-      
-    }
+      }
     finally{
       setSignUpLoading(false)
     }
@@ -114,9 +105,7 @@ const SignUpContextProvider = ({ children }) => {
         processAccountVerification,
         processEmailVerfication,
         signupLoading,
-
         emailVerified,
-
         accountVerified,
       }}
     >

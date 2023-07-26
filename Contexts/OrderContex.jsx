@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useQuery } from "react-query";
-
+import { setTokenHeaders } from "../api/config";
 import { get } from "../api/config";
 export const OrderContext = createContext()
 
@@ -12,10 +12,10 @@ const OrderContextProvider = ({children})=>{
         queryKey: ["ordersByUser"],
         queryFn: async () =>{
           if(cookies.token){
+          setTokenHeaders(cookies.token._id)
           const {data:orderData} = await get(
-            `orders?email=${cookies.token.user}`,{headers:{token:cookies.token._id}}
+            `orders?email=${cookies.token.user}`
           )
-          
           if (orderData) {
             setOrders(orderData);
           }

@@ -1,20 +1,13 @@
 import React from "react";
-import { useState, createContext, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useState, createContext} from "react";
+
 
 import NavBarSmall from "../components/navBar/navBarSmall";
 
 export const NavContext = createContext();
 
 const NavContextProvider = ({ children }) => {
-  const router = useRouter()
- 
   const [navBarOpen, setNavBarOpen] = useState(false);
-  useEffect(()=>{
-    console.log(router.pathname)
-    setNavBarOpen(false)
- },[router.pathname])
-
   return (
     <NavContext.Provider value={{ setNavBarOpen, navBarOpen }}>
       <div

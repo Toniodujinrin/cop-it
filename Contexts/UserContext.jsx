@@ -1,13 +1,16 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 import { useCookies } from "react-cookie";
-import { get, post, put } from "./../api/config";
+import { get, post, put, setTokenHeaders } from "./../api/config";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import {useSession,signIn,signOut} from 'next-auth/react'
 import { toast } from "react-toastify";
+import { CookieContext } from "./CookieContext";
 export const UserContext = createContext();
-console
+
+
 const UserContextProvider = ({ children }) => {
+  const {authed} = useContext(CookieContext)
   const router = useRouter();
   const {data:session}= useSession()
   const [cookie, setCookie, removeCookie] = useCookies();
@@ -21,10 +24,10 @@ const UserContextProvider = ({ children }) => {
   useEffect(()=>{
     
     const googleSignInProcess = async ()=>{
-      if(session && !cookie.token && session.user){
+      if(session && !authed && session.user){
         try {
         setAuthLoading(true)
-        const {data} = await post('auth/googleAuthenticate',{},{email:session.user.email})
+        const {data} = await post('auth/googleAuthenticate',{email:session.user.email})
         
         await authenticateProcess(data) } 
         catch (error) {
@@ -43,9 +46,9 @@ const UserContextProvider = ({ children }) => {
   }
   
   const refreshUserAndNotRoute = async()=>{
-    if(cookie.token){
+    if(authed){
     try {
-      await updateUser(cookie.token.user, cookie.token._id);
+      await updateUser(cookie.token.user);
     } catch (error) {
       
     }
@@ -54,20 +57,19 @@ const UserContextProvider = ({ children }) => {
   }
   
   const refreshUser = async () => {
+    
     if (cookie.token && cookie.token.expiry > Date.now()) {
       try {
-        await updateUser(cookie.token.user, cookie.token._id);
+        await updateUser(cookie.token.user);
         return true;
       } catch (error) {
         router.replace("/login");
       }
     } else router.replace("/login");
   };
-  const getUser = async (email, token) => {
+  const getUser = async (email) => {
     try {
-      const {data} = await get(`users?email=${email}`, {
-        headers: { token: token },
-      });
+      const {data} = await get(`users?email=${email}`);
       return data;
     } catch (error) {
       throw error;
@@ -80,13 +82,12 @@ const UserContextProvider = ({ children }) => {
         toast.success(data.message);
       }
     } catch (error) {
-      
       toast.error('could not send OTP')
     }
   };
-  const updateUser = async (email, token) => {
+  const updateUser = async (email) => {
     try {
-      const user = await getUser(email, token);
+      const user = await getUser(email);
       if (user) setUser(user);
     } catch (error) {
     
@@ -98,13 +99,19 @@ const UserContextProvider = ({ children }) => {
 
       try {
         setAuthLoading(true)
-        const {data} = await post("auth", {}, payload); 
+        const {data} = await post("auth", payload); 
        
         await authenticateProcess(data)
       } catch (error) {
+        console.log(error)
         setAuthLoading(false)
-        
-        toast.error(error.response.data.data);
+        if(error.response){
+          toast.error(error.response.data.data);
+        }
+        else{
+          toast.error("An error occured logging you in")
+        }
+    
       }
     
       
@@ -118,22 +125,19 @@ const UserContextProvider = ({ children }) => {
 
       const token = authToken._id;
       const email = authToken.user;
+      if(token){
+        setTokenHeaders(token)
+      }
       try {
-       
-        
-       
-      const {data:verificationObject} = await get(
-        `auth/checkVerified?email=${email}`,
-        {
-          headers: { token: token },
-        }
+       const {data:verificationObject} = await get(
+        `auth/checkVerified?email=${email}`
       );
-      console.log(verificationObject)
+      
       if (
         verificationObject.accountVerified &&
         verificationObject.emailVerified
       ) {
-        await updateUser(email, token);
+        await updateUser(email);
         if(router.pathname == '/login') router.replace("/account");
       } else if (!verificationObject.emailVerified) {
         router.replace("/verifyEmail");
@@ -146,6 +150,7 @@ const UserContextProvider = ({ children }) => {
       router.push('/login')
     }}
    catch (error) {
+    console.log(error)
      router.push('/login')
   }
   finally{
@@ -167,12 +172,11 @@ const UserContextProvider = ({ children }) => {
       payload.email = cookie.token.user;
 
       const {data} = await post(
-        "images/uploadUserImage",
-        { headers: { token: cookie.token._id } },
+        "images/uploadUserImage",        
         payload
       );
       if (data) {
-        await updateUser(cookie.token.user, cookie.token._id);
+        await updateUser(cookie.token.user);
         toast.success("user profile updated");
       }
     } catch (error) {
@@ -187,10 +191,8 @@ const UserContextProvider = ({ children }) => {
       const {data} = await get(`users/searchUser?searchString=${string}`)
       if(data){
         setSearchedProfiles(data)
-
       }
       else {setSearchedProfiles([])}
-      
     } catch (error) {
      
     }
@@ -202,7 +204,7 @@ const UserContextProvider = ({ children }) => {
   const updateUserInfo  =async (payload)=>{
     try {
       setUserUpdateLoading(true)
-      await put('users',{headers:{token:cookie.token._id}},payload)
+      await put('users',payload)
       await refreshUser()
       toast.success('user profile updated')
     } catch (error) {

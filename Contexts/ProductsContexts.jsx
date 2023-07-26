@@ -1,10 +1,10 @@
 import { createContext, useState, useEffect } from "react";
 
 import { useCookies } from "react-cookie";
-import { get, post, _delete,put } from "../api/config";
+import { get, post, _delete,put, setTokenHeaders } from "../api/config";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 
 export const ProductsContext = createContext();
 const ProductsContextProvider = ({ children }) => {
@@ -19,10 +19,10 @@ const ProductsContextProvider = ({ children }) => {
   const [productsProcessLoading,setProductProcessLoading]= useState(false)
   
 
-  const { refetch:refetchFeaured} = useQuery({
+  useQuery({
     queryKey:['featuredProducts'],
     queryFn:async()=>{
-      const {data:featuredProducts} = await get('products/getFeatured',{})
+      const {data:featuredProducts} = await get('products/getFeatured')
       if(featuredProducts){
         setFeaturedProducts(featuredProducts)
       }
@@ -34,6 +34,7 @@ const ProductsContextProvider = ({ children }) => {
     queryKey: ["productsByUser"],
     queryFn: async () =>{
       if(cookies.token){
+      setTokenHeaders(cookies.token._id)
       const {data:productData} = await get(
         `users/getAllProductsBeingSoldByUser?email=${cookies.token.user}`
       )
@@ -55,7 +56,7 @@ const ProductsContextProvider = ({ children }) => {
       setProductLoading(true)
       const {data:product} = await get(`products?productId=${productId}`);
       if (product) {
-        const {data:seller} = await get(`users/getProfile?email=${product.sellerId}`, {});
+        const {data:seller} = await get(`users/getProfile?email=${product.sellerId}`);
         product.seller = seller
         setProduct(product);
       }
@@ -74,9 +75,6 @@ const ProductsContextProvider = ({ children }) => {
       setProductProcessLoading(true)
       const {data} = await post(
         "products",
-        {
-          headers: { token: cookies.token._id },
-        },
         payload
       );
       const _payload = {
@@ -84,9 +82,7 @@ const ProductsContextProvider = ({ children }) => {
         productId: data.productId,
       };
       try {
-        const {data:res} = await post("images/uploadProductImage", {}, _payload);
-        
-       
+        await post("images/uploadProductImage", _payload);
         toast.success("product uploaded successfuly ");
         router.push("/account");
       } catch (error) {
@@ -104,7 +100,7 @@ const ProductsContextProvider = ({ children }) => {
   const deleteProduct = async (_id) => {
     try {
       setProductProcessLoading(true)
-      await _delete(`products?productId=${_id}`, {});
+      await _delete(`products?productId=${_id}`);
       refreshProducts()
 
      
@@ -160,7 +156,7 @@ const ProductsContextProvider = ({ children }) => {
           payload.sellerId = cookies.token.user
           setProductProcessLoading(true)
           
-          await put('products',{headers:{token:cookies.token._id}},payload)
+          await put('products',payload)
           router.push('/account')
           toast.success('product updted')
           

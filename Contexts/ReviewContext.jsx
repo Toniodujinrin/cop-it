@@ -5,9 +5,10 @@ import { toast } from "react-toastify";
 import { ProfileContext } from "./ProfileContext";
 export const ReviewContext = createContext()
 import { get, post,_delete } from "../api/config";
+import { CookieContext } from "./CookieContext";
 import { useRouter } from "next/router";
 const ReviewContextProvider  =({children})=>{
-  
+    const {authed} = useContext(CookieContext)
     const [cookies]= useCookies()
     const [postReviewLoading,setPostReviewLoading]= useState(false)
     const [reviews,setReviews] = useState([])
@@ -35,18 +36,15 @@ const ReviewContextProvider  =({children})=>{
     }, [isError]);
 
     const postUserReview =async (payload)=>{
-      if(cookies.token){
+      if(authed){
       payload.userId = cookies.token.user
       try {
         setPostReviewLoading(true)
-        await post('reviews',{headers:{token:cookies.token._id}},payload)
-       
+        await post('reviews',payload)
         toast.success('Review Posted')
         getEntireProfile(payload.sellerId)
       } catch (error) {
-        
-        toast.error('Could not post review')
-        
+         toast.error('Could not post review')
       }
       finally{
         setPostReviewLoading(false)
@@ -59,7 +57,7 @@ const ReviewContextProvider  =({children})=>{
     }
     const deleteReview = async (reviewId)=>{
       try {
-        await _delete(`reviews?reviewId=${reviewId}`,{headers:{token:cookies.token._id}})
+        await _delete(`reviews?reviewId=${reviewId}`)
         getEntireProfile(router.query.email)
         toast.success('review deleted')
       } catch (error) {
