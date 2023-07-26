@@ -25,7 +25,7 @@ const MyAccount = () => {
     <div>
       <NavBar hideSearchBar={false} />
       <div className="w-full h-[calc(100vh-100px)] lg:mt-0 mt-[40px] ">
-        {Object.keys(user).includes("_id") && !productsByUserLoading && !reviewsByUserLoading &&!basketLoading  && !ordersByUserLoading? (
+        {Object.keys(user).includes("_id") && !productsByUserLoading && !reviewsByUserLoading &&!basketLoading&&!ordersByUserLoading? (
           <Account />
         ) : (
           <div className="spinner"></div>

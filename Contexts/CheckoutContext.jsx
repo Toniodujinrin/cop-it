@@ -49,12 +49,9 @@ const CheckoutContextProvider = ({children})=>{
           try {
             setCheckOutLoading(true)
             payload.email = cookie.token.user
-            
             await post('checkout',payload)
-            
             router.push('/checkout')
-
-          } catch (error) {
+           } catch (error) {
             toast.error('an error occured please try again later')
             
           }
@@ -91,7 +88,6 @@ const CheckoutContextProvider = ({children})=>{
              router.push('/success')
              toast.success('checkout successfull')
         } catch (error) {
-            
             toast.error('unable to process checkout. Try again later')
         }
         finally{

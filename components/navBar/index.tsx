@@ -2,7 +2,6 @@ import { useState, useContext } from "react";
 import SearchBar from "../searchBar";
 import NavItem from "./navItem";
 import { useRouter } from "next/router";
-import { useCookies } from "react-cookie";
 import { NavContext } from "./../../Contexts/NavBarContext";
 
 import BasketNotePill from "../basketSection/basketNotePill";

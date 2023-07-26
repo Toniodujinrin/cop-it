@@ -18,7 +18,7 @@ const CookieContextProvider = ({children})=>{
     else{
         setAuthed(false)
     }
-   },[])
+    },[])
     
     return(
        
