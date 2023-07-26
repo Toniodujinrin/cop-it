@@ -16,7 +16,7 @@ const SignUpContextProvider = ({ children }) => {
   const [cookie, setCookie] = useCookies();
   const [signupLoading, setSignUpLoading]= useState(false)
 
-  
+
   const processFirstSignUp = async (payload) => {
     try {
       setSignUpLoading(true)
@@ -71,8 +71,7 @@ const SignUpContextProvider = ({ children }) => {
       payload.email = cookie.token.user;
       const {data} = await post(
         "users/verifyAccount",
-        { headers: { token: cookie.token._id } },
-        payload
+         payload
       );
       if (res.data) {
         const tokenObject = data;
