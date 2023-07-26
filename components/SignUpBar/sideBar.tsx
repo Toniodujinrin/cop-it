@@ -3,10 +3,7 @@ import { useContext, useEffect, useState } from "react";
 
 const SideBar = () => {
   const signUpContext = useContext(SignUpContext);
-  const { emailVerified, accountVerified, firstSignUp } =
-    useContext(SignUpContext);
-  console.log(emailVerified, accountVerified, firstSignUp);
-
+  const { emailVerified, accountVerified, firstSignUp } =useContext(SignUpContext);
   const [items, setItems] = useState([
     {
       header: "Register email and passwords",
