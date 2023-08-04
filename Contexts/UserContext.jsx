@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import {useSession,signIn,signOut} from 'next-auth/react'
 import { toast } from "react-toastify";
-import { CookieContext } from "./CookieContext";
+
 export const UserContext = createContext();
 
 
 const UserContextProvider = ({ children }) => {
-  const {authed} = useContext(CookieContext)
+  
   const router = useRouter();
   const {data:session}= useSession()
   const [cookie, setCookie, removeCookie] = useCookies();
@@ -24,7 +24,7 @@ const UserContextProvider = ({ children }) => {
   useEffect(()=>{
     
     const googleSignInProcess = async ()=>{
-      if(session && !authed && session.user){
+      if(session && !cookie.token && session.user){
         try {
         setAuthLoading(true)
         const {data} = await post('auth/googleAuthenticate',{email:session.user.email})
@@ -46,7 +46,7 @@ const UserContextProvider = ({ children }) => {
   }
   
   const refreshUserAndNotRoute = async()=>{
-    if(authed){
+    if(cookie.token){
     try {
       await updateUser(cookie.token.user);
     } catch (error) {

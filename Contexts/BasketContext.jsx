@@ -9,8 +9,7 @@ import { useRouter } from "next/router";
 export const BasketContext = createContext();
 
 const BasketContextProvider = ({ children }) => {
-  const {authed} = useContext(CookieContext)
-  const router = useRouter();
+   const router = useRouter();
   const [cookie] = useCookies();
   const [basket, setBasket] = useState([]);
   const [basketProcessLoading,setBasketProcessLoading]= useState(false)
@@ -37,7 +36,7 @@ const BasketContextProvider = ({ children }) => {
  }, [isError]);
 
   const addItemToBasket = async (payload) => {
-    if (authed) {
+    if (cookie.token) {
       try {
         setBasketProcessLoading(true)
         payload.email = cookie.token.user;

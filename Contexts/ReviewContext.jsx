@@ -5,10 +5,8 @@ import { toast } from "react-toastify";
 import { ProfileContext } from "./ProfileContext";
 export const ReviewContext = createContext()
 import { get, post,_delete } from "../api/config";
-import { CookieContext } from "./CookieContext";
 import { useRouter } from "next/router";
 const ReviewContextProvider  =({children})=>{
-    const {authed} = useContext(CookieContext)
     const [cookies]= useCookies()
     const [postReviewLoading,setPostReviewLoading]= useState(false)
     const [reviews,setReviews] = useState([])
@@ -36,7 +34,7 @@ const ReviewContextProvider  =({children})=>{
     }, [isError]);
 
     const postUserReview =async (payload)=>{
-      if(authed){
+      if(cookies.token){
       payload.userId = cookies.token.user
       try {
         setPostReviewLoading(true)
